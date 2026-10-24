@@ -1,0 +1,3366 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>INT134 System Deployment — Module 2 (Week 5–10) Complete Study Hub & Mock Exam</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,400&family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root[data-theme="dark"] {
+      --bg-primary: #0b0f19;
+      --bg-secondary: #111827;
+      --bg-card: #161f33;
+      --bg-card-hover: #1e2942;
+      --bg-code: #090d16;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --border: #26334d;
+      --border-light: #334155;
+      --accent: #38bdf8;
+      --accent-hover: #0ea5e9;
+      --accent-soft: rgba(56, 189, 248, 0.12);
+      --accent-purple: #a855f7;
+      --accent-purple-soft: rgba(168, 85, 247, 0.14);
+      --success: #22c55e;
+      --success-soft: rgba(34, 197, 94, 0.14);
+      --warning: #f59e0b;
+      --warning-soft: rgba(245, 158, 11, 0.14);
+      --danger: #ef4444;
+      --danger-soft: rgba(239, 68, 68, 0.14);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6);
+    }
+
+    :root[data-theme="light"] {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #ffffff;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f1f5f9;
+      --bg-code: #0f172a;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --border-light: #cbd5e1;
+      --accent: #0284c7;
+      --accent-hover: #0369a1;
+      --accent-soft: rgba(2, 132, 199, 0.1);
+      --accent-purple: #7e22ce;
+      --accent-purple-soft: rgba(126, 34, 206, 0.1);
+      --success: #16a34a;
+      --success-soft: rgba(22, 163, 74, 0.12);
+      --warning: #d97706;
+      --warning-soft: rgba(217, 119, 6, 0.12);
+      --danger: #dc2626;
+      --danger-soft: rgba(220, 38, 38, 0.12);
+      --shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Sarabun', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.75;
+      font-size: 16px;
+      transition: background-color 0.25s, color 0.25s;
+    }
+
+    code, pre, .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    code:not(pre code) {
+      background: var(--accent-soft);
+      color: var(--accent);
+      padding: 0.15rem 0.45rem;
+      border-radius: 5px;
+      font-size: 0.88em;
+      font-weight: 600;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    /* Header & Sticky Nav */
+    .top-header {
+      background: linear-gradient(135deg, rgba(17, 24, 39, 0.96), rgba(15, 23, 42, 0.96));
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+
+    :root[data-theme="light"] .top-header {
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    .header-inner {
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 0.85rem 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .brand-badge {
+      background: linear-gradient(135deg, #0284c7, #6366f1);
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.95rem;
+      padding: 0.45rem 0.8rem;
+      border-radius: 10px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35);
+    }
+
+    .brand-title h1 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .brand-title p {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .search-box {
+      position: relative;
+    }
+
+    .search-box input {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      padding: 0.5rem 0.9rem 0.5rem 2.2rem;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      width: 250px;
+      transition: all 0.2s;
+    }
+
+    .search-box input:focus {
+      outline: none;
+      border-color: var(--accent);
+      width: 300px;
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0.7rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .btn-icon {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      padding: 0.5rem 0.85rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s;
+    }
+
+    .btn-icon:hover {
+      border-color: var(--accent);
+      background: var(--bg-card-hover);
+    }
+
+    /* Main Tabs Navigation */
+    .main-nav {
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      gap: 0.35rem;
+      overflow-x: auto;
+      border-top: 1px solid var(--border);
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .nav-tab {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-secondary);
+      padding: 0.55rem 1.05rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.92rem;
+      font-weight: 700;
+      white-space: nowrap;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .nav-tab:hover {
+      color: var(--text-primary);
+      background: var(--bg-card);
+    }
+
+    .nav-tab.active {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-color: rgba(56, 189, 248, 0.35);
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 1.75rem 1.5rem 4rem;
+    }
+
+    .tab-panel {
+      display: none;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Sub-navigation pills */
+    .sub-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      background: var(--bg-secondary);
+      padding: 0.75rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .sub-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .sub-btn:hover {
+      color: var(--text-primary);
+      border-color: var(--accent);
+    }
+
+    .sub-btn.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    /* Cards & Layout */
+    .hero-banner {
+      background: linear-gradient(135deg, rgba(2, 132, 199, 0.16), rgba(168, 85, 247, 0.14));
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      padding: 1.75rem 2rem;
+      margin-bottom: 1.75rem;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-banner h2 {
+      font-size: 1.65rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+
+    .hero-banner p {
+      color: var(--text-secondary);
+      font-size: 1.02rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.15rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      font-size: 1.28rem;
+      font-weight: 800;
+      margin-bottom: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      color: var(--text-primary);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.65rem;
+    }
+
+    .card h4 {
+      font-size: 1.08rem;
+      font-weight: 700;
+      margin: 1.1rem 0 0.5rem;
+      color: var(--accent);
+    }
+
+    .card p, .card li {
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .card ul, .card ol {
+      padding-left: 1.35rem;
+      margin-bottom: 0.85rem;
+    }
+
+    /* Callouts / Alerts */
+    .callout {
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      margin: 1rem 0;
+      border-left: 4px solid var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .callout.warn {
+      border-left-color: var(--warning);
+      background: var(--warning-soft);
+    }
+
+    .callout.danger {
+      border-left-color: var(--danger);
+      background: var(--danger-soft);
+    }
+
+    .callout.success {
+      border-left-color: var(--success);
+      background: var(--success-soft);
+    }
+
+    .callout.purple {
+      border-left-color: var(--accent-purple);
+      background: var(--accent-purple-soft);
+    }
+
+    .callout-title {
+      font-weight: 800;
+      margin-bottom: 0.35rem;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 1rem;
+    }
+
+    /* Code Blocks */
+    .code-wrap {
+      position: relative;
+      margin: 0.85rem 0 1.15rem;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border-light);
+      background: var(--bg-code);
+    }
+
+    .code-header {
+      background: #1e293b;
+      color: #cbd5e1;
+      padding: 0.4rem 0.9rem;
+      font-size: 0.8rem;
+      font-family: 'JetBrains Mono', monospace;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #334155;
+    }
+
+    .copy-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #f8fafc;
+      padding: 0.2rem 0.6rem;
+      border-radius: 5px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      font-family: 'Sarabun', sans-serif;
+      font-weight: 600;
+      transition: all 0.15s;
+    }
+
+    .copy-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    pre {
+      padding: 1rem 1.15rem;
+      overflow-x: auto;
+      color: #e2e8f0;
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+
+    /* Tables */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 0.9rem 0 1.2rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.94rem;
+    }
+
+    th, td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    th {
+      background: var(--bg-secondary);
+      font-weight: 800;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: rgba(56, 189, 248, 0.04);
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      padding: 0.18rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .badge-blue { background: var(--accent-soft); color: var(--accent); border: 1px solid rgba(56,189,248,0.3); }
+    .badge-green { background: var(--success-soft); color: var(--success); border: 1px solid rgba(34,197,94,0.3); }
+    .badge-amber { background: var(--warning-soft); color: var(--warning); border: 1px solid rgba(245,158,11,0.3); }
+    .badge-red { background: var(--danger-soft); color: var(--danger); border: 1px solid rgba(239,68,68,0.3); }
+    .badge-purple { background: var(--accent-purple-soft); color: var(--accent-purple); border: 1px solid rgba(168,85,247,0.3); }
+
+    /* Visual Diagram Boxes */
+    .arch-diagram {
+      background: var(--bg-secondary);
+      border: 1px dashed var(--accent);
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.86rem;
+      overflow-x: auto;
+      line-height: 1.55;
+      color: var(--text-primary);
+    }
+
+    /* Quiz Styling */
+    .quiz-controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      background: var(--bg-secondary);
+      padding: 1rem 1.25rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      margin-bottom: 1.5rem;
+    }
+
+    .score-pill {
+      background: var(--accent-soft);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 0.45rem 1rem;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.95rem;
+    }
+
+    .q-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.4rem;
+      margin-bottom: 1.15rem;
+      transition: border-color 0.2s;
+    }
+
+    .q-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+      gap: 0.5rem;
+    }
+
+    .q-title {
+      font-size: 1.08rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .q-options {
+      display: grid;
+      gap: 0.6rem;
+    }
+
+    .q-opt {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      padding: 0.75rem 1rem;
+      border-radius: 9px;
+      cursor: pointer;
+      text-align: left;
+      font-family: inherit;
+      font-size: 0.96rem;
+      transition: all 0.15s;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+    }
+
+    .q-opt:hover:not(.disabled) {
+      border-color: var(--accent);
+      background: var(--bg-card-hover);
+    }
+
+    .q-opt.correct {
+      background: var(--success-soft);
+      border-color: var(--success);
+      color: var(--text-primary);
+      font-weight: 700;
+    }
+
+    .q-opt.wrong {
+      background: var(--danger-soft);
+      border-color: var(--danger);
+      color: var(--text-primary);
+    }
+
+    .q-explain {
+      margin-top: 1rem;
+      padding: 0.95rem 1.15rem;
+      border-radius: 9px;
+      background: var(--accent-soft);
+      border-left: 4px solid var(--accent);
+      font-size: 0.94rem;
+      display: none;
+    }
+
+    .q-explain.show {
+      display: block;
+    }
+
+    /* Checklist for Mock Lab */
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.65rem 0.85rem;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+    }
+
+    .check-item input[type="checkbox"] {
+      margin-top: 0.3rem;
+      transform: scale(1.25);
+      accent-color: var(--success);
+    }
+
+    .check-item.checked {
+      border-color: var(--success);
+      background: var(--success-soft);
+    }
+
+    @media (max-width: 768px) {
+      .grid-2, .grid-3 {
+        grid-template-columns: 1fr;
+      }
+      .search-box input {
+        width: 100%;
+      }
+      .header-inner {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Header -->
+  <header class="top-header">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-badge">INT134</div>
+        <div class="brand-title">
+          <h1>System Deployment — Module 2 (Week 5–10) Study Hub</h1>
+          <p>สอนตั้งแต่ศูนย์สำหรับมือใหม่ • สรุปทฤษฎี + เฉลย Lab 05–10 + แนวข้อสอบจริงจาก อ.โอฬาร + Mock Exam ครบจบในเว็บเดียว</p>
+        </div>
+      </div>
+      <div class="header-controls">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="globalSearch" placeholder="ค้นหาคำสั่ง, proxy_pass, PID 1, Compose..." oninput="handleGlobalSearch(this.value)" />
+        </div>
+        <button class="btn-icon" onclick="toggleTheme()" id="themeBtn">☀️ โหมดสว่าง</button>
+      </div>
+    </div>
+
+    <!-- Main Navigation Tabs -->
+    <nav class="main-nav">
+      <button class="nav-tab active" onclick="switchMainTab('tab-zero', this)">🌱 1. ปูพื้นฐานจากศูนย์ & โพยสอบ Exam 2</button>
+      <button class="nav-tab" onclick="switchMainTab('tab-theory', this)">📚 2. สรุปทฤษฎีละเอียด (Class 5–10)</button>
+      <button class="nav-tab" onclick="switchMainTab('tab-labs', this)">🛠️ 3. คู่มือทำ Lab 05–10 & เฉลย answers.yaml</button>
+      <button class="nav-tab" onclick="switchMainTab('tab-mocklab', this)">🧪 4. จำลองสอบปฏิบัติ (Mock Lab Exam + แก้บั๊ก)</button>
+      <button class="nav-tab" onclick="switchMainTab('tab-quiz', this)">🎯 5. ข้อสอบจำลองปรนัย (65 ข้อ + เฉลยละเอียด)</button>
+    </nav>
+  </header>
+
+  <main class="container">
+
+    <!-- =====================================================================
+         TAB 1: ZERO-TO-HERO & PROFESSOR'S EXAM 2 BRIEFING
+         ===================================================================== -->
+    <section id="tab-zero" class="tab-panel active">
+      <div class="hero-banner">
+        <h2>🚀 ยินดีต้อนรับสู่คู่มือติวสอบ INT134 Module 2 (ฉบับจับมือทำสำหรับมือใหม่ 100%)</h2>
+        <p>ไม่ต้องกังวลถ้าไม่เคยทำ Docker, Reverse Proxy หรือ Linux ลึกๆ มาก่อน! หน้านี้จะปูพื้นฐานให้ตั้งแต่ต้นว่า <strong>"ทำไมต้องมีแต่ละชิ้น"</strong> และสรุป <strong>"แนวข้อสอบจริงจากปากอาจารย์โอฬารในท้ายคาบ Class 10"</strong> ให้ครบทุกเม็ด</p>
+      </div>
+
+      <!-- Professor's Exact Exam 2 Q&A Briefing -->
+      <div class="card">
+        <h3>🎯 สรุปแนวข้อสอบ Exam 2 (Module 2) จาก Q&A ท้ายคาบ Class 10 (อ.โอฬาร)</h3>
+        <div class="callout purple">
+          <div class="callout-title">📢 ข้อมูลตรงจากคาบเรียนที่ 10 (ช่วง Mentimeter Q&A นาทีที่ 2:10:00 – 2:34:00)</div>
+          <p>อาจารย์โอฬารเปิดให้นักศึกษาถามแนวข้อสอบ Module 2 และตอบชัดเจนทุกประเด็น สรุปได้ดังนี้:</p>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <h4>✅ รูปแบบข้อสอบ & สิ่งที่ออกสอบแน่นอน 100%</h4>
+            <ul>
+              <li><strong>รูปแบบเหมือน Exam 1 เป๊ะ:</strong> แบ่งเป็น <strong>2 พาร์ท</strong> คือ:
+                <ol>
+                  <li><strong>สอบทฤษฎี (ปรนัย/ช้อยส์):</strong> วัดความเข้าใจแนวคิด, คำสั่ง, ตัวเลือกของ Dockerfile / Compose / Nginx / CORS / TLS</li>
+                  <li><strong>สอบปฏิบัติบน VM (ตรวจด้วย <code>int134 check</code>):</strong> ลงมือทำให้ระบบใช้งานได้จริง</li>
+                </ol>
+              </li>
+              <li><strong>เนื้อหาหลักคือ Containerized Stack (Class 6–10) + Reverse Proxy & SSL/TLS (Class 5 & 10):</strong>
+                <ul>
+                  <li>การเขียน <code>Dockerfile</code> และ <code>.dockerignore</code> (ทั้ง Frontend Nginx และ Backend Node.js + Prisma ที่มี <code>ARG</code>, <code>ENV</code>, <code>USER node</code>, <code>ENTRYPOINT</code>)</li>
+                  <li>การเขียนและรัน <code>compose.yaml</code> คู่กับไฟล์ <code>.env</code>, การตั้ง <code>healthcheck</code>, <code>depends_on: condition: service_healthy</code>, และ <code>volumes</code> (<code>external: true</code> vs managed volume vs bind mount <code>:ro</code>)</li>
+                  <li>การตั้งค่า <strong>Reverse Proxy ด้วย Nginx</strong> (ทั้งตัวนอกบน Host และตัวใน Stack Proxy), กฎ <code>proxy_pass</code> มี/ไม่มี <code>/</code> ปิดท้าย, 4 บรรทัด <code>proxy_set_header</code>, <code>set_real_ip_from</code></li>
+                  <li>การสร้าง <strong>Self-Signed TLS Certificate</strong> ด้วย <code>openssl req -x509</code> และการทำ <strong>HTTP 308 Redirect</strong> ไป HTTPS</li>
+                  <li>คำสั่ง <code>docker run</code>, <code>docker exec</code>, <code>docker logs</code>, <code>docker inspect</code>, <code>docker network</code>, <code>docker volume</code></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4>❌ สิ่งที่ไม่ออกสอบ & 💡 เทคนิคเก็บคะแนนในห้องสอบ</h4>
+            <ul>
+              <li><strong>ไม่ออกการติดตั้งโปรแกรมลง Host แบบ Module 1:</strong> ไม่ต้องมานั่ง <code>apt install nodejs</code>, ไม่ต้องเขียนไฟล์ <code>systemd</code> (<code>.service</code>) เอง, ไม่ต้องสร้าง Linux user/group ใหม่แบบ Module 1 แล้ว (ยกเว้นเรื่อง Reverse Proxy + SSL ของ Class 5 ที่เพิ่งสอบใน Module 2 นี้)</li>
+              <li><strong>ไม่ออก GitHub Actions CI/CD:</strong> ช่วงท้ายคาบ 10 ที่อาจารย์โชว์ GitHub Actions เป็นแค่ Demo ให้ดูภาพรวมการทำงานจริง <strong>ไม่ออกสอบ</strong></li>
+              <li><strong>ใน VM มีโครงไฟล์ตัวอย่าง (Skeleton) ให้:</strong> ไม่ต้องพิมพ์ทุกอย่างจากหน้ากระดาษเปล่า จะมีไฟล์โครงและคอมเมนต์ใบ้ไว้ให้</li>
+              <li><strong><code>int134 check</code> แยกตรวจทีละส่วน (Independent Grading):</strong>
+                <ul>
+                  <li>ตรวจแยกกันระหว่าง <strong>Database</strong>, <strong>Backend API</strong>, <strong>Frontend Web</strong>, และ <strong>Reverse Proxy/TLS</strong></li>
+                  <li>ถ้าทำพาร์ทไหนติด เช่น ติดตรง Compose หรือติดตรง Backend <strong>ให้ข้ามไปทำพาร์ท Frontend หรือ Nginx TLS ก่อนได้เลย</strong> คะแนนแยกกันชัดเจน!</li>
+                  <li>อาจารย์ใบ้ว่า: ถ้าใครติด <code>compose.yaml</code> จริงๆ แต่รันด้วย <code>docker run</code> จนคอนเทนเนอร์ขึ้นและตอบสนองถูกตามพอร์ตที่กำหนด ก็ยังได้คะแนนในส่วนที่ตรวจผ่าน!</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Zero to Hero: Big Picture Story -->
+      <div class="card">
+        <h3>🌱 ปูพื้นฐานจากศูนย์: เรื่องราวของวิชานี้ตั้งแต่ Week 5 ถึง Week 10 (อ่านจบเข้าใจภาพรวมทันที!)</h3>
+        <p>ลองจินตนาการว่าเราได้รับมอบหมายให้เอาเว็บระบบโรงเรียน (ชื่อโปรเจกต์ <strong><code>school</code></strong>) ขึ้นเซิร์ฟเวอร์ของมหาวิทยาลัย (เช่น <code>lvm68174.sit.kmutt.ac.th</code>) โดยระบบของเราประกอบด้วย <strong>3 ส่วนหลัก</strong>:</p>
+        <ol>
+          <li><strong>Frontend (หน้าเว็บ HTML/JS):</strong> ไฟล์ <code>index.html</code>, <code>app.js</code>, <code>config.js</code> ที่รันในเบราว์เซอร์ของผู้ใช้</li>
+          <li><strong>Backend API (Node.js + Express + Prisma):</strong> ไฟล์ <code>server.js</code> ที่คอยรับคำขอที่พาร์ท <code>/api/students</code> แล้วไปดึงข้อมูลจากฐานข้อมูล</li>
+          <li><strong>Database (MySQL 8.4):</strong> เก็บตารางข้อมูลนักเรียน (ฐานข้อมูลชื่อ <code>school</code>)</li>
+        </ol>
+
+        <div class="arch-diagram">
+<strong>วิวัฒนาการของระบบในวิชา INT134 (จากแบบดั้งเดิม สู่ Full Container Stack ใน Class 10):</strong>
+
+[Class 5: รันบนเครื่องตรงๆ + ใช้ Nginx เป็น Reverse Proxy ตัวเดียว]
+  Browser ──(HTTPS :443 /school/)──────► [Host Nginx] ──► อ่านไฟล์จาก /var/www/school/
+          ──(HTTPS :443 /school/api/)──► [Host Nginx] ──► proxy_pass ไปหา Node.js (127.0.0.1:3174) ──► MySQL บนเครื่อง
+
+[Class 6–8: ย้ายทั้ง 3 ส่วนเข้าไปอยู่ใน Container (Docker)]
+  • Frontend  ──► กลายเป็นอิมเมจ school/frontend (ฐาน nginx:1.30-alpine)
+  • Database  ──► กลายเป็นคอนเทนเนอร์ mysql:8.4 (เก็บข้อมูลถาวรใน Volume ชื่อ school-db-data2)
+  • Backend   ──► กลายเป็นอิมเมจ school/api (ฐาน node:24.19-alpine + Prisma + entrypoint.sh)
+  • ทั้งหมดคุยกันผ่านวงแลนจำลอง (User-defined Bridge Network) โดยเรียกชื่อกันตรงๆ เช่น @db:3306
+
+[Class 9–10: รวบทุกอย่างด้วย Docker Compose + มี Stack Proxy เป็นประตูหน้าของโปรเจกต์]
+  Browser (อินเทอร์เน็ตภายนอก)
+     │
+     ▼  เข้าพอร์ตมาตรฐาน 80 (ถูกเด้ง 308 ไป 443) หรือ 443 (HTTPS)
+┌─────────────────────────────────────────────────────────────────────────┐
+│ 1. Outer Proxy (Nginx บนเครื่อง VM — เปรียบเสมือน Proxy กลางของมหาลัย)    │
+│    • รับ https://lvm68XXX.sit.kmutt.ac.th/school/...                    │
+│    • ส่งต่อไปที่ https://127.0.0.2:8443 โดย "ไม่ตัดคำว่า /school/ ทิ้ง"     │
+└────────────────────────────────────┬────────────────────────────────────┘
+                                     │ (ผูกพอร์ตไว้ที่ 127.0.0.2:8080 และ 127.0.0.2:8443 เท่านั้น)
+                                     ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│ 🐳 Docker Compose Stack (ชื่อโปรเจกต์: school)                           │
+│                                                                         │
+│   ┌─────────────────────────────────────────────────────────────────┐   │
+│   │ 2. Inner Stack Proxy (บริการชื่อ: proxy | nginx:1.30-alpine)     │   │
+│   │    • เป็นตัวเดียวใน Compose ที่มี ports: เปิดออกมารับที่ 127.0.0.2 │   │
+│   │    • เป็นคน "ตัดคำว่า /school/ ออก" ก่อนส่งให้แอปข้างใน:           │   │
+│   │      - /school/     ──► proxy_pass http://web/;                 │   │
+│   │      - /school/api/ ──► proxy_pass http://api:3000/api/;        │   │
+│   └───────────────────┬─────────────────────────────┬───────────────┘   │
+│                       │                             │                   │
+│                       ▼                             ▼                   │
+│        ┌──────────────────────────┐   ┌───────────────────────────┐     │
+│        │ 3. Frontend (บริการ: web) │   │ 4. Backend (บริการ: api)  │     │
+│        │ • school/frontend:1.1    │   │ • school/api:1.3          │     │
+│        │ • ไม่มี ports: ออกข้างนอก │   │ • ไม่มี ports: ออกข้างนอก  │     │
+│        └──────────────────────────┘   └─────────────┬─────────────┘     │
+│                                                     │ ต่อผ่านชื่อบริการ db │
+│                                                     ▼                   │
+│                                       ┌───────────────────────────┐     │
+│                                       │ 5. Database (บริการ: db)  │     │
+│                                       │ • mysql:8.4               │     │
+│                                       │ • Volume: school-db-data2 │     │
+│                                       └───────────────────────────┘     │
+└─────────────────────────────────────────────────────────────────────────┘</div>
+      </div>
+
+      <!-- Fundamental Dictionary for Absolute Beginners -->
+      <div class="card">
+        <h3>🧭 พจนานุกรม 6 เรื่องพื้นฐานที่มือใหม่ต้องเคลียร์ก่อนเริ่มลุย (ออกสอบทุกเรื่อง!)</h3>
+
+        <h4>1. แยกแยะ IP Address ทั้ง 5 ตัวที่เจอบ่อยในแล็บ (ห้ามสับสนเด็ดขาด!)</h4>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>IP Address</th>
+                <th>มันคืออะไร? (ภาษาคนเข้าใจง่าย)</th>
+                <th>ใช้ทำอะไรในแล็บ INT134?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>0.0.0.0</code></td>
+                <td><strong>"ทุกช่องทาง / ทุกการ์ดแลนในเครื่อง"</strong> (ไม่ใช่ IP ของเครื่องใดเครื่องหนึ่ง แต่หมายถึงเปิดรับจากทุกที่)</td>
+                <td>
+                  1) ใช้กับ <strong>Nginx บน Host</strong> (พอร์ต 80/443) เพื่อรับคนจากนอกเครื่อง<br>
+                  2) ใช้กับ <strong><code>ENV HOST=0.0.0.0</code> ใน Dockerfile ของ Backend</strong> เพื่อให้โปรแกรมใน Container ยอมรับการเชื่อมต่อที่ส่งข้ามเข้ามาใน Container<br>
+                  ⚠️ <strong>ห้ามใช้</strong> กับ <code>-p 9174:80</code> บน Host เพราะจะทำให้ใครก็ได้ในมหาลัยเจาะเข้าพอร์ต 9174 ตรงๆ โดยข้าม Firewall (UFW)!
+                </td>
+              </tr>
+              <tr>
+                <td><code>127.0.0.1</code></td>
+                <td><strong>Loopback ตัวที่ 1 (คุยกับตัวเองภายในเครื่องเดียวกัน)</strong></td>
+                <td>
+                  • บน Host: ใช้ซ่อน Backend สมัย Class 5 ไม่ให้คนนอกเข้าตรงๆ<br>
+                  • <strong>ข้อควรระวังใน Container:</strong> คอนเทนเนอร์แต่ละตัวมี <code>127.0.0.1</code> <strong>แยกของใครของมัน!</strong> ถ้า Backend ใน Container ตั้ง <code>HOST=127.0.0.1</code> แม้แต่ Nginx หรือ Docker บนเครื่องเดียวกันก็เข้าหาไม่ได้! (ยกเว้นคำสั่ง <code>healthcheck</code> ที่รัน <code>wget http://127.0.0.1:3000/...</code> จากข้างในตัวมันเอง)
+                </td>
+              </tr>
+              <tr>
+                <td><code>127.0.0.2</code></td>
+                <td><strong>Loopback ตัวที่ 2 (ของเครื่อง Host)</strong> — ใน Linux ช่วง <code>127.0.0.1</code> ถึง <code>127.255.255.254</code> คือภายในเครื่องตัวเองทั้งหมด!</td>
+                <td>อาจารย์ใช้ <code>127.0.0.2</code> เป็น IP ประจำโปรเจกต์ <strong><code>school</code></strong> (ในคาบเรียน) เช่น ผูกพอร์ต <code>-p 127.0.0.2:9174:80</code> หรือตั้ง <code>BIND=127.0.0.2</code> ใน <code>.env</code> เพื่อให้เฉพาะ Nginx บนเครื่อง Host เท่านั้นที่คุยได้ คนนอกเข้าไม่ได้</td>
+              </tr>
+              <tr>
+                <td><code>127.0.0.3</code></td>
+                <td><strong>Loopback ตัวที่ 3 (ของเครื่อง Host)</strong></td>
+                <td>อาจารย์ใช้ <code>127.0.0.3</code> เป็น IP ประจำโปรเจกต์ <strong><code>noticeboard</code></strong> (การบ้านท้ายคาบ) เพื่อไม่ให้พอร์ตชนกับ <code>127.0.0.2</code> ของโปรเจกต์ <code>school</code>!</td>
+              </tr>
+              <tr>
+                <td><code>172.17.0.1</code> / <code>172.16.0.0/12</code></td>
+                <td><strong>IP ของ Docker Bridge Network (วงแลนจำลองของ Docker)</strong></td>
+                <td>เมื่อเรารันคอนเทนเนอร์ Docker จะสร้างวงแลนส่วนตัวในช่วง <code>172.16.0.0/12</code> (เช่น <code>172.17.0.x</code>, <code>172.18.0.x</code>) เวลา Host คุยเข้าไปหา MySQL Container หรือ Outer Nginx ส่งคำขอเข้า Stack Proxy คอนเทนเนอร์จะเห็นผู้ส่งมาจากตระกูล <code>172.x.x.x</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4>2. สูตรจำเลข Port ประจำเครื่อง VM (เช่น เครื่อง <code>lvm68174</code> ──► เลขท้าย 3 ตัวคือ <code>174</code>)</h4>
+        <div class="grid-3">
+          <div class="callout">
+            <div class="callout-title">🌐 พอร์ตมาตรฐาน (ไม่ต้องจำเลขท้าย)</div>
+            <p><code>80</code> = HTTP มาตรฐาน<br><code>443</code> = HTTPS (เข้ารหัส TLS)<br><code>3306</code> = MySQL มาตรฐาน<br><code>3000</code> = Node.js ภายใน Container</p>
+          </div>
+          <div class="callout purple">
+            <div class="callout-title">🔢 พอร์ตตามเลขท้าย VM (<code>XXX</code>)</div>
+            <p><code>3XXX</code> (เช่น <code>3174</code>) = พอร์ต API<br><code>8XXX</code> (เช่น <code>8174</code>) = พอร์ตเว็บสมัยแยกพอร์ต<br><code>9XXX</code> (เช่น <code>9174</code>) = พอร์ตเว็บ Container</p>
+          </div>
+          <div class="callout success">
+            <div class="callout-title">🚪 พอร์ต Stack Proxy (Class 10)</div>
+            <p><code>127.0.0.2:8080</code> ──► พอร์ต 80 ของ <code>proxy</code><br><code>127.0.0.2:8443</code> ──► พอร์ต 443 ของ <code>proxy</code><br>(ของ <code>noticeboard</code> ใช้ <code>127.0.0.3</code>)</p>
+          </div>
+        </div>
+
+        <h4>3. Origin & CORS คืออะไร? (ทำไมตอนแรกเว็บดึง API ไม่ได้?)</h4>
+        <ul>
+          <li><strong>Origin (ต้นทางของเว็บ)</strong> ประกอบด้วย 3 อย่างรวมกัน: <strong><code>Scheme (โปรโตคอล) + Host (ชื่อโดเมน) + Port (เลขพอร์ต)</code></strong></li>
+          <li>ตัวอย่าง: หน้าเว็บอยู่ที่ <code>http://lvm68174.sit.kmutt.ac.th:8174</code> แต่ไปดึงข้อมูลนักเรียนจาก <code>http://lvm68174.sit.kmutt.ac.th:3174/api/students</code> ──► แม้จะอยู่เครื่องเดียวกัน แต่ <strong>เลขพอร์ตต่างกัน (8174 vs 3174) จึงถือเป็นคนละ Origin (Cross-Origin)!</strong></li>
+          <li><strong>ความเข้าใจผิดที่ออกสอบบ่อยมาก:</strong> เมื่อเกิด CORS Error (<code>Failed to fetch</code>) หลายคนคิดว่าเซิร์ฟเวอร์ API ไม่ยอมตอบ แต่จริงๆ แล้วถ้าเปิดแท็บ Network ดู จะเห็นว่า <strong>API ตอบ <code>200 OK</code> กลับมาแล้ว!</strong> แต่ <strong>Web Browser เป็นคนบล็อก</strong> ไม่ให้โค้ด JavaScript อ่านข้อมูลนั้น เพราะใน Response Header ไม่มีป้ายอนุญาตที่ชื่อว่า <code>Access-Control-Allow-Origin</code></li>
+          <li><strong>วิธีแก้ที่แท้จริง (ทางสาย Deployment):</strong> แทนที่จะเปิดพอร์ต API ทิ้งไว้ข้างนอกแล้วตั้ง CORS เราเอา <strong>Nginx Reverse Proxy</strong> มาบังข้างหน้า ให้ทั้งหน้าเว็บ (<code>/school/</code>) และ API (<code>/school/api/</code>) เข้าผ่านพอร์ตเดียวกัน (พอร์ต 80/443) ──► กลายเป็น <strong>Same Origin (ต้นทางเดียวกัน)</strong> ทันที ไม่ต้องพึ่ง CORS อีกต่อไป และปิดพอร์ต API จากโลกภายนอกได้เลย!</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         TAB 2: DEEP-DIVE THEORY BY WEEK (CLASS 5 TO CLASS 10)
+         ===================================================================== -->
+    <section id="tab-theory" class="tab-panel">
+      <div class="hero-banner">
+        <h2>📚 สรุปทฤษฎีเจาะลึกรายสัปดาห์ (Week 5 – Week 10) ฉบับจับมือสอน</h2>
+        <p>เลือกสัปดาห์ที่ต้องการอ่านด้านล่าง หรือเลื่อนอ่านเรียงตามลำดับได้เลย ทุกหัวข้อสรุปตรงตามสไลด์และคำพูดของอาจารย์โอฬารในคลิปบรรยาย</p>
+      </div>
+
+      <div class="sub-nav">
+        <button class="sub-btn active" onclick="filterTheory('all', this)">📖 แสดงทั้งหมด (Class 5–10)</button>
+        <button class="sub-btn" onclick="filterTheory('th-c5', this)">Class 5: Reverse Proxy, CORS & TLS</button>
+        <button class="sub-btn" onclick="filterTheory('th-c6', this)">Class 6: Intro to Containers & Docker CLI</button>
+        <button class="sub-btn" onclick="filterTheory('th-c7', this)">Class 7: Building Images I (Frontend & MySQL)</button>
+        <button class="sub-btn" onclick="filterTheory('th-c8', this)">Class 8: Building Images II (Backend, PID 1, Network)</button>
+        <button class="sub-btn" onclick="filterTheory('th-c9', this)">Class 9: Docker Compose & Healthchecks</button>
+        <button class="sub-btn" onclick="filterTheory('th-c10', this)">Class 10: Full-Stack 2-Proxy Architecture</button>
+      </div>
+
+      <!-- CLASS 5 THEORY -->
+      <div class="card theory-block" id="th-c5">
+        <h3>🌐 Class 5: Reverse Proxy, Integration, CORS และ SSL/TLS <span class="badge badge-red">ออกสอบทั้งทฤษฎีและปฏิบัติ!</span></h3>
+
+        <h4>1. ทำไมห้ามชี้ Nginx <code>root</code> ไปที่ <code>/srv/school</code> ตรงๆ?</h4>
+        <p>ในโฟลเดอร์ <code>/srv/school</code> มีทั้งโฟลเดอร์ <code>frontend/</code> และ <code>backend/</code> ซึ่งใน <code>/srv/school/backend/.env</code> เก็บ <strong>รหัสผ่านฐานข้อมูล (Database Password)</strong> เอาไว้! ถ้าเราตั้งให้ Nginx เสิร์ฟไฟล์จาก <code>/srv/school</code> คนนอกจะสามารถพิมพ์ URL เข้ามาดาวน์โหลดไฟล์ <code>.env</code> ของเราไปดูรหัสผ่านได้ทันที</p>
+        <ul>
+          <li><strong>วิธีที่ถูกต้อง:</strong> ใช้คำสั่ง <code>rsync</code> คัดลอกเฉพาะไฟล์ใน <code>/srv/school/frontend/</code> ไปไว้ที่ <code>/var/www/school/</code>:</li>
+        </ul>
+        <div class="code-wrap">
+          <div class="code-header"><span>คำสั่ง rsync สำหรับ Deploy Frontend (Class 5)</span><button class="copy-btn" onclick="copyCode(this)">คัดลอก</button></div>
+          <pre><code>sudo mkdir -p /var/www/school
+sudo rsync -a --chmod=D755,F644 --delete --exclude config.js /srv/school/frontend/ /var/www/school/</code></pre>
+        </div>
+        <ul>
+          <li><code>-a</code> (Archive): คัดลอกแบบรักษาโครงสร้างโฟลเดอร์และเวลาแก้ไขไฟล์</li>
+          <li><code>--chmod=D755,F644</code>: บังคับสิทธิ์ให้โฟลเดอร์เป็น <code>755</code> (<code>rwxr-xr-x</code>) และไฟล์เป็น <code>644</code> (<code>rw-r--r--</code>) เพื่อไม่ให้มีสิทธิ์เขียน (<code>w</code>) เกินจำเป็น</li>
+          <li><code>--delete</code>: ถ้าไฟล์ไหนถูกลบออกจากต้นทาง (<code>/srv/school/frontend/</code>) ให้ลบออกจากปลายทาง (<code>/var/www/school/</code>) ด้วย</li>
+          <li><code>--exclude config.js</code>: <strong>สำคัญมาก!</strong> ไม่คัดลอกไฟล์ <code>config.js</code> ไปทับไฟล์ที่เราตั้งค่าไว้แล้วที่ปลายทาง</li>
+          <li><strong>สังเกตเครื่องหมาย <code>/</code> หลัง <code>frontend/</code>:</strong> ใน <code>rsync</code> การใส่ <code>/</code> ปิดท้ายต้นทาง หมายถึง "เอาเฉพาะไส้ในของโฟลเดอร์ <code>frontend</code> ไปวาง" (ต่างจาก <code>docker cp</code> ใน Class 6 ที่ต้องใช้ <code>/.</code>!)</li>
+        </ul>
+
+        <h4>2. ทำไมไฟล์ <code>.env</code> ของ Backend ถึงห้ามใช้ตัวแปรซ้อน เช่น <code>${SCHOOL_PASSWORD}</code>?</h4>
+        <div class="callout warn">
+          <div class="callout-title">⚠️ 2 เหตุผลสำคัญที่อาจารย์เน้นใน Class 5</div>
+          <ol>
+            <li><strong><code>systemd</code> ไม่รู้จักการแทนค่าตัวแปร <code>${...}</code> ใน <code>EnvironmentFile=</code>:</strong> ตอนเรารันคำสั่ง Prisma บน Terminal ตัว Prisma CLI แอบช่วยแปลงค่า <code>${...}</code> ให้ แต่พอรันจริงผ่าน <code>systemd</code> ตัว <code>systemd</code> จะส่งคำว่า <code>${SCHOOL_PASSWORD}</code> ดิบๆ เข้าไปเป็นรหัสผ่านเลย ทำให้ต่อฐานข้อมูลพัง!</li>
+            <li><strong>รหัสผ่านสุ่มมักมีอักขระพิเศษ เช่น <code>/</code>, <code>+</code>, <code>@</code>, <code>:</code>:</strong> ใน <code>DATABASE_URL="mysql://user:pass@host:3306/db"</code> ถ้าในรหัสผ่านมีเครื่องหมาย <code>/</code> ตัวแปล URL จะนึกว่าจบชื่อ Host แล้ว! ต้องแปลงเป็น <strong>Percent-Encoding</strong> ก่อนเสมอ (เช่น <code>/</code> ต้องกลายเป็น <code>%2F</code>)</li>
+          </ol>
+        </div>
+
+        <h4>3. Forward Proxy vs. Reverse Proxy ต่างกันอย่างไร?</h4>
+        <div class="grid-2">
+          <div class="callout">
+            <div class="callout-title">🧑‍💻 Forward Proxy (ตัวแทนฝั่งผู้ใช้ / Client)</div>
+            <p>ตั้งอยู่หน้าฝั่งผู้ใช้ (เช่น Proxy ขององค์กร หรือ VPN) คอยเป็นตัวแทนออกไปดึงเว็บข้างนอกให้ผู้ใช้ โดย <strong>เซิร์ฟเวอร์ปลายทางจะไม่รู้ว่าผู้ใช้ตัวจริงคือใคร</strong> (เห็นแต่ IP ของ Forward Proxy)</p>
+          </div>
+          <div class="callout success">
+            <div class="callout-title">🏢 Reverse Proxy (ตัวแทนฝั่งเซิร์ฟเวอร์ / Server)</div>
+            <p>ตั้งอยู่หน้าเซิร์ฟเวอร์ของเรา (คือ <strong>Nginx</strong> ที่เราทำในวิชานี้!) คอยรับคำขอจากผู้ใช้ที่เข้าพอร์ต 80/443 แล้วส่งต่อ (Proxy) ไปยัง Backend ข้างหลัง โดย <strong>ผู้ใช้ภายนอกไม่รู้เลยว่าข้างหลังมีกี่เซิร์ฟเวอร์หรือรันอยู่ที่พอร์ตอะไร</strong></p>
+          </div>
+        </div>
+
+        <h4>4. กฎเหล็ก <code>proxy_pass</code> มี <code>/</code> ปิดท้าย vs. ไม่มี <code>/</code> ปิดท้าย (ออกสอบ 1000%!)</h4>
+        <p>เวลาเขียนบล็อก <code>location</code> คู่กับ <code>proxy_pass</code> ใน Nginx การใส่หรือไม่ใส่ Path/Slash (<code>/</code>) หลังเลขพอร์ต จะเปลี่ยน URL ที่ส่งไปหาเซิร์ฟเวอร์ข้างหลังทันที:</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>รูปแบบการเขียนใน Nginx</th>
+                <th>มี Path / <code>/</code> หลัง Host:Port หรือไม่?</th>
+                <th>เมื่อผู้ใช้เรียก <code>/school/api/students</code> Nginx จะส่งอะไรไปข้างหลัง?</th>
+                <th>ใช้เมื่อไหร่?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <code>location /school/api/ {</code><br>
+                  &nbsp;&nbsp;<code>proxy_pass http://127.0.0.1:3174/api/;</code><br>
+                  <code>}</code>
+                </td>
+                <td><span class="badge badge-green">มี URI ต่อท้าย (<code>/api/</code>)</span></td>
+                <td><strong>ตัดคำที่ตรงกับ location (<code>/school/api/</code>) ออก</strong> แล้วเอา <code>/api/</code> ไปแปะแทน ──► ส่งไปเป็น <strong><code>/api/students</code></strong></td>
+                <td>ใช้ที่ <strong>Proxy ตัวสุดท้ายก่อนถึงตัวแอป</strong> (เพราะตัวแอป Node.js รู้จักแค่ <code>/api/students</code> ไม่รู้จักคำว่า <code>/school</code>)</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>location /school/ {</code><br>
+                  &nbsp;&nbsp;<code>proxy_pass http://web/;</code><br>
+                  <code>}</code>
+                </td>
+                <td><span class="badge badge-green">มี <code>/</code> ปิดท้าย</span></td>
+                <td><strong>ตัดคำว่า <code>/school/</code> ออก</strong> แล้วแทนด้วย <code>/</code> ──► ถ้าร้องขอ <code>/school/app.js</code> จะส่งไปเป็น <strong><code>/app.js</code></strong></td>
+                <td>ใช้เมื่อส่งต่อให้คอนเทนเนอร์ Frontend (เพราะไฟล์ในคอนเทนเนอร์วางอยู่ที่ราก <code>/usr/share/nginx/html/app.js</code>)</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>location /school/ {</code><br>
+                  &nbsp;&nbsp;<code>proxy_pass https://127.0.0.2:8443;</code><br>
+                  <code>}</code>
+                </td>
+                <td><span class="badge badge-amber">ไม่มี <code>/</code> ปิดท้าย!</span></td>
+                <td><strong>ไม่ตัดอะไรเลย! ส่ง Path เดิมไปทั้งดุ้น</strong> ──► ส่งไปเป็น <strong><code>/school/api/students</code></strong> หรือ <strong><code>/school/</code></strong> เหมือนเดิมเป๊ะ</td>
+                <td>ใช้ใน <strong>Class 10 (Outer Proxy บน Host ส่งเข้า Inner Stack Proxy)</strong> เพื่อให้ Stack Proxy ข้างในเป็นคนแยกเองว่าอันไหนไป <code>web</code> อันไหนไป <code>api</code>!</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4>5. ทำไมต้องใส่ <code>proxy_set_header</code> ทั้ง 4 บรรทัดเสมอ?</h4>
+        <p>ตามค่าเริ่มต้น เมื่อ Nginx ส่งคำขอต่อไปยังเซิร์ฟเวอร์ข้างหลัง (Upstream) มันจะสร้าง HTTP Request ใหม่โดยใส่ <code>Host</code> เป็น <code>127.0.0.1:3174</code> และต้นทาง IP เป็น <code>127.0.0.1</code> ทำให้เซิร์ฟเวอร์ข้างหลังไม่รู้ข้อมูลจริงของผู้ใช้เลย เราจึงต้องแนบ Header 4 บรรทัดนี้ไปด้วยเสมอ:</p>
+        <div class="code-wrap">
+          <div class="code-header"><span>4 บรรทัดศักดิ์สิทธิ์ใน location ที่ทำ proxy_pass</span><button class="copy-btn" onclick="copyCode(this)">คัดลอก</button></div>
+          <pre><code>proxy_set_header Host              $host;
+proxy_set_header X-Real-IP         $remote_addr;
+proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+proxy_set_header X-Forwarded-Proto $scheme;</code></pre>
+        </div>
+        <ul>
+          <li><code>Host $host</code>: บอกชื่อโดเมนที่ผู้ใช้พิมพ์เข้ามาจริงๆ (เช่น <code>lvm68174.sit.kmutt.ac.th</code>) — ถ้าลืมใส่ เวลาทำ Redirect ข้างใน มันจะเด้งไปหา <code>https://127.0.0.2/...</code> ซึ่งพังทันที!</li>
+          <li><code>X-Real-IP $remote_addr</code>: ส่ง IP จริงของผู้ใช้ที่ต่อเข้ามาหา Nginx ตัวนี้</li>
+          <li><code>X-Forwarded-For $proxy_add_x_forwarded_for</code>: รายชื่อ IP ของผู้ส่งต่อทุกทอด (กรณีผ่าน Proxy หลายชั้น)</li>
+          <li><code>X-Forwarded-Proto $scheme</code>: บอกว่าผู้ใช้เข้าผ่านโปรโตคอลอะไร (<code>http</code> หรือ <code>https</code>)</li>
+        </ul>
+
+        <h4>6. ระบบกุญแจ 2 ชั้น (Two Independent Locks) เพื่อปิดประตูหลังบ้าน</h4>
+        <ol>
+          <li><strong>กุญแจชั้นใน (Inner Lock — การผูก IP / Binding):</strong> ตั้งให้ API รับฟังเฉพาะที่ <code>127.0.0.1</code> (หรือผูกพอร์ต Docker ไว้ที่ <code>127.0.0.2</code>) ต่อให้ลืมเปิด Firewall คนนอกก็ส่งแพ็กเก็ตเข้า Loopback ไม่ได้</li>
+          <li><strong>กุญแจชั้นนอก (Outer Lock — Firewall UFW):</strong> ปิดพอร์ต API บน UFW ด้วยคำสั่ง <code>sudo ufw delete allow 3174/tcp</code></li>
+        </ol>
+
+        <h4>7. การสร้าง Self-Signed TLS Certificate และทำไมต้องใช้ HTTP <code>308</code>?</h4>
+        <div class="code-wrap">
+          <div class="code-header"><span>คำสั่งสร้างใบรับรอง SSL/TLS (Self-Signed Certificate) อายุ 365 วัน</span><button class="copy-btn" onclick="copyCode(this)">คัดลอก</button></div>
+          <pre><code>sudo mkdir -p /etc/ssl/int134
+sudo openssl req -x509 -nodes -newkey rsa:2048 -days 365 \
+  -keyout /etc/ssl/int134/vm.key \
+  -out /etc/ssl/int134/vm.crt \
+  -subj "/CN=$(hostname -f)" \
+  -addext "subjectAltName=DNS:$(hostname -f),DNS:$(hostname)"
+sudo chmod 600 /etc/ssl/int134/vm.key</code></pre>
+        </div>
+        <ul>
+          <li><code>-x509</code>: สร้างใบรับรองที่เซ็นรับรองตัวเอง (Self-signed certificate) แทนที่จะสร้างแค่ใบคำขอ (CSR)</li>
+          <li><code>-nodes</code> (ย่อมาจาก <strong>no DES</strong> encryption): <strong>ไม่ต้องตั้งรหัสผ่านล็อกไฟล์ Private Key</strong> เพราะถ้าตั้งรหัสผ่านไว้ เวลาเครื่องรีบูตแล้ว Nginx สตาร์ทขึ้นมาเอง มันจะค้างรอให้คนพิมพ์รหัสผ่าน!</li>
+          <li><code>-newkey rsa:2048 -days 365</code>: สร้างกุญแจ RSA ขนาด 2048 บิต มีอายุ 365 วัน</li>
+          <li><code>chmod 600 vm.key</code>: ไฟล์กุญแจส่วนตัว (<code>.key</code>) ต้องให้เฉพาะเจ้าของ (<code>root</code>) อ่านได้เท่านั้น</li>
+          <li><strong>ทำไมใช้ <code>return 308 https://$host$request_uri;</code> แทนที่จะใช้ <code>301</code> หรือ <code>302</code>?</strong>
+            <ul>
+              <li>ในอดีต รหัส <code>301</code> (Moved Permanently) และ <code>302</code> (Found) มีข้อเสียคือ เบราว์เซอร์มักจะเปลี่ยนคำขอจาก <strong><code>POST</code> ให้กลายเป็น <code>GET</code></strong> และทิ้งข้อมูลใน Body ตอนเปลี่ยนหน้า!</li>
+              <li>ส่วน <strong><code>308 Permanent Redirect</code></strong> (และ <code>307 Temporary Redirect</code>) บังคับว่า <strong>ห้ามเปลี่ยน HTTP Method เด็ดขาด</strong> (ถ้าส่ง <code>POST</code> มา พอเด้งไป HTTPS ก็ยังเป็น <code>POST</code> พร้อมข้อมูลครบถ้วน)</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <!-- CLASS 6 THEORY -->
+      <div class="card theory-block" id="th-c6">
+        <h3>🐳 Class 6: Introduction to Container & Docker Architecture <span class="badge badge-blue">พื้นฐานสำคัญ</span></h3>
+
+        <h4>1. Virtual Machine (VM) vs. Container ต่างกันอย่างไร?</h4>
+        <div class="grid-2">
+          <div class="callout">
+            <div class="callout-title">🖥️ Virtual Machine (VM)</div>
+            <p>จำลองตั้งแต่ระดับ <strong>Hardware</strong> ผ่าน Hypervisor ทำให้แต่ละ VM ต้องแบก <strong>Guest OS Kernel ทั้งก้อน</strong> ของตัวเอง กินแรมเป็นกิกะไบต์ (GB) และใช้เวลาบูตเป็นนาที</p>
+          </div>
+          <div class="callout success">
+            <div class="callout-title">📦 Container (Docker)</div>
+            <p>จำลองในระดับ OS โดย <strong>แชร์ Linux Kernel ร่วมกับเครื่อง Host</strong> แต่กั้นห้องแยก Process (ด้วย <code>namespaces</code>) และจำกัดทรัพยากร (ด้วย <code>cgroups</code>) ทำให้ขนาดเล็กมาก (หลัก MB) และสตาร์ทขึ้นในเสี้ยววินาที!</p>
+          </div>
+        </div>
+
+        <h4>2. 4 คำศัพท์หลักของ Docker และระบบแผ่นใสซ้อนทับกัน (Union File System / <code>overlay2</code>)</h4>
+        <ul>
+          <li><strong>Docker Image:</strong> แม่พิมพ์ที่ประกอบด้วย <strong>Read-Only Layers (ชั้นข้อมูลที่อ่านได้อย่างเดียว แก้ไขไม่ได้)</strong> ซ้อนทับกัน เปรียบเหมือน Class หรือไฟล์โปรแกรมที่ยังไม่รัน</li>
+          <li><strong>Docker Container:</strong> เมื่อสั่ง <code>docker run</code> Docker จะนำ Image มาวาง แล้วแปะ <strong>ชั้นบางๆ ที่เขียนทับได้ (Thin Read-Write Layer)</strong> ไว้ด้านบนสุด!
+            <ul>
+              <li>ถ้ามีการสร้างหรือแก้ไขไฟล์ขณะรัน จะถูกเขียนลงใน Read-Write Layer นี้เท่านั้น (เทคนิค <strong>Copy-on-Write</strong>)</li>
+              <li>ถ้าลบไฟล์ที่มีอยู่ในชั้น Image ข้างล่าง เนื่องจากชั้น Image เป็น Read-Only ลบไม่ได้ Docker จึงวางไฟล์พิเศษที่ชื่อว่า <strong>Whiteout file (<code>.wh.&lt;ชื่อไฟล์&gt;</code>)</strong> ไว้ที่ชั้นบน เพื่อบังไม่ให้มองเห็นไฟล์ข้างล่าง!</li>
+              <li>เมื่อสั่ง <code>docker rm</code> ลบคอนเทนเนอร์ ชั้น Read-Write Layer จะหายไปทั้งหมด!</li>
+            </ul>
+          </li>
+        </ul>
+
+        <h4>3. การตั้งค่าหลังติดตั้ง Docker (<code>/etc/docker/daemon.json</code>)</h4>
+        <p>ทำไมต้องสร้างไฟล์ <code>/etc/docker/daemon.json</code> บนเครื่อง VM?</p>
+        <ol>
+          <li><strong>แก้ปัญหา Docker Hub จำกัดการดึงอิมเมจ (Rate Limit: <code>toomanyrequests</code>):</strong> Docker Hub จำกัดให้ผู้ใช้ที่ไม่ได้ล็อกอินดึงอิมเมจได้แค่ 100 ครั้งต่อ 6 ชั่วโมงต่อ IP มหาวิทยาลัยจึงตั้ง Registry Mirror (<code>https://lvmolarn.sit.kmutt.ac.th</code>) ไว้ช่วยแคชอิมเมจ</li>
+          <li><strong>จำกัดขนาดไฟล์ Log ของคอนเทนเนอร์:</strong> ใช้ไดรเวอร์ <code>local</code> และจำกัด <code>max-size: "10m"</code> ไม่ให้ Log กินพื้นที่ดิสก์จนเต็ม</li>
+        </ol>
+        <div class="code-wrap">
+          <div class="code-header"><span>ไฟล์ /etc/docker/daemon.json</span><button class="copy-btn" onclick="copyCode(this)">คัดลอก</button></div>
+          <pre><code>{
+  "registry-mirrors": ["https://lvmolarn.sit.kmutt.ac.th"],
+  "log-driver": "local",
+  "log-opts": {
+    "max-size": "10m"
+  }
+}</code></pre>
+        </div>
+
+        <h4>4. กฎเหล็ก 3 ข้อของคำสั่ง Docker ใน Class 6 (กับดักข้อสอบยอดฮิต!)</h4>
+        <div class="callout danger">
+          <div class="callout-title">🚨 กับดักที่ 1: กฎของ PID 1 (ทำไมรัน <code>docker run -d ubuntu</code> แล้วคอนเทนเนอร์ดับทันที?)</div>
+          <p>คอนเทนเนอร์จะมีชีวิตอยู่ <strong>ตราบเท่าที่โปรเซสแรกสุดข้างใน (PID 1) ยังทำงานอยู่เท่านั้น!</strong></p>
+          <ul>
+            <li>อิมเมจ <code>nginx</code> มีคำสั่งเริ่มต้นคือรันเว็บเซิร์ฟเวอร์แบบ Foreground (<code>nginx -g 'daemon off;'</code>) ซึ่งไม่จบการทำงาน คอนเทนเนอร์จึงมีสถานะ <code>Up</code> ตลอด</li>
+            <li>อิมเมจ <code>ubuntu</code> หรือ <code>busybox</code> มีคำสั่งเริ่มต้นคือเปิด Shell (<code>/bin/sh</code> หรือ <code>/bin/bash</code>) ถ้ารันโดยไม่มี <code>-it</code> (<code>-i</code> interactive เปิดท่อรับอินพุต + <code>-t</code> เชื่อมหน้าจอเทอร์มินัล tty) ตัว Shell จะเห็นว่าไม่มีใครพิมพ์คำสั่งเข้ามา จึงปิดตัวเองทันที ทำให้คอนเทนเนอร์กลายเป็น <code>Exited (0)</code> ทันที!</li>
+          </ul>
+        </div>
+
+        <div class="callout warn">
+          <div class="callout-title">⚠️ กับดักที่ 2: การใส่ <code>-p</code> โดยไม่ระบุ IP จะทะลุ Firewall (UFW) ทันที!</div>
+          <ul>
+            <li>ถ้าเขียน <code>-p 9174:80</code> (ไม่ระบุ IP ข้างหน้า) Docker จะนำไปผูกกับ <strong><code>0.0.0.0:9174</code></strong> และที่อันตรายคือ <strong>Docker เขียนกฎลงใน <code>iptables</code> ตัดหน้า <code>ufw</code>!</strong> ทำให้ต่อให้เราเปิด <code>ufw</code> บล็อกพอร์ตไว้ คนทั้งเครือข่ายก็ยังเข้าพอร์ต 9174 ของเราได้!</li>
+            <li><strong>วิธีที่ถูกต้องในวิชานี้:</strong> ต้องระบุ IP เสมอ เช่น <code>-p 127.0.0.2:9174:80</code> เพื่อล็อกให้รับเฉพาะภายในเครื่องเท่านั้น</li>
+          </ul>
+        </div>
+
+        <div class="callout purple">
+          <div class="callout-title">📌 กับดักที่ 3: คำสั่ง <code>docker cp</code> ต้องลงท้ายด้วย <code>/.</code> (ไม่ใช่แค่ <code>/</code>!)</div>
+          <ul>
+            <li>ในคำสั่ง <code>rsync</code> การเขียน <code>/var/www/school/</code> (มี <code>/</code>) แปลว่าคัดลอกเฉพาะไส้ในของโฟลเดอร์</li>
+            <li>แต่ในคำสั่ง <strong><code>docker cp</code></strong> ถ้าเขียน <code>/var/www/school/</code> มันจะคัดลอก <strong>ทั้งโฟลเดอร์ <code>school</code></strong> เข้าไปสร้างเป็น <code>/usr/share/nginx/html/school/index.html</code> (ซ้อนโฟลเดอร์ผิดที่!)</li>
+            <li>ถ้าต้องการคัดลอกเฉพาะไส้ในด้วย <code>docker cp</code> <strong>ต้องใส่จุดต่อท้ายเสมอ (<code>/.</code>)</strong>:
+              <br><code>docker cp /var/www/school/. school-web:/usr/share/nginx/html/</code></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- CLASS 7 THEORY -->
+      <div class="card theory-block" id="th-c7">
+        <h3>🏗️ Class 7: Building Container Image I (Frontend Image, Bind Mount & MySQL Container)</h3>
+
+        <h4>1. คำสั่งตรวจสอบ Image และ Container เชิงลึก</h4>
+        <ul>
+          <li><code>docker diff &lt;container&gt;</code>: ดูว่าใน <strong>Read-Write Layer</strong> ของคอนเทนเนอร์มีการเปลี่ยนแปลงไฟล์อะไรบ้างเทียบกับ Image ต้นฉบับ (<code>A</code> = Added เพิ่มไฟล์, <code>C</code> = Changed แก้ไขไฟล์, <code>D</code> = Deleted ลบไฟล์)
+            <br>👉 <em>จุดสังเกตในข้อสอบ:</em> ถ้าเราเอาไฟล์เว็บใส่ไว้ใน Image อย่างถูกต้อง (ผ่าน <code>Dockerfile</code>) เวลาสั่ง <code>docker diff school-web</code> <strong>จะต้องไม่มีไฟล์ <code>index.html</code> หรือ <code>app.js</code> โผล่มาใน <code>docker diff</code> เลย!</strong> (จะมีแค่ <code>/run/nginx.pid</code> และ <code>/var/cache/nginx</code> ที่ Nginx สร้างตอนรัน)</li>
+          <li><code>docker history &lt;image&gt;</code>: ดูประวัติแต่ละ Layer ของ Image <strong>โดยอ่านจากล่างขึ้นบน!</strong> (บรรทัดล่างสุดคือ Layer แรกสุดของ Base Image ส่วนบรรทัดบนสุดคือคำสั่งล่าสุดใน Dockerfile ของเรา)</li>
+          <li><code>docker run --rm &lt;image&gt; &lt;command&gt;</code>: สร้างคอนเทนเนอร์ชั่วคราวขึ้นมาเพื่อรันคำสั่งตรวจสอบไฟล์ข้างใน (เช่น <code>docker run --rm school/frontend:1.0 cat /usr/share/nginx/html/config.js</code>) พอทำงานเสร็จ <code>--rm</code> จะลบคอนเทนเนอร์ทิ้งให้ทันที ไม่รกเครื่อง</li>
+        </ul>
+
+        <h4>2. การแยก Configuration ออกจาก Image ด้วย Single-File Bind Mount (<code>:ro</code>)</h4>
+        <p>หลักการสำคัญของวิชานี้: <strong>"Image เก็บสิ่งที่เหมือนกันทุกที่ (Code) ส่วนตอนสั่ง Run ค่อยส่งสิ่งที่ต่างกันในแต่ละเครื่อง (Configuration) เข้าไป"</strong></p>
+        <ul>
+          <li>เราสามารถใช้ Image <code>school/frontend:1.0</code> ตัวเดิม แต่เปลี่ยนค่าใน <code>config.js</code> ตอนรันได้ โดยใช้ <strong>Bind Mount ทับเฉพาะไฟล์เดียวแบบอ่านอย่างเดียว (<code>:ro</code>)</strong>:</li>
+        </ul>
+        <div class="code-wrap">
+          <div class="code-header"><span>การรัน Frontend Container พร้อม Bind Mount ไฟล์ config.name.js ทับ config.js</span><button class="copy-btn" onclick="copyCode(this)">คัดลอก</button></div>
+          <pre><code>docker run -d --name school-web --restart unless-stopped \
+  -p 127.0.0.2:9174:80 \
+  -v /srv/school/frontend/config.name.js:/usr/share/nginx/html/config.js:ro \
+  school/frontend:1.0</code></pre>
+        </div>
+        <ul>
+          <li>ไฟล์ <code>config.js</code> เดิมที่อยู่ใน Image ไม่ได้หายไปไหน แต่ถูกไฟล์ <code>config.name.js</code> จากเครื่อง Host <strong>วางบังทับ (Overlay)</strong> เฉพาะในคอนเทนเนอร์ <code>school-web</code> นี้เท่านั้น!</li>
+        </ul>
+
+        <h4>3. ทุกเรื่องที่ต้องรู้เกี่ยวกับ MySQL 8.4 Container (ออกสอบละเอียดมาก!)</h4>
+        <ol>
+          <li><strong>ทำไมรัน <code>docker run -d --name school-db mysql:8.4</code> เปล่าๆ แล้วดับทันที (<code>Exited (1)</code>)?</strong>
+            <br>เมื่อดูด้วย <code>docker logs school-db</code> จะพบว่า MySQL บังคับให้ต้องกำหนดรหัสผ่านของ root อย่างน้อย 1 วิธีผ่านตัวแปรสภาพแวดล้อม คือ <code>MYSQL_ROOT_PASSWORD</code>, <code>MYSQL_RANDOM_ROOT_PASSWORD</code>, หรือ <code>MYSQL_ALLOW_EMPTY_PASSWORD</code></li>
+          <li><strong>ทำไมห้ามส่งรหัสผ่านด้วย <code>-e MYSQL_ROOT_PASSWORD=secret</code> บนบรรทัดคำสั่ง?</strong>
+            <br>เพราะใครก็ตามที่รันคำสั่ง <strong><code>docker inspect school-db</code></strong> จะเห็นรหัสผ่านโชว์หราเป็นข้อความธรรมดา (Plain text) อยู่ในหัวข้อ <code>Config.Env</code>! วิธีที่ปลอดภัยกว่าคือเก็บไว้ในไฟล์ (ตั้งสิทธิ์ <code>chmod 600</code>) แล้วใช้ <code>--env-file</code> หรือใช้ <code>MYSQL_RANDOM_ROOT_PASSWORD=1</code></li>
+          <li><strong>กับดัก Anonymous Volume (โวลุ่มนิรนามชื่อยาว 64 ตัวอักษร):</strong>
+            <br>ใน Dockerfile ของอิมเมจ <code>mysql:8.4</code> มีการประกาศ <code>VOLUME /var/lib/mysql</code> เอาไว้ ทำให้ทุกครั้งที่เราสั่ง <code>docker run</code> โดยไม่ระบุชื่อ Volume (แม้คอนเทนเนอร์จะรันพังตั้งแต่ 1 วินาทีแรก!) Docker ก็จะแอบสร้าง <strong>Anonymous Volume</strong> ทิ้งไว้ และเมื่อสั่ง <code>docker rm school-db</code> โวลุ่มขยะเหล่านั้นจะไม่ถูกลบตาม! ต้องเคลียร์ทิ้งด้วยคำสั่ง:
+            <br><code>docker volume prune</code></li>
+          <li><strong>กฎของโฟลเดอร์ <code>/docker-entrypoint-initdb.d/</code> (สำคัญสุดๆ!):</strong>
+            <ul>
+              <li>ไฟล์ <code>.sql</code> หรือ <code>.sh</code> ที่อยู่ในโฟลเดอร์นี้ จะถูกรัน <strong>เฉพาะครั้งแรกครั้งเดียว ตอนที่โฟลเดอร์ <code>/var/lib/mysql</code> ใน Volume ยังว่างเปล่าอยู่เท่านั้น!</strong> (ถ้าใน Volume มีฐานข้อมูลอยู่แล้ว มันจะข้ามสคริปต์ในโฟลเดอร์นี้ทั้งหมดทันที)</li>
+              <li>มันรันไฟล์เรียงตาม <strong>ตัวอักษรภาษาอังกฤษ (Alphabetical Order)</strong>! ดังนั้นถ้าเรามีไฟล์ <code>setup.container.sql</code> (สร้างฐานข้อมูล) กับ <code>schema.sql</code> (สร้างตาราง) คำว่า <code>sc...</code> (<code>schema.sql</code>) จะมาก่อน <code>se...</code> (<code>setup.container.sql</code>) ทำให้รันพังเพราะสร้างตารางก่อนสร้างฐานข้อมูล!</li>
+              <li><strong>วิธีแก้:</strong> ตอน Mount หรือ <code>COPY</code> เข้าไป ต้องตั้งชื่อปลายทางให้มีเลขนำหน้าเสมอ เช่น <strong><code>01-setup.sql</code></strong> และ <strong><code>02-schema.sql</code></strong>!</li>
+            </ul>
+          </li>
+          <li><strong>ทำไมต่อ MySQL จากบนเครื่อง Host ต้องใส่ <code>-h 127.0.0.2</code> เสมอ?</strong>
+            <br>ในโปรแกรม <code>mysql</code> client ถ้าไม่ใส่ <code>-h</code> (หรือใส่ <code>-h localhost</code>) มันจะไม่ต่อผ่านพอร์ต TCP แต่จะแอบไปต่อผ่านไฟล์ <strong>Unix Socket</strong> ของ MySQL ตัวเก่าที่ติดตั้งอยู่บนเครื่อง Host! และเมื่อเราต่อจาก Host เข้าไปที่ <code>-h 127.0.0.2</code> คอนเทนเนอร์ MySQL จะมองเห็นว่าเราติดต่อมาจาก IP ของสะพาน Docker คือ <strong><code>172.17.0.1</code></strong> (จึงต้อง Grant สิทธิ์ให้ <code>'school'@'172.17.0.1'</code> ใน Class 7)</li>
+        </ol>
+      </div>
+
+      <!-- CLASS 8 THEORY -->
+      <div class="card theory-block" id="th-c8">
+        <h3>⚙️ Class 8: Building Container Image II (Backend, Cache Order, PID 1 & Networks) <span class="badge badge-red">หัวใจของข้อสอบ!</span></h3>
+
+        <h4>1. ทำไมการเขียน <code>COPY . .</code> ดื้อๆ ใน Backend ถึงพังยับเยิน 3 เด้ง?</h4>
+        <ol>
+          <li><strong>Build Context ใหญ่เทอะทะ (241.52 MB):</strong> เพราะมันหอบเอาโฟลเดอร์ <code>node_modules</code> บนเครื่องส่งไปให้ Docker Engine ทั้งก้อน</li>
+          <li><strong>รันแล้วพังทันทีเพราะคนละตระกูล Linux (<code>glibc</code> vs <code>musl</code>):</strong> <code>node_modules</code> บนเครื่อง VM ถูกติดตั้งบน Ubuntu (ซึ่งใช้ไลบรารีมาตรฐาน C ที่ชื่อว่า <code>glibc</code>) แต่อิมเมจ <code>node:24.19-alpine</code> เป็น Alpine Linux (ซึ่งใช้ <code>musl</code>) ทำให้ไบนารีของ Prisma Engine รันไม่ได้! <strong>กฎเหล็ก: ห้ามก๊อปปี้ <code>node_modules</code> เข้าอิมเมจ แต่ต้องรัน <code>npm ci</code> เพื่อติดตั้งข้างในอิมเมจเสมอ!</strong></li>
+          <li><strong>รหัสผ่านรั่วไหลฝังอยู่ใน Layer ของ Image:</strong> เพราะ <code>COPY . .</code> กวาดเอาไฟล์ <code>.env</code> หรือ <code>container.env</code> เข้าไปอยู่ใน Image Layer ด้วย!</li>
+        </ol>
+
+        <h4>2. การป้องกันด้วย <code>.dockerignore</code> และกับดักชื่อไฟล์ <code>container.env</code> vs <code>.env.container</code></h4>
+        <div class="code-wrap">
+          <div class="code-header"><span>ไฟล์ /srv/school/backend/.dockerignore (ฉบับสมบูรณ์จาก Class 8 & 9)</span><button class="copy-btn" onclick="copyCode(this)">คัดลอก</button></div>
+          <pre><code>node_modules
+.env*
+.*ignore
+Dockerfile*</code></pre>
+        </div>
+        <div class="callout danger">
+          <div class="callout-title">🚨 กับดักชื่อไฟล์ที่อาจารย์เฉลยใน Class 9 Step 4–5!</div>
+          <p>สังเกตบรรทัด <code>.env*</code> ใน <code>.dockerignore</code>: มันแปลว่า "ไม่เอาไฟล์ที่ <strong>ขึ้นต้นด้วยคำว่า <code>.env</code></strong>"</p>
+          <ul>
+            <li>ถ้าเราตั้งชื่อไฟล์ว่า <code>container.env</code> ──► มันไม่ได้ขึ้นต้นด้วย <code>.env</code>! ดังนั้นตอนสั่ง <code>COPY . .</code> ไฟล์ <code>container.env</code> (ที่มีรหัสผ่าน DB) จะหลุดเข้าไปอยู่ใน <code>/app/container.env</code> ใน Image ทันที!</li>
+            <li><strong>ต้องตั้งชื่อไฟล์ว่า <code>.env.container</code> เสมอ!</strong> เพื่อให้ตรงกับแพทเทิร์น <code>.env*</code> และไม่หลุดเข้าไปใน Image!</li>
+          </ul>
+        </div>
+
+        <h4>3. การเรียงลำดับบรรทัดใน <code>Dockerfile</code> เพื่อใช้ Layer Cache ให้คุ้มที่สุด</h4>
+        <p>Docker สร้างแคชทีละบรรทัดจากบนลงล่าง <strong>ถ้าบรรทัดไหนเปลี่ยน บรรทัดถัดลงมาทั้งหมดจะเสียแคชและต้องรันใหม่ทั้งหมด!</strong> ดังนั้นต้องเรียงจาก <strong>"สิ่งที่เปลี่ยนยากที่สุด ──► ไปหาสิ่งที่เปลี่ยนบ่อยที่สุด"</strong>:</p>
+        <div class="code-wrap">
+          <div class="code-header"><span>/srv/school/backend/Dockerfile.4 (อธิบายเหตุผลทุกบรรทัด)</span><button class="copy-btn" onclick="copyCode(this)">คัดลอก</button></div>
+          <pre><code># 1. ARG ก่อน FROM ใช้กำหนดแท็กของ Base Image เท่านั้น (จะหายไปหลังบรรทัด FROM และไม่โผล่ใน docker history)
+ARG NODE_TAG=24.19-alpine
+FROM node:${NODE_TAG}
+
+# 2. ตั้งให้ฟังทุกการ์ดแลนในคอนเทนเนอร์ (0.0.0.0) ที่พอร์ต 3000 เสมอ
+ENV HOST=0.0.0.0 PORT=3000
+WORKDIR /app
+
+# 3. ก๊อปปี้เฉพาะไฟล์รายการแพ็กเกจและโครงสร้าง Prisma เข้ามาก่อน (เพราะนานๆ เปลี่ยนที)
+COPY package*.json ./
+COPY prisma ./prisma
+
+# 4. ต้อง touch .env สร้างไฟล์ว่างๆ ไว้ก่อนรัน npm ci เพื่อให้ Prisma จำตำแหน่งไฟล์ .env ตอนสร้าง Client
+RUN touch .env && npm ci
+
+# 5. วาง ARG APP_VERSION ไว้ "หลัง" RUN npm ci! เพื่อที่เวลาเปลี่ยนเลขเวอร์ชันจะได้ไม่ต้องเสียเวลารัน npm ci ใหม่!
+ARG APP_VERSION=unversioned
+ENV APP_VERSION=${APP_VERSION}
+
+# 6. ก๊อปปี้โค้ดที่เหลือ (server.js, entrypoint.sh) ซึ่งแก้บ่อยที่สุดไว้ท้ายสุด
+COPY --chmod=755 entrypoint.sh ./
+COPY . .
+
+# 7. เปลี่ยนไปรันด้วยผู้ใช้ node (UID 1000) เพื่อไม่ให้โปรเซสรันเป็น root
+USER node
+
+# 8. ใช้ Exec Form (วงเล็บก้ามปู JSON) ทั้งคู่ เพื่อให้ entrypoint.sh รับ CMD ไปรันต่อได้
+ENTRYPOINT ["./entrypoint.sh"]
+CMD ["node", "server.js"]</code></pre>
+        </div>
+
+        <h4>4. ทำไมใน <code>entrypoint.sh</code> ต้องใช้ <code>exec "$@"</code> แทนที่จะเขียน <code>"$@"</code> เฉยๆ?</h4>
+        <div class="grid-2">
+          <div class="callout danger">
+            <div class="callout-title">❌ ถ้าบรรทัดสุดท้ายเขียนแค่ <code>"$@"</code> (ไม่มี <code>exec</code>)</div>
+            <p>ตัวเชลล์ <code>/bin/sh ./entrypoint.sh</code> จะนั่งเป็น <strong>PID 1</strong> แล้วแตกโปรเซสลูกให้ <code>node server.js</code> เป็น PID อื่น<br>
+            เมื่อเราสั่ง <code>docker stop school-api</code> Docker จะส่งสัญญาณ <code>SIGTERM</code> ไปบอก <strong>PID 1 (<code>/bin/sh</code>)</strong> ให้ปิดตัว แต่ <code>/bin/sh</code> ไม่ยอมส่งสัญญาณต่อให้ลูก! ทำให้คอนเทนเนอร์ค้างอยู่ถึง <strong>10 วินาทีเต็ม</strong> จนหมดเวลา แล้วถูก Docker ทุบด้วย <code>SIGKILL</code>!</p>
+          </div>
+          <div class="callout success">
+            <div class="callout-title">✅ ถ้าบรรทัดสุดท้ายเขียน <code>exec "$@"</code></div>
+            <p>คำสั่ง <code>exec</code> จะสั่งให้เชลล์ <strong>สละร่างตัวเองแล้วเอาคำสั่งใน <code>"$@"</code> (คือ <code>node server.js</code>) ขึ้นมาแทนที่เป็น PID 1 โดยตรง!</strong><br>
+            เมื่อสั่ง <code>docker stop school-api</code> ตัว <code>node server.js</code> จึงได้รับ <code>SIGTERM</code> ทันที และปิดตัวเองอย่างนุ่มนวลภายใน <strong>ไม่ถึง 1 วินาที (0 วินาที)</strong>!</p>
+          </div>
+        </div>
+        <div class="code-wrap">
+          <div class="code-header"><span>ไฟล์ /srv/school/backend/entrypoint.sh (ต้องรัน chmod +x entrypoint.sh ด้วย!)</span><button class="copy-btn" onclick="copyCode(this)">คัดลอก</button></div>
+          <pre><code>#!/bin/sh
+# ตรวจสอบว่ามีไฟล์ถูก mount เข้ามาที่ /app/.env และมีขนาดมากกว่า 0 ไบต์ (! -s แปลว่าไม่มีไฟล์ หรือไฟล์ขนาด 0 ไบต์)
+if [ ! -s /app/.env ]; then
+  echo "entrypoint: no configuration mounted at /app/.env - refusing to start" >&2
+  exit 1
+fi
+echo "entrypoint: school api ${APP_VERSION:-unversioned}, listening on ${HOST}:${PORT}"
+exec "$@"</code></pre>
+        </div>
+
+        <h4>5. ทำไมต้องใช้ User-Defined Bridge Network (<code>docker network create school-net</code>)?</h4>
+        <ul>
+          <li>ถ้าไม่ระบุ <code>--network</code> คอนเทนเนอร์ทุกตัวจะถูกจับใส่เครือข่ายเริ่มต้นที่ชื่อว่า <code>bridge</code> ซึ่ง <strong>ไม่มีระบบแปลงชื่อเป็น IP (ไม่มี DNS ภายใน)</strong> คอนเทนเนอร์จึงเรียกหากันด้วยชื่อ <code>school-db</code> ไม่ได้ (ต้องใช้ IP เช่น <code>172.17.0.2</code> ซึ่งเปลี่ยนไปมาทุกครั้งที่สร้างใหม่!)</li>
+          <li>แต่เมื่อเราสร้างเครือข่ายเองด้วย <code>docker network create school-net</code> และใส่ <code>--network school-net</code> ให้ทั้ง <code>school-db</code> และ <code>school-api</code> Docker จะเปิด <strong>Embedded DNS Server</strong> ให้ทันที ทำให้ใน <code>DATABASE_URL</code> เขียน <code>@school-db:3306</code> ได้เลย!</li>
+        </ul>
+      </div>
+
+      <!-- CLASS 9 THEORY -->
+      <div class="card theory-block" id="th-c9">
+        <h3>🎼 Class 9: Docker Compose, Volumes & Healthchecks <span class="badge badge-red">ออกสอบปฏิบัติเต็มๆ!</span></h3>
+
+        <h4>1. กฎ "ไฟล์ <code>.env</code> 3 ไฟล์ — คนอ่าน 3 คน" (ห้ามปนกัน!)</h4>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ตำแหน่งไฟล์</th>
+                <th>ใครเป็นคนอ่าน?</th>
+                <th>ใส่ค่าอะไรไว้ข้างใน?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>/srv/school/.env</code></td>
+                <td><strong>โปรแกรม <code>docker compose</code></strong> (อ่านตอนแปลไฟล์ <code>compose.yaml</code> เท่านั้น คอนเทนเนอร์ข้างในไม่เห็นไฟล์นี้!)</td>
+                <td><code>BIND=127.0.0.2</code><br><code>WEB_PORT=9174</code><br><code>API_PORT=3174</code></td>
+              </tr>
+              <tr>
+                <td><code>/srv/school/backend/.env.container</code></td>
+                <td><strong>โปรแกรม Node.js / Prisma ในคอนเทนเนอร์ <code>api</code></strong> (ผ่านการ Mount ไปไว้ที่ <code>/app/.env:ro</code>)</td>
+                <td><code>PORT=3000</code><br><code>DATABASE_URL="mysql://school:...@db:3306/school"</code><br><em>(สังเกตว่าใช้ชื่อบริการ <strong><code>@db:3306</code></strong> ไม่ใช่ <code>@school-db:3306</code>!)</em></td>
+              </tr>
+              <tr>
+                <td><code>/srv/school/db/init.env</code></td>
+                <td><strong>อิมเมจ <code>mysql:8.4</code> ตอนสร้างฐานข้อมูลครั้งแรกสุด</strong> (เมื่อมีข้อมูลใน Volume แล้ว ไม่ต้องใช้อีก!)</td>
+                <td><code>MYSQL_RANDOM_ROOT_PASSWORD=1</code><br><code>MYSQL_DATABASE=school</code><br><code>MYSQL_USER=school</code><br><code>MYSQL_PASSWORD=รหัสผ่านห้ามใส่เครื่องหมายคำพูด</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4>2. ทำไมต้องเขียน <code>${BIND:?set BIND in .env}</code> แทนที่จะเขียน <code>${BIND}</code> เฉยๆ?</h4>
+        <div class="callout danger">
+          <div class="callout-title">🔒 ป้องกันการเผลอเปิดพอร์ตฐานข้อมูลสู่โลกภายนอก (Fail-Closed!)</div>
+          <p>ในไฟล์ <code>compose.yaml</code> ถ้าเราเขียนแค่ <code>"${BIND}:3306:3306"</code> แล้ววันหนึ่งไฟล์ <code>.env</code> หายไป หรือลืมตั้งค่า <code>BIND</code>:</p>
+          <ul>
+            <li>Docker Compose จะแปลง <code>${BIND}</code> เป็นค่าว่าง <code>""</code> ทำให้กลายเป็น <strong><code>":3306:3306"</code></strong> ซึ่งหมายถึงการเปิดพอร์ต 3306 บน <strong><code>0.0.0.0</code> (ทุกการ์ดแลนสู่โลกภายนอก!)</strong></li>
+            <li>แต่ถ้าเขียน <strong><code>"${BIND:?set BIND in .env}:3306:3306"</code></strong> เครื่องหมาย <code>:?</code> จะบังคับให้ Docker Compose <strong>หยุดทำงานทันทีและแจ้ง Error</strong> ถ้าตัวแปร <code>BIND</code> ไม่มีค่าหรือว่างเปล่า!</li>
+          </ul>
+        </div>
+
+        <h4>3. Managed Volume vs. <code>external: true</code> Volume ต่างกันอย่างไร?</h4>
+        <ul>
+          <li>ถ้าเขียนแค่ <code>volumes: db-data:</code> เฉยๆ Compose จะสร้าง Volume ใหม่ที่ว่างเปล่าโดยเติมชื่อโปรเจกต์ข้างหน้าเป็น <code>school_db-data</code> (และถ้าเผลอสั่ง <code>docker compose down -v</code> ข้อมูลจะถูกลบทิ้งทันที!)</li>
+          <li>ถ้าเรามี Volume ที่มีข้อมูลนักเรียนอยู่แล้ว (ชื่อ <code>school-db-data2</code>) เราต้องระบุ <strong><code>external: true</code></strong> และ <strong><code>name: school-db-data2</code></strong>:
+            <ol>
+              <li>เพื่อให้ Compose ดึง Volume ก้อนเดิมที่มีข้อมูลอยู่แล้วมาใช้</li>
+              <li>เพื่อ <strong>ปกป้องข้อมูลไม่ให้ถูกลบ</strong> แม้จะมีคนเผลอรันคำสั่ง <code>docker compose down -v</code>!</li>
+            </ol>
+          </li>
+        </ul>
+
+        <h4>4. การคุมลำดับการสตาร์ทด้วย <code>healthcheck</code> + <code>depends_on: condition: service_healthy</code> + <code>--wait</code></h4>
+        <ul>
+          <li>คำว่าสถานะ <code>Up</code> ใน <code>docker ps</code> แปลแค่ว่า "โปรเซสในคอนเทนเนอร์เริ่มรันแล้ว" แต่ไม่ได้แปลว่า MySQL หรือ Node.js พร้อมรับการเชื่อมต่อแล้ว!</li>
+          <li>เราจึงต้องใส่ 3 ส่วนนี้ทำงานร่วมกัน:
+            <ol>
+              <li><strong><code>healthcheck</code> ใน <code>db</code>:</strong> ใช้ <code>["CMD", "mysqladmin", "ping", "-h", "127.0.0.1"]</code> เพื่อเช็กว่า MySQL พร้อมรับคำสั่งหรือยัง</li>
+              <li><strong><code>depends_on: db: condition: service_healthy</code> ใน <code>api</code>:</strong> สั่งให้ Compose รอจนกว่า <code>db</code> จะขึ้นสถานะ <code>(healthy)</code> ก่อน ถึงจะเริ่มสตาร์ท <code>api</code> (หมายเหตุ: <code>depends_on</code> คุมเฉพาะตอนสตาร์ทเท่านั้น ถ้าภายหลังเราสั่ง <code>docker compose stop db</code> ตัว <code>api</code> จะไม่ถูกหยุดตาม)</li>
+              <li><strong><code>healthcheck</code> ใน <code>api</code> ต้องเช็กพาร์ทที่ต่อฐานข้อมูลจริง (Deep Healthcheck):</strong>
+                <br>ถ้าเช็กแค่ <code>/api/health</code> เวลาฐานข้อมูล <code>db</code> ล่ม ตัว <code>api</code> ก็ยังขึ้นว่า <code>(healthy)</code> หลอกเราอยู่ดี! ดังนั้นต้องเช็กที่ <strong><code>http://127.0.0.1:3000/api/students</code></strong> (หรือพาร์ทที่ดึงข้อมูลจริง เช่น <code>/api/notices</code> ในการบ้าน)</li>
+              <li><strong><code>docker compose up -d --wait</code>:</strong> แฟล็ก <code>--wait</code> จะสั่งให้คำสั่งบน Terminal รอจนกว่าทุกบริการที่มี healthcheck จะขึ้นสถานะ <code>(healthy)</code> ครบทั้งหมดก่อน จึงจะคืนบรรทัดคำสั่งกลับมา</li>
+            </ol>
+          </li>
+        </ul>
+      </div>
+
+      <!-- CLASS 10 THEORY -->
+      <div class="card theory-block" id="th-c10">
+        <h3>🏛️ Class 10: Full-Stack Deployment with Two-Proxy Architecture <span class="badge badge-red">บทสรุปออกสอบ!</span></h3>
+
+        <h4>1. ทำไมใน Class 10 ถึงมี Reverse Proxy ถึง 2 ชั้น (Outer Proxy + Inner Stack Proxy)?</h4>
+        <p>ในสภาพแวดล้อมจริงของมหาวิทยาลัย (และในการทำโปรเจกต์) จะมี <strong>Reverse Proxy กลางของมหาวิทยาลัย (Outer Proxy)</strong> ตั้งอยู่หน้าสุด คอยรับคำขอจากอินเทอร์เน็ตที่เข้ามาหาแต่ละกลุ่ม เช่น <code>https://.../school/...</code> แล้วส่งต่อ (Forward) มายังเครื่อง VM ของกลุ่มเรา <strong>โดยส่ง Path <code>/school/...</code> มาเหมือนเดิมเป๊ะ (ไม่ตัดคำว่า <code>/school/</code> ออก)</strong></p>
+        <div class="callout success">
+          <div class="callout-title">👑 กฎทองของ Class 10 (จำประโยคนี้ของอาจารย์เข้าห้องสอบได้เลย!)</div>
+          <p><strong>"The path the visitor typed travels all the way in. The last proxy before the application is the one that takes the prefix off."</strong><br>
+          (พาร์ทที่ผู้ใช้พิมพ์เข้ามา จะเดินทางลึกเข้ามาเรื่อยๆ จนถึงข้างใน และ <strong>Proxy ตัวสุดท้ายที่อยู่หน้าตัวแอปพลิเคชัน คือคนที่มีหน้าที่ตัดคำนำหน้า <code>/school/</code> ออก!</strong>)</p>
+        </div>
+
+        <h4>2. เปรียบเทียบการตั้งค่า Outer Proxy (บนเครื่อง VM) vs. Inner Stack Proxy (ใน Compose)</h4>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>หัวข้อเปรียบเทียบ</th>
+                <th>1. Outer Proxy (Nginx บนเครื่อง VM)</th>
+                <th>2. Inner Stack Proxy (บริการ <code>proxy</code> ใน <code>compose.yaml</code>)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>พอร์ตที่เปิดรับ</strong></td>
+                <td><code>0.0.0.0:80</code> และ <code>0.0.0.0:443</code> (รับคนจากนอกเครื่อง)</td>
+                <td><code>127.0.0.2:8080:80</code> และ <code>127.0.0.2:8443:443</code> (รับเฉพาะจาก Outer Proxy ในเครื่องเดียวกัน)</td>
+              </tr>
+              <tr>
+                <td><strong>ไฟล์ใบรับรอง TLS</strong></td>
+                <td><code>/etc/ssl/int134/vm.crt</code> และ <code>vm.key</code> (ที่สร้างใน Class 5 — เบราว์เซอร์ของผู้ใช้จะเห็นใบรับรองใบนี้!)</td>
+                <td><code>./certs/tls.crt</code> และ <code>tls.key</code> (Mount เข้าไปที่ <code>/etc/ssl/school:ro</code> เพื่อคุย HTTPS กับ Outer Proxy)</td>
+              </tr>
+              <tr>
+                <td><strong>การเขียน <code>proxy_pass</code></strong></td>
+                <td>
+                  <span class="badge badge-amber">ห้ามใส่ <code>/</code> ปิดท้ายเด็ดขาด!</span><br>
+                  • พอร์ต 80: <code>proxy_pass http://127.0.0.2:8080;</code><br>
+                  • พอร์ต 443: <code>proxy_pass https://127.0.0.2:8443;</code><br>
+                  <em>(ถ้าเผลอใส่ <code>/</code> มันจะตัด <code>/school/</code> ทิ้งตั้งแต่ข้างนอก พอไปถึง Stack Proxy ข้างในจะได้รับแค่ <code>GET /</code> แล้วตอบ <strong>404 Not Found</strong> ทันที!)</em>
+                </td>
+                <td>
+                  <span class="badge badge-green">ต้องใส่ <code>/</code> และ <code>/api/</code> ปิดท้าย!</span><br>
+                  • <code>location /school/</code> ──► <code>proxy_pass http://web/;</code><br>
+                  • <code>location /school/api/</code> ──► <code>proxy_pass http://api:3000/api/;</code><br>
+                  <em>(เพราะตัวนี้คือ Proxy ด่านสุดท้ายก่อนถึง <code>web</code> และ <code>api</code> จึงต้องตัด <code>/school/</code> ออก)</em>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>การทำ HTTP 308 Redirect</strong></td>
+                <td>ใน <code>/etc/nginx/conf.d/http-default.conf</code> ต้องเอา <code>return 308</code> ใส่ไว้ใน <code>location / { ... }</code> เพื่อเปิดทางให้ <code>location /school/</code> ส่งต่อ HTTP ไปให้พอร์ต <code>8080</code> ได้ (พร้อมแนบ <code>proxy_set_header Host $host;</code>)</td>
+                <td>ใน <code>listen 80;</code> สั่ง <code>return 308 https://$host$request_uri;</code> เพื่อเป็นคนสั่งเด้งไป HTTPS</td>
+              </tr>
+              <tr>
+                <td><strong>การบันทึก IP จริงของผู้ใช้</strong></td>
+                <td>ส่งค่า <code>proxy_set_header X-Real-IP $remote_addr;</code> เข้าไปข้างใน</td>
+                <td>หากไม่ตั้งค่าเพิ่ม ใน <code>docker compose logs proxy</code> จะเห็น IP ต้นทางเป็น <code>172.18.0.1</code> (IP ของ Docker Bridge) จึงต้องใส่ 2 บรรทัดนี้:<br>
+                <code>set_real_ip_from 172.16.0.0/12;</code><br>
+                <code>real_ip_header X-Real-IP;</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4>3. 3 ข้อควรระวังสำคัญมากใน Class 10 (ออกสอบทั้งช้อยส์และปฏิบัติ!)</h4>
+        <ol>
+          <li><strong>ทำไมบริการ <code>proxy</code> ถึงต้อง Mount ทั้งโฟลเดอร์ <code>./proxy:/etc/nginx/conf.d:ro</code> แทนที่จะ Mount แค่ไฟล์เดียว?</strong>
+            <ul>
+              <li>การ Mount ทับทั้งโฟลเดอร์ <code>/etc/nginx/conf.d</code> จะช่วย <strong>ซ่อนไฟล์ <code>default.conf</code> ดั้งเดิม</strong> ที่ติดมากับอิมเมจ <code>nginx:1.30-alpine</code> ทิ้งไปเลย</li>
+              <li>เวลาเราแก้ไขไฟล์บนเครื่อง Host ด้วยโปรแกรม <code>vi</code> ตัว <code>vi</code> จะสร้างไฟล์ใหม่ (Inode ใหม่) แล้วเปลี่ยนชื่อทับไฟล์เดิม ถ้าเรา Mount แค่ไฟล์เดียว คอนเทนเนอร์จะยังชี้ไปที่ Inode เก่า (แก้ไฟล์แล้วข้างในไม่อัปเดต!) แต่ถ้า Mount ทั้งโฟลเดอร์ พอแก้ไฟล์แล้วสั่ง <code>docker compose exec proxy nginx -s reload</code> ค่าใหม่จะทำงานทันที!</li>
+            </ul>
+          </li>
+          <li><strong>การปิดประตูข้าง (Side Doors):</strong> เมื่อมีบริการ <code>proxy</code> เป็นประตูหน้าของ Stack แล้ว เราต้อง <strong>ลบบล็อก <code>ports:</code> ออกจากบริการ <code>db</code>, <code>api</code>, และ <code>web</code> ใน <code>compose.yaml</code> ทั้งหมด!</strong> ให้เหลือแค่บริการ <code>proxy</code> ตัวเดียวเท่านั้นที่มี <code>ports:</code> (<code>8080:80</code> และ <code>8443:443</code>)</li>
+          <li><strong>กับดัก Nginx จำ IP เก่าของคอนเทนเนอร์ (Stale Upstream DNS Cache):</strong>
+            <ul>
+              <li>ตอนที่เราลบ <code>ports:</code> ออกจาก <code>web</code> และ <code>api</code> แล้วสั่ง <code>docker compose up -d</code> ตัว Compose จะสร้างคอนเทนเนอร์ <code>web</code> และ <code>api</code> ใหม่ ทำให้มันอาจได้ <strong>IP Address ใหม่ในวงแลน <code>school_default</code></strong> (บางครั้งสลับ IP กันเองด้วย!)</li>
+              <li>แต่เนื่องจากคอนเทนเนอร์ <code>proxy</code> ไม่ได้ถูกแก้ไขค่า มันจึงไม่ถูกรีสตาร์ท และธรรมชาติของ Nginx คือ <strong>แปลงชื่อ <code>web</code> กับ <code>api</code> เป็น IP แค่ครั้งเดียวตอนสตาร์ท แล้วจำ IP เก่าไว้ตลอด!</strong></li>
+              <li>ดังนั้น หลังสร้างหรือ Recreate คอนเทนเนอร์ข้างหลังใหม่ <strong>ต้องสั่ง <code>docker compose restart proxy</code> เสมอ!</strong></li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         TAB 3: STEP-BY-STEP LAB WALKTHROUGHS (LAB 05 TO LAB 10) + ANSWERS.YAML
+         ===================================================================== -->
+    <section id="tab-labs" class="tab-panel">
+      <div class="hero-banner">
+        <h2>🛠️ คู่มือทำ Lab ปฏิบัติ Step-by-Step (Lab 05 – Lab 10) + เฉลย <code>answers.yaml</code> ทุกข้อ</h2>
+        <p>รวมคำสั่งพร้อมก๊อปปี้ ไฟล์ตั้งค่าฉบับเต็ม และเฉลยคำถาม <code>T...</code> ในไฟล์ <code>answers.yaml</code> ที่ใช้ตรวจด้วย <code>int134 check</code> ครบทุกแล็บ</p>
+      </div>
+
+      <div class="sub-nav">
+        <button class="sub-btn active" onclick="filterLabs('all', this)">🛠️ แสดงทุก Lab (05–10)</button>
+        <button class="sub-btn" onclick="filterLabs('lab-05', this)">Lab 05: Reverse Proxy & TLS</button>
+        <button class="sub-btn" onclick="filterLabs('lab-06', this)">Lab 06: Docker Setup & First Container</button>
+        <button class="sub-btn" onclick="filterLabs('lab-07', this)">Lab 07: Frontend & MySQL Image</button>
+        <button class="sub-btn" onclick="filterLabs('lab-08', this)">Lab 08: Backend Image, PID 1 & Network</button>
+        <button class="sub-btn" onclick="filterLabs('lab-09', this)">Lab 09: Docker Compose & Healthchecks</button>
+        <button class="sub-btn" onclick="filterLabs('lab-10', this)">Lab 10: Full-Stack 2-Proxy Deployment</button>
+      </div>
+
+      <!-- MASTER ANSWERS.YAML CHEAT TABLE -->
+      <div class="card">
+        <h3>📋 ตารางสรุปเฉลย <code>answers.yaml</code> ครบทุกข้อ (Lab 05 – Lab 10)</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Lab</th>
+                <th>รหัสข้อ</th>
+                <th>คำถามใน Lab Sheet</th>
+                <th>คำตอบที่ต้องใส่ใน <code>answers.yaml</code></th>
+                <th>คำอธิบายที่มา</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="badge badge-blue">Lab 05</span></td>
+                <td><code>T6</code></td>
+                <td>Did the browser's request reach the API, and what status code did the API return?</td>
+                <td><code>200</code></td>
+                <td>แม้เกิด CORS Error แต่คำขอไปถึง API และ API ตอบ <code>200 OK</code> กลับมาแล้ว (เบราว์เซอร์เป็นคนบล็อกทีหลัง)</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-blue">Lab 05</span></td>
+                <td><code>T7</code></td>
+                <td>Which response header was missing that caused the browser to block the response?</td>
+                <td><code>Access-Control-Allow-Origin</code></td>
+                <td>ชื่อ Header มาตรฐานของ CORS ที่อนุญาตให้ Origin อื่นอ่านข้อมูลได้</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-blue">Lab 05</span></td>
+                <td><code>T13</code></td>
+                <td>What client IP address did the API log before adding <code>proxy_set_header</code>?</td>
+                <td><code>127.0.0.1</code></td>
+                <td>เมื่อผ่าน Reverse Proxy บนเครื่องเดียวกันโดยไม่แนบ Header ตัว API จะเห็นคนเรียกคือ <code>127.0.0.1</code></td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-blue">Lab 05</span></td>
+                <td><code>T14</code></td>
+                <td>What value can <code>CORS_ORIGIN</code> be set to once the frontend and API share the same origin?</td>
+                <td><code>""</code> (ค่าว่าง)</td>
+                <td>เมื่ออยู่ภายใต้พอร์ตและโดเมนเดียวกันผ่าน Nginx แล้ว ก็ไม่ใช่ Cross-Origin อีกต่อไป จึงปิด CORS ได้</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-purple">Lab 06</span></td>
+                <td><code>T14</code></td>
+                <td>Why did the <code>ubuntu</code> / <code>busybox</code> container exit immediately when run without <code>-it</code>?</td>
+                <td><code>sh</code> / <code>PID 1 exited</code></td>
+                <td>โปรเซสแรก (PID 1) คือ Shell ซึ่งเมื่อไม่มี interactive tty เปิดรอรับคำสั่งก็จะจบการทำงานทันที</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-purple">Lab 06</span></td>
+                <td><code>T22</code></td>
+                <td>What happened to the school page after removing and recreating <code>school-web</code> from <code>nginx:1.30-alpine</code>?</td>
+                <td><code>Welcome to nginx!</code></td>
+                <td>ไฟล์ที่ก๊อปปี้ด้วย <code>docker cp</code> อยู่ใน Read-Write Layer ของคอนเทนเนอร์เก่า พอลบคอนเทนเนอร์ทิ้งก็หายหมด</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-green">Lab 07</span></td>
+                <td><code>T19</code></td>
+                <td>Which environment variable did the database container say was missing?</td>
+                <td><code>MYSQL_ROOT_PASSWORD</code></td>
+                <td>ดูจาก <code>docker logs school-db</code> ตอนรัน <code>mysql:8.4</code> เปล่าๆ</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-green">Lab 07</span></td>
+                <td><code>T21</code></td>
+                <td>Which docker command prints the password passed with <code>-e</code> back out in plain text?</td>
+                <td><code>docker inspect</code></td>
+                <td>คำสั่ง <code>docker inspect school-db</code> จะแสดงตัวแปรใน <code>Config.Env</code> ทั้งหมด</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-green">Lab 07</span></td>
+                <td><code>T27</code></td>
+                <td>Which of your files asked MySQL to print that second generated password?</td>
+                <td><code>setup.container.sql</code></td>
+                <td>ในไฟล์มีคำสั่ง <code>CREATE USER ... IDENTIFIED BY RANDOM PASSWORD;</code></td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-amber">Lab 08</span></td>
+                <td><code>T3</code></td>
+                <td>How much build context was sent to the Docker daemon in Step 3?</td>
+                <td><code>241.52MB</code> (ดูตัวเลขจริงตอนรัน)</td>
+                <td>ตอนยังไม่มี <code>.dockerignore</code> มันส่งทั้งโฟลเดอร์ <code>node_modules</code> ไปด้วย</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-amber">Lab 08</span></td>
+                <td><code>T10</code></td>
+                <td>Was <code>RUN npm ci</code> marked <code>CACHED</code> this time?</td>
+                <td><code>yes</code></td>
+                <td>เมื่อแก้เฉพาะ <code>server.js</code> ซึ่งอยู่หลังบรรทัด <code>RUN npm ci</code> ตัว Docker จึงใช้แคชเดิมได้</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-amber">Lab 08</span></td>
+                <td><code>T11</code></td>
+                <td>Which path did the build say was not found when building from the wrong context directory?</td>
+                <td><code>/prisma</code></td>
+                <td>เพราะคำสั่ง <code>COPY</code> มองหาไฟล์จากโฟลเดอร์ Build Context ที่ระบุท้ายคำสั่ง ไม่ใช่โฟลเดอร์ของ <code>-f</code></td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-amber">Lab 08</span></td>
+                <td><code>T32</code></td>
+                <td>How many seconds did <code>docker stop school-api</code> take before adding <code>exec</code>?</td>
+                <td><code>10</code></td>
+                <td>เพราะ <code>/bin/sh</code> เป็น PID 1 และไม่ส่งต่อ <code>SIGTERM</code> ให้ <code>node</code> จนหมดเวลา 10 วินาที</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-amber">Lab 08</span></td>
+                <td><code>T35</code></td>
+                <td>Does <code>docker history</code> mention <code>NODE_TAG</code> anywhere?</td>
+                <td><code>no</code></td>
+                <td>เพราะ <code>ARG NODE_TAG</code> ถูกประกาศไว้ก่อนบรรทัด <code>FROM</code> จึงมีผลแค่ที่บรรทัด <code>FROM</code> เท่านั้น</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-red">Lab 09</span></td>
+                <td><code>T20</code></td>
+                <td>Step 20 – did all three of your requests right after <code>up -d</code> get the register?</td>
+                <td><code>no</code></td>
+                <td>เพราะตอนยังไม่มี <code>depends_on: condition: service_healthy</code> และ <code>--wait</code> ตัว API และ DB ยังบูตไม่เสร็จ</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-red">Lab 09</span></td>
+                <td><code>T29</code></td>
+                <td>Step 29 – which containers whose names start with <code>school</code> does the list still show after <code>docker compose down</code>?</td>
+                <td><code>none</code></td>
+                <td>คำสั่ง <code>docker compose down</code> จะหยุดและลบคอนเทนเนอร์ทั้งหมดของโปรเจกต์ออก</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-red">Lab 10</span></td>
+                <td><code>T12</code></td>
+                <td>Start date of the certificate served on port <code>8443</code></td>
+                <td>วันที่สร้างใบรับรองในคาบ 10</td>
+                <td>ดูจากคำสั่ง <code>curl -vskI https://127.0.0.2:8443/school/ 2>&amp;1 | grep -A5 'Server certificate'</code></td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-red">Lab 10</span></td>
+                <td><code>T17a</code> / <code>T17b</code></td>
+                <td>Status code when outer nginx had trailing slash on <code>proxy_pass</code>, and path logged by inner proxy</td>
+                <td><code>404</code> และ <code>/</code></td>
+                <td>เพราะ Outer Nginx เผลอตัด <code>/school/</code> ออก ส่งไปเป็น <code>GET /</code> ทำให้ Inner Proxy หาไม่เจอและตอบ <code>404</code></td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-red">Lab 10</span></td>
+                <td><code>T20</code></td>
+                <td>What <code>Location</code> header was returned on port 80 before adding <code>proxy_set_header Host $host</code>?</td>
+                <td><code>https://127.0.0.2/school/</code></td>
+                <td>เพราะถ้าไม่ส่ง <code>Host $host</code> ไปให้ ตัว Inner Proxy จะเห็น <code>$host</code> เป็น <code>127.0.0.2</code></td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-red">Lab 10</span></td>
+                <td><code>T22</code></td>
+                <td>What client IP address did the stack's proxy log before adding <code>set_real_ip_from</code>?</td>
+                <td><code>172.18.0.1</code> (IP Gateway ของวง Compose)</td>
+                <td>ก่อนตั้งค่า <code>set_real_ip_from 172.16.0.0/12; real_ip_header X-Real-IP;</code> มันจะเห็น IP ของสะพาน Docker</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- LAB 05 WALKTHROUGH -->
+      <div class="card lab-block" id="lab-05">
+        <h3>🌐 Lab 05 (`lab05class` / `lab05`): Reverse Proxy, Integration & Self-Signed TLS</h3>
+        <p><strong>เป้าหมาย:</strong> นำหน้าเว็บ Frontend ออกมาวางที่ <code>/var/www/school/</code>, ตั้งค่า Nginx Reverse Proxy ให้รวม Frontend และ Backend ไว้ที่พอร์ตเดียวกันภายใต้พาร์ท <code>/school/</code> และ <code>/school/api/</code>, ปิดพอร์ต Backend จากภายนอก, และเปิดใช้งาน HTTPS (พอร์ต 443) พร้อมเด้งพอร์ต 80 ด้วยรหัส <code>308</code></p>
+
+        <div class="code-wrap">
+          <div class="code-header"><span>Step 1: คัดลอกไฟล์ Frontend ด้วย rsync และตั้งค่า config.js</span><button class="copy-btn" onclick="copyCode(this)">คัดลอก</button></div>
+          <pre><code>sudo mkdir -p /var/www/school
+sudo rsync -a --chmod=D755,F644 --delete --exclude config.js /srv/school/frontend/ /var/www/school/
+sudo cp /srv/school/frontend/config.example.js /var/www/school/config.js
+sudo chmod 644 /var/www/school/config.js
+
+# แก้ไขไฟล์ /var/www/school/config.js ให้ชี้ไปที่ Relative URL เดียวกัน:
+sudo tee /var/www/school/config.js > /dev/null <<'EOF'
+window.SCHOOL_CONFIG = {
+  studentsUrl: "/school/api/students",
+  deployedBy: "68130500XXX",
+};
+EOF</code></pre>
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-header"><span>Step 2: ล็อก Backend ให้อยู่แค่ในเครื่อง (127.0.0.1) และปิดพอร์ตใน UFW</span><button class="copy-btn" onclick="copyCode(this)">คัดลอก</button></div>
+          <pre><code># 1. ในไฟล์ /srv/school/backend/.env ตั้งค่า:
+#    HOST=127.0.0.1
+#    CORS_ORIGIN=""
+sudo systemctl restart school-api
+
+# 2. ลบกฎ UFW ที่เคยเปิดพอร์ต API (เช่น 3174) ทิ้ง:
+sudo ufw delete allow 3174/tcp</code></pre>
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-header"><span>Step 3: สร้างใบรับรอง TLS (/etc/ssl/int134/vm.crt & vm.key)</span><button class="copy-btn" onclick="copyCode(this)">คัดลอก</button></div>
+          <pre><code>sudo mkdir -p /etc/ssl/int134
+sudo openssl req -x509 -nodes -newkey rsa:2048 -days 365 \
+  -keyout /etc/ssl/int134/vm.key \
+  -out /etc/ssl/int134/vm.crt \
+  -subj "/CN=$(hostname -f)" \
+  -addext "subjectAltName=DNS:$(hostname -f),DNS:$(hostname)"
+sudo chmod 600 /etc/ssl/int134/vm.key</code></pre>
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-header"><span>Step 4: ไฟล์ตั้งค่า Nginx ทั้ง 3 ไฟล์ใน /etc/nginx/conf.d/ (สำหรับจบ Lab 05)</span><button class="copy-btn" onclick="copyCode(this)">คัดลอก</button></div>
+          <pre><code># --- 1) /etc/nginx/conf.d/school.location ---
+location /school/ {
+    alias /var/www/school/;
+    index index.html;
+    try_files $uri $uri/ =404;
+}
+
+location /school/api/ {
+    proxy_pass http://127.0.0.1:3174/api/;
+    proxy_set_header Host              $host;
+    proxy_set_header X-Real-IP         $remote_addr;
+    proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+}
+
+# --- 2) /etc/nginx/conf.d/https-default.conf ---
+server {
+    listen      443 ssl default_server;
+    server_name lvm68174.sit.kmutt.ac.th lvm68174;
+
+    ssl_certificate     /etc/ssl/int134/vm.crt;
+    ssl_certificate_key /etc/ssl/int134/vm.key;
+
+    include conf.d/school.location;
+}
+
+# --- 3) /etc/nginx/conf.d/http-default.conf ---
+server {
+    listen      80 default_server;
+    server_name lvm68174.sit.kmutt.ac.th lvm68174;
+    return 308 https://$host$request_uri;
+}</code></pre>
+        </div>
+        <p>อย่าลืมเปิดพอร์ต HTTPS ใน UFW และโหลด Nginx ใหม่: <code>sudo ufw allow 443/tcp &amp;&amp; sudo nginx -t &amp;&amp; sudo systemctl reload nginx</code></p>
+      </div>
+
+      <!-- LAB 06 WALKTHROUGH -->
+      <div class="card lab-block" id="lab-06">
+        <h3>🐳 Lab 06 (`lab06class` / `lab06`): ติดตั้ง Docker & รันคอนเทนเนอร์ตัวแรก</h3>
+        <div class="code-wrap">
+          <div class="code-header"><span>Step 1: ตั้งค่ากลุ่มผู้ใช้ docker และไฟล์ /etc/docker/daemon.json</span><button class="copy-btn" onclick="copyCode(this)">คัดลอก</button></div>
+          <pre><code># เพิ่มผู้ใช้เข้ากลุ่ม docker (หลังรันต้องออกแล้วเข้า SSH ใหม่ หรือพิมพ์ newgrp docker)
+sudo usermod -aG docker sysadmin
+
+# ตั้งค่า Registry Mirror และ Log Rotation
+sudo tee /etc/docker/daemon.json > /dev/null <<'EOF'
+{
+  "registry-mirrors": ["https://lvmolarn.sit.kmutt.ac.th"],
+  "log-driver": "local",
+  "log-opts": {
+    "max-size": "10m"
+  }
+}
+EOF
+
+sudo systemctl restart docker
+docker info</code></pre>
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-header"><span>Step 2: รันคอนเทนเนอร์ school-web และชี้ Nginx บน Host ไปหาคอนเทนเนอร์</span><button class="copy-btn" onclick="copyCode(this)">คัดลอก</button></div>
+          <pre><code># รันคอนเทนเนอร์ผูกไว้ที่ 127.0.0.2 พอร์ต 9XXX (เช่น 9174)
+docker run -d --name school-web -p 127.0.0.2:9174:80 nginx:1.30-alpine
+
+# คัดลอกไฟล์เว็บเข้าไป (สังเกต /. ท้ายต้นทาง!)
+docker cp /var/www/school/. school-web:/usr/share/nginx/html/
+
+# แก้ไขบล็อก location /school/ ใน /etc/nginx/conf.d/school.location ให้เปลี่ยนจาก alias เป็น proxy_pass:
+# location /school/ {
+#     proxy_pass http://127.0.0.2:9174/;
+#     proxy_set_header Host              $host;
+#     proxy_set_header X-Real-IP         $remote_addr;
+#     proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+#     proxy_set_header X-Forwarded-Proto $scheme;
+# }
+sudo nginx -t && sudo systemctl reload nginx</code></pre>
+        </div>
+      </div>
+
+      <!-- LAB 07 WALKTHROUGH -->
+      <div class="card lab-block" id="lab-07">
+        <h3>🏗️ Lab 07 (`lab07class` / `lab07`): สร้าง Image สำหรับ Frontend และฐานข้อมูล MySQL</h3>
+        <div class="code-wrap">
+          <div class="code-header"><span>Part 2 & 3: สร้าง Image school/frontend:1.0 และรันพร้อม Bind Mount ไฟล์ config.name.js</span><button class="copy-btn" onclick="copyCode(this)">คัดลอก</button></div>
+          <pre><code>cd /srv/school/frontend
+
+# 1. สร้าง config.js (ใส่รหัสนักศึกษา 11 หลัก สำหรับฝังใน Image)
+cat > config.js <<'EOF'
+window.SCHOOL_CONFIG = {
+  studentsUrl: "/school/api/students",
+  deployedBy: "68130500174",
+};
+EOF
+
+# 2. สร้าง Dockerfile สำหรับ Frontend
+cat > Dockerfile <<'EOF'
+FROM nginx:1.30-alpine
+COPY . /usr/share/nginx/html/
+EOF
+
+# 3. Build อิมเมจ
+docker build -t school/frontend:1.0 .
+
+# 4. สร้าง config.name.js (ใส่ชื่อ-นามสกุลจริง สำหรับใช้ Bind Mount ตอนรัน)
+cat > config.name.js <<'EOF'
+window.SCHOOL_CONFIG = {
+  studentsUrl: "/school/api/students",
+  deployedBy: "Somchai Jaidee",
+};
+EOF
+
+# 5. ลบตัวเก่าและรันใหม่พร้อม --restart unless-stopped และ Bind Mount แบบ :ro
+docker rm -f school-web
+docker run -d --name school-web --restart unless-stopped \
+  -p 127.0.0.2:9174:80 \
+  -v /srv/school/frontend/config.name.js:/usr/share/nginx/html/config.js:ro \
+  school/frontend:1.0</code></pre>
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-header"><span>Part 5–7: รันคอนเทนเนอร์ฐานข้อมูล MySQL 8.4 อย่างถูกต้อง + สร้าง Image school/db:1.0</span><button class="copy-btn" onclick="copyCode(this)">คัดลอก</button></div>
+          <pre><code>cd /srv/school/db
+
+# 1. ล้าง Anonymous Volumes ที่ค้างจากการทดลองรันพังใน Part 4
+docker rm -f school-db
+docker volume prune -f
+
+# 2. สร้างไฟล์ setup.container.sql (เปลี่ยนจาก 'school'@'localhost' เป็น 'school'@'172.17.0.1')
+cp setup.sql setup.container.sql
+sed -i "s/'school'@'localhost'/'school'@'172.17.0.1'/g" setup.container.sql
+
+# 3. สร้างไฟล์ mysql.env (ห้ามส่งรหัสผ่านผ่าน -e บนบรรทัดคำสั่ง!)
+echo "MYSQL_RANDOM_ROOT_PASSWORD=1" > /srv/school/db/mysql.env
+chmod 600 /srv/school/db/mysql.env
+
+# 4. สร้าง Named Volume และรันคอนเทนเนอร์ school-db (สังเกตชื่อ 01-setup.sql และ 02-schema.sql!)
+docker volume create school-db-data
+docker run -d --name school-db --restart unless-stopped \
+  --env-file /srv/school/db/mysql.env \
+  -v school-db-data:/var/lib/mysql \
+  -v /srv/school/db/setup.container.sql:/docker-entrypoint-initdb.d/01-setup.sql:ro \
+  -v /srv/school/db/schema.sql:/docker-entrypoint-initdb.d/02-schema.sql:ro \
+  -p 127.0.0.2:3306:3306 \
+  mysql:8.4
+
+# 5. ดูรหัสผ่านที่ MySQL สุ่มให้สำหรับผู้ใช้ school จาก docker logs
+docker logs school-db | grep -A 3 "GENERATED RANDOM PASSWORD"
+
+# 6. นำรหัสผ่านที่ได้ไปใส่ใน /srv/school/db/school.container.env (chmod 600) แล้วโยนข้อมูล seed.sql เข้าไป:
+#    MYSQL_PWD="$SCHOOL_PASSWORD" mysql -h 127.0.0.2 -u school school -e "SOURCE /srv/school/db/seed.sql;"
+
+# 7. สร้าง Dockerfile สำหรับ school/db:1.0 (Part 7)
+cat > /srv/school/db/Dockerfile <<'EOF'
+FROM mysql:8.4
+COPY setup.container.sql /docker-entrypoint-initdb.d/01-setup.sql
+COPY schema.sql /docker-entrypoint-initdb.d/02-schema.sql
+EOF
+docker build -t school/db:1.0 /srv/school/db</code></pre>
+        </div>
+      </div>
+
+      <!-- LAB 08 WALKTHROUGH -->
+      <div class="card lab-block" id="lab-08">
+        <h3>⚙️ Lab 08 (`lab08class` / `lab08`): สร้าง Image สำหรับ Backend, เครือข่าย `school-net` และ `entrypoint.sh`</h3>
+        <div class="callout warn">
+          <div class="callout-title">💡 เคล็ดลับสำคัญในการทำ Lab 08</div>
+          <p>ใน Lab 08 สคริปต์ตรวจ <code>int134 check lab08class</code> จะบันทึกผลตรวจสะสมในแต่ละ Part ดังนั้นเมื่อทำจบแต่ละ Part ให้รัน <code>int134 check lab08class</code> เสมอก่อนข้ามไปแก้ไฟล์ใน Part ถัดไป!</p>
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-header"><span>Part 4: สำรองข้อมูลเดิม, สร้างวงแลน school-net, และสร้าง school-db บนโวลุ่มใหม่ school-db-data2</span><button class="copy-btn" onclick="copyCode(this)">คัดลอก</button></div>
+          <pre><code>cd /srv/school/db
+set -a; . /srv/school/db/school.container.env; set +a
+
+# 1. ดัมพ์เฉพาะข้อมูลแถวนักเรียนออกมาเก็บไว้ (ต้องมี --no-tablespaces และ --no-create-info)
+MYSQL_PWD="$SCHOOL_PASSWORD" mysqldump -h 127.0.0.2 -u school \
+  --no-tablespaces --no-create-info school students > /srv/school/db/school-rows.sql
+
+# 2. สร้าง User-defined Bridge Network
+docker network create school-net
+
+# 3. สร้างไฟล์ init.env (สำคัญมาก: ห้ามใส่เครื่องหมายคำพูดครอบรหัสผ่านในไฟล์ที่ใช้กับ --env-file!)
+cat > /srv/school/db/init.env <<EOF
+MYSQL_RANDOM_ROOT_PASSWORD=1
+MYSQL_DATABASE=school
+MYSQL_USER=school
+MYSQL_PASSWORD=${SCHOOL_PASSWORD}
+EOF
+chmod 600 /srv/school/db/init.env
+
+# 4. สร้างโวลุ่ม school-db-data2 และรันครั้งแรกเพื่อให้ init.env + schema.sql ทำงาน
+docker volume create school-db-data2
+docker rm -f school-db
+docker run -d --name school-db --restart unless-stopped \
+  --network school-net \
+  --env-file /srv/school/db/init.env \
+  -v school-db-data2:/var/lib/mysql \
+  -v /srv/school/db/schema.sql:/docker-entrypoint-initdb.d/02-schema.sql:ro \
+  -p 127.0.0.2:3306:3306 \
+  mysql:8.4
+
+# 5. รอประมาณ 10 วินาทีให้ MySQL สร้างฐานข้อมูลเสร็จ (เช็กด้วย docker logs school-db)
+#    จากนั้น "ลบและรัน school-db ใหม่โดยตัด --env-file ออก" เพื่อไม่ให้รหัสผ่านค้างอยู่ใน docker inspect!
+docker rm -f school-db
+docker run -d --name school-db --restart unless-stopped \
+  --network school-net \
+  -v school-db-data2:/var/lib/mysql \
+  -p 127.0.0.2:3306:3306 \
+  mysql:8.4
+
+# 6. นำข้อมูลนักเรียนกลับเข้าฐานข้อมูล
+MYSQL_PWD="$SCHOOL_PASSWORD" mysql -h 127.0.0.2 -u school school -e "SOURCE /srv/school/db/school-rows.sql;"</code></pre>
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-header"><span>Part 6 & 7: สร้าง entrypoint.sh, Dockerfile.4, รัน school-api:1.1 และปิดบริการเก่าบน Host</span><button class="copy-btn" onclick="copyCode(this)">คัดลอก</button></div>
+          <pre><code>cd /srv/school/backend
+
+# 1. สร้างไฟล์ entrypoint.sh (ใช้ exec "$@" เพื่อให้ node เป็น PID 1!)
+cat > entrypoint.sh <<'EOF'
+#!/bin/sh
+if [ ! -s /app/.env ]; then
+  echo "entrypoint: no configuration mounted at /app/.env - refusing to start" >&2
+  exit 1
+fi
+echo "entrypoint: school api ${APP_VERSION:-unversioned}, listening on ${HOST}:${PORT}"
+exec "$@"
+EOF
+chmod +x entrypoint.sh
+
+# 2. สร้างไฟล์ Dockerfile.4
+cat > Dockerfile.4 <<'EOF'
+ARG NODE_TAG=24.19-alpine
+FROM node:${NODE_TAG}
+ENV HOST=0.0.0.0 PORT=3000
+WORKDIR /app
+COPY package*.json ./
+COPY prisma ./prisma
+RUN touch .env && npm ci
+ARG APP_VERSION=unversioned
+ENV APP_VERSION=${APP_VERSION}
+COPY . .
+USER node
+ENTRYPOINT ["./entrypoint.sh"]
+CMD ["node", "server.js"]
+EOF
+
+# 3. Build อิมเมจเวอร์ชัน 1.1 พร้อมส่ง --build-arg APP_VERSION=1.1
+docker build -f Dockerfile.4 --build-arg APP_VERSION=1.1 -t school/api:1.1 .
+
+# 4. ตรวจสอบว่าใน /srv/school/backend/container.env ชี้ DATABASE_URL ไปที่ @school-db:3306/school แล้วรัน:
+docker rm -f school-api
+docker run -d --name school-api --restart unless-stopped \
+  --network school-net \
+  -v /srv/school/backend/container.env:/app/.env:ro \
+  -p 127.0.0.2:3174:3000 \
+  school/api:1.1
+
+# 5. อัปเดต /etc/nginx/conf.d/school.location ให้ชี้ /school/api/ ไปที่ http://127.0.0.2:3174/api/;
+sudo sed -i 's|http://127.0.0.1:3174/api/|http://127.0.0.2:3174/api/|g' /etc/nginx/conf.d/school.location
+sudo nginx -t && sudo systemctl reload nginx
+
+# 6. ปิดบริการเก่าบนเครื่อง Host (เฉพาะเมื่อย้ายทั้ง school และ noticeboard ขึ้นคอนเทนเนอร์แล้ว)
+sudo systemctl disable --now school-api
+sudo systemctl disable --now mysql</code></pre>
+        </div>
+      </div>
+
+      <!-- LAB 09 WALKTHROUGH -->
+      <div class="card lab-block" id="lab-09">
+        <h3>🎼 Lab 09 (`lab09class` / `lab09`): รวบระบบทั้งหมดเข้าสู่ Docker Compose</h3>
+        <div class="code-wrap">
+          <div class="code-header"><span>Step 5 & 6: แก้ชื่อไฟล์เป็น .env.container, อัปเดต .dockerignore และสร้าง /srv/school/.env</span><button class="copy-btn" onclick="copyCode(this)">คัดลอก</button></div>
+          <pre><code># 1. เปลี่ยนชื่อ container.env เป็น .env.container เพื่อให้ตรงกับ .env* ใน .dockerignore!
+mv /srv/school/backend/container.env /srv/school/backend/.env.container
+
+# 2. แก้ชื่อ Host ของฐานข้อมูลใน .env.container จาก @school-db:3306 เป็น @db:3306 (ชื่อ service ใน Compose)
+sed -i 's/@school-db:3306/@db:3306/g' /srv/school/backend/.env.container
+
+# 3. อัปเดต /srv/school/backend/.dockerignore
+cat > /srv/school/backend/.dockerignore <<'EOF'
+node_modules
+.env*
+.*ignore
+Dockerfile*
+EOF
+
+# 4. สร้างไฟล์ /srv/school/.env สำหรับให้ Docker Compose อ่าน (เปลี่ยนพอร์ตตามเลขท้าย VM ของตัวเอง)
+cat > /srv/school/.env <<'EOF'
+BIND=127.0.0.2
+WEB_PORT=9174
+API_PORT=3174
+EOF</code></pre>
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-header"><span>ไฟล์ /srv/school/compose.yaml (ฉบับสมบูรณ์สำหรับจบ Lab 09)</span><button class="copy-btn" onclick="copyCode(this)">คัดลอก</button></div>
+          <pre><code>name: school
+
+services:
+  db:
+    image: mysql:8.4
+    ports:
+      - "${BIND:?set BIND in .env}:3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.4
+      args:
+        APP_VERSION: "1.3"
+    image: school/api:1.3
+    ports:
+      - "${BIND:?set BIND in .env}:${API_PORT:?set API_PORT in .env}:3000"
+    volumes:
+      - ./backend/.env.container:/app/.env:ro
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-qO", "/dev/null", "http://127.0.0.1:3000/api/students"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  web:
+    build:
+      context: ./frontend
+    image: school/frontend:1.1
+    ports:
+      - "${BIND:?set BIND in .env}:${WEB_PORT:?set WEB_PORT in .env}:80"
+    volumes:
+      - ./frontend/config.name.js:/usr/share/nginx/html/config.js:ro
+    restart: unless-stopped
+
+volumes:
+  db-data:
+    external: true
+    name: school-db-data2</code></pre>
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-header"><span>คำสั่งลบคอนเทนเนอร์ทำมือชุดเก่า และรัน Compose Stack พร้อมรอ Healthcheck</span><button class="copy-btn" onclick="copyCode(this)">คัดลอก</button></div>
+          <pre><code>cd /srv/school
+docker rm -f school-web school-api school-db
+docker network rm school-net
+
+docker compose config
+docker compose up -d --build --wait
+docker compose ps</code></pre>
+        </div>
+      </div>
+
+      <!-- LAB 10 WALKTHROUGH -->
+      <div class="card lab-block" id="lab-10">
+        <h3>🏛️ Lab 10 (`lab10class` / `lab10`): Full-Stack Deployment พร้อม Stack Proxy & Outer Proxy</h3>
+        <div class="code-wrap">
+          <div class="code-header"><span>Step 1–10: ลบอิมเมจเก่าที่มีรหัสผ่านรั่ว, สร้างใบรับรอง TLS สำหรับ Stack Proxy และตั้งค่า default.conf</span><button class="copy-btn" onclick="copyCode(this)">คัดลอก</button></div>
+          <pre><code># 1. ลบอิมเมจ school/api รุ่นเก่า (1.0, 1.1, 1.2) ที่เคยมีไฟล์ container.env ติดเข้าไป
+docker rmi school/api:1.0 school/api:1.1 school/api:1.2 2>/dev/null || true
+
+# 2. สร้างโฟลเดอร์เก็บใบรับรองและคอนฟิกของบริการ proxy
+mkdir -p /srv/school/certs /srv/school/proxy
+
+# 3. สร้างใบรับรอง TLS สำหรับบริการ proxy ใน Stack
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+  -keyout /srv/school/certs/tls.key \
+  -out /srv/school/certs/tls.crt \
+  -subj "/CN=$(hostname -f)" \
+  -addext "subjectAltName=DNS:$(hostname -f),DNS:$(hostname)"
+
+# 4. สร้างไฟล์ /srv/school/proxy/default.conf (Inner Stack Proxy — ตัดคำว่า /school/ ออกที่นี่!)
+cat > /srv/school/proxy/default.conf <<'EOF'
+set_real_ip_from 172.16.0.0/12;
+real_ip_header   X-Real-IP;
+
+server {
+    listen 80;
+    return 308 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    ssl_certificate     /etc/ssl/school/tls.crt;
+    ssl_certificate_key /etc/ssl/school/tls.key;
+
+    location /school/ {
+        proxy_pass http://web/;
+    }
+
+    location /school/api/ {
+        proxy_pass http://api:3000/api/;
+        proxy_set_header Host              $host;
+        proxy_set_header X-Real-IP         $remote_addr;
+        proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+EOF</code></pre>
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-header"><span>ไฟล์ /srv/school/compose.yaml (ฉบับสมบูรณ์สำหรับจบ Lab 10 — เอา ports: ออกจาก db, api, web!)</span><button class="copy-btn" onclick="copyCode(this)">คัดลอก</button></div>
+          <pre><code>name: school
+
+services:
+  db:
+    image: mysql:8.4
+    volumes:
+      - db-data:/var/lib/mysql
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.4
+      args:
+        APP_VERSION: "1.3"
+    image: school/api:1.3
+    volumes:
+      - ./backend/.env.container:/app/.env:ro
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-qO", "/dev/null", "http://127.0.0.1:3000/api/students"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  web:
+    build:
+      context: ./frontend
+    image: school/frontend:1.1
+    volumes:
+      - ./frontend/config.name.js:/usr/share/nginx/html/config.js:ro
+    restart: unless-stopped
+
+  proxy:
+    image: nginx:1.30-alpine
+    ports:
+      - "${BIND:?set BIND in .env}:8080:80"
+      - "${BIND:?set BIND in .env}:8443:443"
+    volumes:
+      - ./proxy:/etc/nginx/conf.d:ro
+      - ./certs:/etc/ssl/school:ro
+    restart: unless-stopped
+    depends_on:
+      - web
+      - api
+
+volumes:
+  db-data:
+    external: true
+    name: school-db-data2</code></pre>
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-header"><span>ไฟล์ตั้งค่า Outer Nginx บนเครื่อง Host (/etc/nginx/conf.d/school.location & http-default.conf)</span><button class="copy-btn" onclick="copyCode(this)">คัดลอก</button></div>
+          <pre><code># --- 1) /etc/nginx/conf.d/school.location (ห้ามใส่ / หลัง 8443 เด็ดขาด!) ---
+location /school/ {
+    proxy_pass https://127.0.0.2:8443;
+    proxy_set_header Host              $host;
+    proxy_set_header X-Real-IP         $remote_addr;
+    proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+}
+
+# --- 2) /etc/nginx/conf.d/http-default.conf (ย้าย return 308 เข้าไว้ใน location / และส่ง /school/ ไป 8080) ---
+server {
+    listen      80 default_server;
+    server_name lvm68174.sit.kmutt.ac.th lvm68174;
+
+    location / {
+        return 308 https://$host$request_uri;
+    }
+
+    location /school/ {
+        proxy_pass http://127.0.0.2:8080;
+        proxy_set_header Host              $host;
+        proxy_set_header X-Real-IP         $remote_addr;
+        proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}</code></pre>
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-header"><span>คำสั่งรันและรีสตาร์ทบริการ proxy เพื่อป้องกันปัญหาจำ IP เก่า</span><button class="copy-btn" onclick="copyCode(this)">คัดลอก</button></div>
+          <pre><code>cd /srv/school
+docker compose up -d --wait
+docker compose restart proxy
+sudo nginx -t && sudo systemctl reload nginx</code></pre>
+        </div>
+
+        <div class="callout purple">
+          <div class="callout-title">🏠 สรุปความต่างระหว่างแล็บในห้อง (<code>school</code>) กับการบ้าน (<code>noticeboard</code>)</div>
+          <ul>
+            <li><strong>แล็บในห้อง (<code>lab06class</code>–<code>lab10class</code>):</strong> โฟลเดอร์ <code>/srv/school</code> • ผูก IP ที่ <strong><code>127.0.0.2</code></strong> • พาร์ทเว็บคือ <code>/school/</code> และ <code>/school/api/students</code> • ชื่อโวลุ่มคือ <code>school-db-data2</code></li>
+            <li><strong>การบ้าน (<code>lab06</code>–<code>lab10</code>):</strong> โฟลเดอร์ <code>/srv/noticeboard</code> • ผูก IP ที่ <strong><code>127.0.0.3</code></strong> • พาร์ทเว็บคือ <code>/noticeboard/</code> (หรือ <code>/</code> ตามโจทย์กำหนด) และ <code>/api/notices</code> • ชื่อโวลุ่มคือ <code>noticeboard-db-data</code></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         TAB 4: MODULE 2 MOCK PRACTICAL EXAM & TROUBLESHOOTING CHEAT SHEET
+         ===================================================================== -->
+    <section id="tab-mocklab" class="tab-panel">
+      <div class="hero-banner">
+        <h2>🧪 จำลองสอบปฏิบัติ Module 2 (`module2mock`) + คัมภีร์แก้บั๊กหน้าห้องสอบ</h2>
+        <p>จำลองโจทย์สอบปฏิบัติจริงแบบแยกพาร์ทอิสระตามที่อาจารย์โอฬารแจ้งในคาบที่ 10 พร้อมเช็กลิสต์ตรวจตัวเองแบบ <code>int134 check</code> และตารางแก้ปัญหาเฉพาะหน้า</p>
+      </div>
+
+      <!-- Scenario Overview -->
+      <div class="card">
+        <h3>📜 โจทย์จำลองสอบปฏิบัติ (Module 2 Mock Lab Scenario)</h3>
+        <p>สมมติว่าในห้องสอบ คุณได้รับเครื่อง VM และมีโปรเจกต์เว็บแอปพลิเคชันอยู่ใน <code>/srv/clinic</code> (หรือชื่อโปรเจกต์ตามที่โจทย์กำหนด เช่น <code>school</code> / <code>noticeboard</code> / <code>clinic</code>) ซึ่งประกอบด้วย 3 โฟลเดอร์ย่อยคือ <code>frontend/</code>, <code>backend/</code>, และ <code>db/</code> โดยมีข้อกำหนดดังนี้:</p>
+        <ul>
+          <li>ใช้ Loopback IP ประจำโปรเจกต์คือ <strong><code>127.0.0.2</code></strong> (หรือตามที่โจทย์ระบุในไฟล์โครง)</li>
+          <li>ต้องการให้เข้าใช้งานผ่านพาร์ท <strong><code>https://&lt;your-vm&gt;/clinic/</code></strong> และ API ที่ <strong><code>https://&lt;your-vm&gt;/clinic/api/patients</code></strong></li>
+          <li>แบ่งการให้คะแนนออกเป็น <strong>5 ภารกิจอิสระ (Missions 1–5)</strong> ทำพาร์ทไหนเสร็จได้คะแนนพาร์ทนั้นทันที!</li>
+        </ul>
+
+        <!-- Interactive int134 check simulator -->
+        <h4>✅ เช็กลิสต์จำลอง <code>int134 check</code> (ติ๊กเช็กความครบถ้วนก่อนส่งข้อสอบจริง!)</h4>
+        <div id="mockChecklist">
+          <label class="check-item" onclick="toggleCheckItem(this)">
+            <input type="checkbox" />
+            <span><strong>[Mission 1 - Database]:</strong> สร้าง Named Volume, นำเข้า <code>schema.sql</code> + ข้อมูลเริ่มต้นเรียบร้อย, ลบ Anonymous Volumes ทิ้งด้วย <code>docker volume prune</code>, และไม่มีรหัสผ่านโผล่ใน <code>docker inspect</code></span>
+          </label>
+          <label class="check-item" onclick="toggleCheckItem(this)">
+            <input type="checkbox" />
+            <span><strong>[Mission 2 - Frontend Image]:</strong> เขียน <code>frontend/Dockerfile</code> (<code>FROM nginx:1.30-alpine</code> + <code>COPY . /usr/share/nginx/html/</code>), ไม่มีไฟล์เว็บโผล่ใน <code>docker diff</code>, และใช้ Bind Mount ไฟล์ <code>config.js:ro</code> ตอนรัน</span>
+          </label>
+          <label class="check-item" onclick="toggleCheckItem(this)">
+            <input type="checkbox" />
+            <span><strong>[Mission 3 - Backend Image]:</strong> เขียน <code>.dockerignore</code> (กัน <code>node_modules</code>, <code>.env*</code>, <code>.*ignore</code>, <code>Dockerfile*</code>), เรียง <code>COPY package*.json</code> + <code>COPY prisma</code> + <code>RUN touch .env &amp;&amp; npm ci</code> ก่อน <code>COPY . .</code>, ตั้ง <code>ENV HOST=0.0.0.0 PORT=3000</code>, <code>USER node</code>, และใน <code>entrypoint.sh</code> ลงท้ายด้วย <code>exec "$@"</code> (ได้ <code>chmod +x</code> แล้ว)</span>
+          </label>
+          <label class="check-item" onclick="toggleCheckItem(this)">
+            <input type="checkbox" />
+            <span><strong>[Mission 4 - Docker Compose]:</strong> ตั้งชื่อไฟล์คอนฟิกเป็น <code>.env.container</code> (ใช้ชื่อโฮสต์ <code>@db:3306</code>), ใน <code>compose.yaml</code> ใช้ <code>${BIND:?set BIND in .env}</code>, ตั้งค่า <code>external: true</code> ให้โวลุ่มฐานข้อมูล, ใส่ <code>healthcheck</code> ให้ทั้ง <code>db</code> และ <code>api</code>, และใส่ <code>depends_on: db: condition: service_healthy</code></span>
+          </label>
+          <label class="check-item" onclick="toggleCheckItem(this)">
+            <input type="checkbox" />
+            <span><strong>[Mission 5 - Reverse Proxy &amp; TLS]:</strong> สร้างใบรับรอง TLS ด้วย <code>openssl req -x509 -nodes</code> (<code>chmod 600</code> ที่ไฟล์ <code>.key</code>), ใน Stack Proxy มี <code>set_real_ip_from 172.16.0.0/12; real_ip_header X-Real-IP;</code> และตัดพาร์ทด้วย <code>/</code> ท้าย <code>proxy_pass</code>, ส่วน Outer Nginx บน Host ส่งต่อโดย <strong>ไม่มี <code>/</code> ท้าย <code>proxy_pass</code></strong> พร้อม <code>proxy_set_header</code> ครบ 4 บรรทัด และลบบล็อก <code>ports:</code> ออกจาก <code>db</code>, <code>api</code>, <code>web</code> แล้วสั่ง <code>docker compose restart proxy</code></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- 5 Graded Missions Templates -->
+      <div class="grid-2">
+        <div class="card">
+          <h3>🥇 Mission 1 & 2: Frontend + Database Setup</h3>
+          <h4>1. โพยคำสั่งแปลงรหัสผ่านเป็น URL-Encoded (Percent-Encoding)</h4>
+          <p>ถ้ารหัสผ่านฐานข้อมูลมีตัวอักษรพิเศษ เช่น <code>/</code> หรือ <code>+</code> ให้รันคำสั่ง Python บรรทัดเดียวนี้บน VM เพื่อแปลงเป็นค่าที่ใส่ใน <code>DATABASE_URL</code> ได้ทันที:</p>
+          <div class="code-wrap">
+            <div class="code-header"><span>คำสั่งแปลงรหัสผ่านเป็น Percent-Encoded</span><button class="copy-btn" onclick="copyCode(this)">คัดลอก</button></div>
+            <pre><code>python3 -c 'import urllib.parse; print(urllib.parse.quote("วางรหัสผ่านตรงนี้", safe=""))'</code></pre>
+          </div>
+
+          <h4>2. โครงไฟล์ <code>frontend/Dockerfile</code></h4>
+          <div class="code-wrap">
+            <div class="code-header"><span>frontend/Dockerfile</span><button class="copy-btn" onclick="copyCode(this)">คัดลอก</button></div>
+            <pre><code>FROM nginx:1.30-alpine
+COPY . /usr/share/nginx/html/</code></pre>
+          </div>
+
+          <h4>3. การเตรียม Volume ฐานข้อมูลครั้งแรก</h4>
+          <ul>
+            <li>สร้างโวลุ่มด้วย <code>docker volume create &lt;volume_name&gt;</code></li>
+            <li>ระวัง: ในไฟล์ <code>init.env</code> ที่ใช้กับ <code>--env-file</code> <strong>ห้ามใส่เครื่องหมาย <code>'...'</code> หรือ <code>"..."</code> ครอบรหัสผ่านเด็ดขาด!</strong></li>
+            <li>เมื่อฐานข้อมูลสร้างเสร็จแล้ว ให้ลบคอนเทนเนอร์ตัวชั่วคราวทิ้ง แล้วใช้โวลุ่มนั้นต่อใน <code>compose.yaml</code> โดยไม่ต้องส่ง <code>init.env</code> อีก</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>🥈 Mission 3: Backend Dockerfile & Entrypoint</h3>
+          <h4>1. ไฟล์ <code>backend/.dockerignore</code></h4>
+          <div class="code-wrap">
+            <div class="code-header"><span>backend/.dockerignore</span><button class="copy-btn" onclick="copyCode(this)">คัดลอก</button></div>
+            <pre><code>node_modules
+.env*
+.*ignore
+Dockerfile*</code></pre>
+          </div>
+
+          <h4>2. ไฟล์ <code>backend/entrypoint.sh</code> (อย่าลืม <code>chmod +x</code>!)</h4>
+          <div class="code-wrap">
+            <div class="code-header"><span>backend/entrypoint.sh</span><button class="copy-btn" onclick="copyCode(this)">คัดลอก</button></div>
+            <pre><code>#!/bin/sh
+if [ ! -s /app/.env ]; then
+  echo "entrypoint: no configuration mounted at /app/.env - refusing to start" >&2
+  exit 1
+fi
+echo "entrypoint: listening on ${HOST}:${PORT} (${APP_VERSION:-unversioned})"
+exec "$@"</code></pre>
+          </div>
+
+          <h4>3. ไฟล์ <code>backend/Dockerfile</code></h4>
+          <div class="code-wrap">
+            <div class="code-header"><span>backend/Dockerfile</span><button class="copy-btn" onclick="copyCode(this)">คัดลอก</button></div>
+            <pre><code>ARG NODE_TAG=24.19-alpine
+FROM node:${NODE_TAG}
+ENV HOST=0.0.0.0 PORT=3000
+WORKDIR /app
+COPY package*.json ./
+COPY prisma ./prisma
+RUN touch .env && npm ci
+ARG APP_VERSION=unversioned
+ENV APP_VERSION=${APP_VERSION}
+COPY . .
+RUN chmod +x entrypoint.sh
+USER node
+ENTRYPOINT ["./entrypoint.sh"]
+CMD ["node", "server.js"]</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Emergency Troubleshooting Table -->
+      <div class="card">
+        <h3>🚑 ตารางแก้บั๊กหน้าห้องสอบ (เจออาการแบบนี้ แก้ตามนี้ใน 30 วินาที!)</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>อาการ / Error ที่เจอ</th>
+                <th>สาเหตุที่แท้จริง</th>
+                <th>คำสั่ง / วิธีแก้ทันที</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>เข้าเว็บผ่าน Nginx แล้วได้ <strong><code>502 Bad Gateway</code></strong></td>
+                <td>
+                  1) คอนเทนเนอร์ข้างหลังยังไม่รัน หรือพอร์ตไม่ตรง<br>
+                  2) Backend ในคอนเทนเนอร์เผลอฟังที่ <code>127.0.0.1</code> แทนที่จะเป็น <code>0.0.0.0</code><br>
+                  3) เพิ่ง Recreate <code>web</code>/<code>api</code> ใหม่แล้ว <code>proxy</code> จำ IP เก่า!
+                </td>
+                <td>
+                  • เช็ก <code>docker compose ps</code> ว่าทุกตัว <code>Up</code> หรือไม่<br>
+                  • เช็กว่าใน Dockerfile มี <code>ENV HOST=0.0.0.0 PORT=3000</code><br>
+                  • รัน <strong><code>docker compose restart proxy</code></strong>
+                </td>
+              </tr>
+              <tr>
+                <td>เข้าเว็บผ่าน Outer Nginx แล้วได้ <strong><code>404 Not Found</code></strong> (และใน log ของ Inner Proxy เห็นแค่ <code>GET /</code>)</td>
+                <td>ในไฟล์ <code>/etc/nginx/conf.d/&lt;app&gt;.location</code> ของ Outer Nginx บนเครื่อง Host เผลอใส่ <code>/</code> ปิดท้ายหลัง <code>proxy_pass https://127.0.0.2:8443/;</code> ทำให้มันตัดชื่อพาร์ทออกก่อนส่งเข้าข้างใน!</td>
+                <td>ลบ <code>/</code> ท้าย <code>proxy_pass</code> ของ Outer Nginx ออก ให้เหลือแค่:<br>
+                <code>proxy_pass https://127.0.0.2:8443;</code><br>
+                แล้วสั่ง <code>sudo nginx -t &amp;&amp; sudo systemctl reload nginx</code></td>
+              </tr>
+              <tr>
+                <td>เข้า HTTP พอร์ต 80 แล้วมัน Redirect ไปที่ <strong><code>https://127.0.0.2/...</code></strong> แทนที่จะเป็นชื่อเครื่อง VM</td>
+                <td>ในไฟล์ <code>/etc/nginx/conf.d/http-default.conf</code> ลืมใส่ <code>proxy_set_header Host $host;</code> ในบล็อก <code>location</code> ที่ส่งต่อไปพอร์ต 8080!</td>
+                <td>เพิ่ม <code>proxy_set_header</code> ทั้ง 4 บรรทัดลงในบล็อก <code>location</code> ของ <code>http-default.conf</code> แล้ว Reload Nginx บน Host</td>
+              </tr>
+              <tr>
+                <td>คอนเทนเนอร์ <code>api</code> ขึ้นสถานะ <strong><code>unhealthy</code></strong> หรือดู Log แล้วเจอ <code>Can't reach database server at ...</code></td>
+                <td>
+                  1) ในไฟล์ <code>.env.container</code> ยังใส่ชื่อโฮสต์เป็น <code>127.0.0.2</code> หรือ <code>school-db</code> แทนที่จะเป็นชื่อ service <code>db</code><br>
+                  2) รหัสผ่านใน <code>DATABASE_URL</code> มีอักขระพิเศษที่ยังไม่ได้แปลงเป็น Percent-encoding หรือเผลอใส่ <code>"..."</code> ในไฟล์ <code>init.env</code> ตอนสร้าง DB
+                </td>
+                <td>
+                  • แก้ <code>DATABASE_URL</code> ใน <code>.env.container</code> ให้เป็น <code>@db:3306</code><br>
+                  • เช็กว่าพาร์ทใน <code>healthcheck</code> ของ <code>api</code> ตรงกับพาร์ทจริงของ API (เช่น <code>/api/students</code> หรือ <code>/api/notices</code>)
+                </td>
+              </tr>
+              <tr>
+                <td>สั่ง <code>docker run</code> หรือ <code>docker compose up</code> แล้วฟ้อง <strong><code>permission denied: ./entrypoint.sh</code></strong></td>
+                <td>ลืมตั้งสิทธิ์รัน (Executable bit) ให้ไฟล์ <code>entrypoint.sh</code> ก่อนสั่ง Build อิมเมจ</td>
+                <td>รัน <code>chmod +x entrypoint.sh</code> บนเครื่อง Host แล้วสั่ง <code>docker compose up -d --build</code> ใหม่</td>
+              </tr>
+              <tr>
+                <td>สั่ง <code>docker stop</code> แล้วรอนานถึง <strong>10 วินาที</strong> กว่าจะหยุด</td>
+                <td>ในไฟล์ <code>entrypoint.sh</code> บรรทัดสุดท้ายเขียนแค่ <code>"$@"</code> ลืมใส่คำว่า <code>exec</code> ข้างหน้า หรือใน <code>Dockerfile</code> ใช้ Shell form แทนที่จะเป็น Exec form <code>["..."]</code></td>
+                <td>แก้บรรทัดสุดท้ายของ <code>entrypoint.sh</code> เป็น <strong><code>exec "$@"</code></strong> แล้ว Build อิมเมจใหม่</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         TAB 5: INTERACTIVE MULTIPLE-CHOICE MOCK QUIZ (65 QUESTIONS)
+         ===================================================================== -->
+    <section id="tab-quiz" class="tab-panel">
+      <div class="hero-banner">
+        <h2>🎯 ข้อสอบจำลองปรนัย (Interactive Theory & Command Mock Quiz — 65 ข้อ)</h2>
+        <p>เก็งข้อสอบครบทุกบท (Class 5 ถึง Class 10) ทั้งแนวคิดทฤษฎี, คำสั่ง Docker/Compose, กฎ Nginx/TLS และโจทย์วิเคราะห์ปัญหา พร้อมเฉลยละเอียดทันทีที่คลิกเลือกคำตอบ!</p>
+      </div>
+
+      <div class="sub-nav">
+        <button class="sub-btn active" onclick="filterQuiz('all', this)">🔥 ทั้งหมด (65 ข้อ)</button>
+        <button class="sub-btn" onclick="filterQuiz('Class 5', this)">Class 5: Proxy, CORS & TLS</button>
+        <button class="sub-btn" onclick="filterQuiz('Class 6', this)">Class 6: Container & Docker CLI</button>
+        <button class="sub-btn" onclick="filterQuiz('Class 7', this)">Class 7: Image I & MySQL</button>
+        <button class="sub-btn" onclick="filterQuiz('Class 8', this)">Class 8: Image II, PID 1 & Net</button>
+        <button class="sub-btn" onclick="filterQuiz('Class 9', this)">Class 9: Docker Compose</button>
+        <button class="sub-btn" onclick="filterQuiz('Class 10', this)">Class 10: 2-Proxy Full Stack</button>
+      </div>
+
+      <div class="quiz-controls">
+        <div style="display:flex; gap:0.75rem; align-items:center; flex-wrap:wrap;">
+          <span class="score-pill" id="quizScoreDisplay">คะแนน: 0 / 0 (ตอบแล้ว 0/65 ข้อ)</span>
+          <button class="btn-icon" onclick="retryWrongQuestions()">🔁 ทำเฉพาะข้อที่ตอบผิด</button>
+          <button class="btn-icon" onclick="resetQuiz()">🔄 รีเซ็ตทำใหม่ทั้งหมด</button>
+        </div>
+        <div style="font-size:0.9rem; color:var(--text-secondary);">
+          💡 คลิกที่ตัวเลือกเพื่อตรวจคำตอบและอ่านคำอธิบายละเอียดได้ทันที
+        </div>
+      </div>
+
+      <div id="quizContainer"></div>
+    </section>
+
+  </main>
+
+  <script>
+    // =========================================================================
+    // 65 COMPREHENSIVE EXAM QUESTIONS (CLASS 5 TO CLASS 10)
+    // =========================================================================
+    const QUIZ_DATA = [
+      // --- CLASS 5 (11 Questions) ---
+      {
+        id: 1, cat: "Class 5",
+        q: "ข้อใดคือความหมายของคำว่า 'Origin' ในระบบความปลอดภัยของ Web Browser (Same-Origin Policy)?",
+        opts: [
+          "หมายเลข IP Address และ MAC Address ของเครื่องเซิร์ฟเวอร์",
+          "ชุดข้อมูล 3 ส่วนรวมกัน ได้แก่ Scheme (โปรโตคอล), Host (ชื่อโดเมน/IP), และ Port (เลขพอร์ต)",
+          "ชื่อโดเมนหลัก (Root Domain) เพียงอย่างเดียว ไม่สนใจโปรโตคอลและเลขพอร์ต",
+          "โฟลเดอร์ราก (Document Root) ที่เก็บไฟล์ HTML บนเว็บเซิร์ฟเวอร์"
+        ],
+        ans: 1,
+        exp: "Origin ประกอบด้วย 3 ส่วนเสมอ คือ (Scheme, Host, Port) เช่น http://lvm68174.sit.kmutt.ac.th:8174 กับ http://lvm68174.sit.kmutt.ac.th:3174 ถือเป็นคนละ Origin กันเพราะเลขพอร์ตต่างกัน (8174 vs 3174)"
+      },
+      {
+        id: 2, cat: "Class 5",
+        q: "ใน Lab 05 เมื่อหน้าเว็บที่พอร์ต 8174 เรียกใช้ API ที่พอร์ต 3174 โดยยังไม่ได้ตั้งค่า CORS แล้วเกิดข้อผิดพลาด 'Failed to fetch' ในเบราว์เซอร์ ข้อเท็จจริงใดถูกต้อง?",
+        opts: [
+          "คำขอไปไม่ถึง API เพราะถูก Firewall (UFW) บนเครื่องเซิร์ฟเวอร์บล็อกไว้",
+          "คำขอไปถึง API แต่ตัว API ปฏิเสธและตอบรหัส 403 Forbidden กลับมา",
+          "คำขอไปถึง API และ API ตอบข้อมูลพร้อมรหัส 200 OK กลับมาแล้ว แต่ Web Browser เป็นคนบล็อกไม่ให้ JavaScript อ่านข้อมูลเพราะไม่มี Header 'Access-Control-Allow-Origin'",
+          "Nginx หยุดการเชื่อมต่อตั้งแต่ต้นทางเพราะพอร์ตไม่ตรงกัน"
+        ],
+        ans: 2,
+        exp: "นี่คือจุดที่ออกสอบและถามใน answers.yaml (T6 & T7): คำขอ GET ไปถึง API และ API ตอบ 200 OK กลับมาแล้ว! แต่ Browser เป็นคนซ่อนผลลัพธ์ไม่ให้ JavaScript อ่าน เพราะไม่มี Response Header ที่ชื่อว่า Access-Control-Allow-Origin"
+      },
+      {
+        id: 3, cat: "Class 5",
+        q: "ทำไมใน Lab 05 เราจึงห้ามตั้งค่า Nginx ให้ชี้ root ไปที่โฟลเดอร์ /srv/school โดยตรง แต่ต้องใช้ rsync คัดลอกเฉพาะ /srv/school/frontend/ ไปไว้ที่ /var/www/school/ แทน?",
+        opts: [
+          "เพราะ Nginx ไม่สามารถอ่านไฟล์ในโฟลเดอร์ /srv ได้ตามข้อจำกัดของ Linux Kernel",
+          "เพราะใน /srv/school มีโฟลเดอร์ backend/.env ซึ่งเก็บรหัสผ่านฐานข้อมูลไว้ หากชี้ root ไปที่ /srv/school ผู้ใช้ภายนอกอาจดาวน์โหลดไฟล์ความลับไปได้",
+          "เพราะคำสั่ง rsync ช่วยบีบอัดไฟล์ HTML ให้มีขนาดเล็กลงครึ่งหนึ่ง",
+          "เพราะโฟลเดอร์ /var/www รองรับเฉพาะไฟล์ JavaScript เท่านั้น"
+        ],
+        ans: 1,
+        exp: "ใน /srv/school มีทั้ง frontend และ backend (ซึ่งมีไฟล์ .env เก็บรหัสผ่านฐานข้อมูล) การแยกเฉพาะไฟล์ที่จะเผยแพร่ไปไว้ที่ /var/www/school ช่วยป้องกันไม่ให้เผลอเปิดเผยไฟล์หลังบ้านสู่สาธารณะ"
+      },
+      {
+        id: 4, cat: "Class 5",
+        q: "ในคำสั่ง 'sudo rsync -a --chmod=D755,F644 --delete --exclude config.js /srv/school/frontend/ /var/www/school/' ออปชัน '--delete' และ '--exclude config.js' ทำหน้าที่อะไร?",
+        opts: [
+          "ลบไฟล์ config.js ที่ปลายทางทิ้งทุกครั้งที่รันคำสั่ง",
+          "ลบไฟล์ที่ปลายทางซึ่งไม่มีอยู่ในต้นทางแล้วออก แต่ยกเว้นไม่คัดลอกและไม่ลบไฟล์ config.js ที่ตั้งค่าไว้แล้วที่ปลายทาง",
+          "ลบโฟลเดอร์ต้นทาง /srv/school/frontend/ ทิ้งหลังจากคัดลอกเสร็จ",
+          "ตั้งสิทธิ์ไฟล์ config.js ให้ลบไม่ได้"
+        ],
+        ans: 1,
+        exp: "--delete ทำให้ปลายทางสะอาดตรงกับต้นทาง (ไฟล์ไหนถูกลบที่ต้นทางก็ถูกลบที่ปลายทางด้วย) ส่วน --exclude config.js ป้องกันไม่ให้ rsync ไปแตะหรือเขียนทับไฟล์ config.js ที่เราตั้งค่าไว้บนเซิร์ฟเวอร์"
+      },
+      {
+        id: 5, cat: "Class 5",
+        q: "ทำไมในไฟล์ /srv/school/backend/.env เราจึงห้ามเขียนรหัสผ่านแบบอ้างอิงตัวแปร เช่น DATABASE_URL=\"mysql://school:${SCHOOL_PASSWORD}@...\"?",
+        opts: [
+          "เพราะ MySQL ไม่อนุญาตให้มีตัวอักษรพิมพ์ใหญ่ในรหัสผ่าน",
+          "เพราะ systemd (EnvironmentFile=) ไม่ทำการแปลงค่าตัวแปร ${...} เหมือน Prisma CLI และไม่สามารถแปลงอักขระพิเศษอย่าง '/' ให้เป็น Percent-encoding (%2F) ได้อัตโนมัติ",
+          "เพราะ Node.js รองรับเฉพาะตัวแปรที่ขึ้นต้นด้วยเครื่องหมาย % เท่านั้น",
+          "เพราะไฟล์ .env อ่านได้เฉพาะตัวเลขเท่านั้น"
+        ],
+        ans: 1,
+        exp: "อาจารย์เน้น 2 เหตุผล: 1) Prisma CLI แปลง ${...} ได้ แต่ systemd ไม่แปลง (จะส่งคำว่า ${SCHOOL_PASSWORD} ตรงๆ ไปเป็นรหัสผ่าน) และ 2) รหัสผ่านสุ่มที่มี '/' ต้องถูกแปลงเป็น %2F (Percent-encoding) ก่อนใส่ใน URL เสมอ"
+      },
+      {
+        id: 6, cat: "Class 5",
+        q: "เมื่อนำ Nginx มาทำ Reverse Proxy เพื่อให้ทั้งหน้าเว็บ (/school/) และ API (/school/api/) เข้าผ่านโดเมนและพอร์ตเดียวกันแล้ว เราสามารถตั้งค่า CORS_ORIGIN ในไฟล์ .env ของ Backend เป็นค่าใดได้ทันที?",
+        opts: [
+          "CORS_ORIGIN=\"*\"",
+          "CORS_ORIGIN=\"\" (ค่าว่าง เพื่อปิด CORS ได้เลยเพราะกลายเป็น Same Origin แล้ว)",
+          "CORS_ORIGIN=\"http://127.0.0.1:3174\"",
+          "CORS_ORIGIN=\"https://localhost\""
+        ],
+        ans: 1,
+        exp: "เมื่อทั้งหน้าเว็บและ API ถูกเรียกผ่าน Nginx ตัวเดียวกันที่พอร์ตเดียวกันแล้ว เบราว์เซอร์จะมองว่าเป็น Same Origin (ต้นทางเดียวกัน) จึงไม่ต้องเปิด CORS อีกต่อไป ตั้งเป็นค่าว่าง \"\" ได้เลย (คำตอบข้อ T14 ใน Lab 05)"
+      },
+      {
+        id: 7, cat: "Class 5",
+        q: "ในการตั้งค่า Nginx หากเขียนว่า 'location /school/api/ { proxy_pass http://127.0.0.1:3174/api/; }' เมื่อผู้ใช้เรียก '/school/api/students' ตัว Nginx จะส่ง Path ใดไปให้พอร์ต 3174?",
+        opts: [
+          "/school/api/students",
+          "/api/students",
+          "/students",
+          "/school/students"
+        ],
+        ans: 1,
+        exp: "กฎเหล็กของ proxy_pass: เมื่อมี Path ต่อท้ายหลังเลขพอร์ต (ในที่นี้คือ /api/) Nginx จะตัดส่วนที่ตรงกับ location (/school/api/) ออก แล้วเอา /api/ ไปแทนที่ ทำให้ /school/api/students กลายเป็น /api/students"
+      },
+      {
+        id: 8, cat: "Class 5",
+        q: "หากเราใช้ Nginx เป็น Reverse Proxy แต่ลืมใส่บรรทัด 'proxy_set_header X-Real-IP $remote_addr;' และ 'proxy_set_header Host $host;' เซิร์ฟเวอร์ Backend ข้างหลังจะเห็นคำขอมาจาก IP ใด?",
+        opts: [
+          "IP จริงของเครื่องผู้ใช้เสมอ",
+          "0.0.0.0",
+          "127.0.0.1 (หรือ IP ของตัว Nginx เองที่เป็นคนสร้างการเชื่อมต่อเข้ามาหา Backend)",
+          "255.255.255.255"
+        ],
+        ans: 2,
+        exp: "เพราะ Nginx เป็นคนเปิดการเชื่อมต่อ TCP ใหม่ไปหา Backend ดังนั้นหากไม่แนบ Header บอกไว้ ตัว Backend จะเห็นคนเรียกคือ 127.0.0.1 (หรือ IP ของสะพาน Docker 172.x.x.1 ในกรณีคอนเทนเนอร์)"
+      },
+      {
+        id: 9, cat: "Class 5",
+        q: "คำว่า 'กุญแจ 2 ชั้น (Two Independent Locks)' ในการป้องกันไม่ให้คนภายนอกเข้าถึงพอร์ตของ Backend API (เช่น 3174) โดยตรง หมายถึงข้อใด?",
+        opts: [
+          "การตั้งรหัสผ่าน root 2 ชั้น และการเข้ารหัสไฟล์ด้วย GPG",
+          "ชั้นใน: ตั้งให้ API ผูก (Bind) รับฟังเฉพาะที่ Loopback (127.0.0.1 หรือ 127.0.0.2) และ ชั้นนอก: ปิดพอร์ตใน Firewall (sudo ufw delete allow 3174/tcp)",
+          "การรัน Nginx 2 ตัวซ้อนกันบนพอร์ตเดียวกัน",
+          "การตั้งค่า CORS_ORIGIN คู่กับการใส่รหัสผ่านในไฟล์ config.js"
+        ],
+        ans: 1,
+        exp: "กุญแจชั้นในคือการ Bind เข้ากับ Loopback address (ต่อให้ Firewall รั่ว คนนอกก็ส่งแพ็กเก็ตเข้า Loopback ไม่ได้) และกุญแจชั้นนอกคือการปิดพอร์ตใน UFW Firewall"
+      },
+      {
+        id: 10, cat: "Class 5",
+        q: "ในการสร้าง Self-Signed TLS Certificate ด้วยคำสั่ง 'openssl req -x509 -nodes -newkey rsa:2048 -days 365 ...' แฟล็ก '-nodes' มีความสำคัญอย่างไร?",
+        opts: [
+          "ระบุว่าใบรับรองนี้ใช้สำหรับแอปพลิเคชัน Node.js เท่านั้น",
+          "สั่งไม่ให้เข้ารหัสไฟล์ Private Key ด้วยรหัสผ่าน (no DES) เพื่อที่เวลาเครื่องรีบูตแล้ว Nginx จะสามารถสตาร์ทขึ้นมาอ่านไฟล์ Key ได้เองโดยไม่ค้างรอให้คนพิมพ์รหัสผ่าน",
+          "สั่งให้สร้างใบรับรองแบบไม่มีวันหมดอายุ",
+          "สั่งให้ลบโหนดเครือข่ายเก่าทิ้งก่อนสร้างใบรับรอง"
+        ],
+        ans: 1,
+        exp: "-nodes ย่อมาจาก 'no DES encryption' คือไม่ล็อกไฟล์ Private Key ด้วย Passphrase ทำให้บริการอย่าง Nginx สามารถรีสตาร์ทตัวเองอัตโนมัติตอนบูตเครื่องได้"
+      },
+      {
+        id: 11, cat: "Class 5",
+        q: "ทำไมในการบังคับเปลี่ยน HTTP (พอร์ต 80) ไปเป็น HTTPS (พอร์ต 443) อาจารย์จึงให้ใช้ 'return 308 https://$host$request_uri;' แทนที่จะใช้รหัส 301 หรือ 302?",
+        opts: [
+          "เพราะรหัส 308 ใช้ได้เฉพาะกับ Nginx เท่านั้น",
+          "เพราะรหัส 308 (Permanent Redirect) บังคับให้เบราว์เซอร์คง HTTP Method เดิมไว้ (เช่น POST ก็ยังเป็น POST พร้อมข้อมูลใน Body) ในขณะที่ 301/302 มักเปลี่ยน POST ให้กลายเป็น GET",
+          "เพราะรหัส 308 ไม่ต้องใช้ใบรับรอง SSL/TLS",
+          "เพราะรหัส 301 และ 302 ถูกยกเลิกการใช้งานใน HTTP/1.1 แล้ว"
+        ],
+        ans: 1,
+        exp: "รหัส 308 (Permanent Redirect) รับประกันว่า HTTP Method และ Request Body จะไม่ถูกเปลี่ยนแปลงระหว่างการ Redirect ต่างจาก 301/302 ที่เบราว์เซอร์มักแปลงคำขอ POST ให้กลายเป็น GET"
+      },
+
+      // --- CLASS 6 (10 Questions) ---
+      {
+        id: 12, cat: "Class 6",
+        q: "ข้อใดอธิบายความแตกต่างที่ถูกต้องที่สุดระหว่าง Virtual Machine (VM) กับ Container?",
+        opts: [
+          "Container ต้องจำลองฮาร์ดแวร์และมี OS Kernel ของตัวเองแยกจากเครื่อง Host ส่วน VM แชร์ Kernel ร่วมกัน",
+          "VM จำลองระดับฮาร์ดแวร์และต้องรัน Guest OS Kernel ทั้งก้อนแยกกัน ในขณะที่ Container แชร์ Linux Kernel ร่วมกับเครื่อง Host แต่แยก Process และทรัพยากรด้วย namespaces และ cgroups",
+          "Container ใช้พื้นที่ดิสก์และหน่วยความจำมากกว่า VM เสมอ",
+          "VM ไม่สามารถรันเว็บเซิร์ฟเวอร์ Nginx ได้"
+        ],
+        ans: 1,
+        exp: "Container แชร์ Kernel ร่วมกับเครื่อง Host จึงเบาและสตาร์ทเร็วมาก (ระดับมิลลิวินาที) ส่วน VM ต้องบูต Guest OS Kernel ทั้งระบบ"
+      },
+      {
+        id: 13, cat: "Class 6",
+        q: "เมื่อเราสั่งรัน Container จาก Docker Image ระบบไฟล์ของ Container แตกต่างจาก Image อย่างไร?",
+        opts: [
+          "Docker จะคัดลอกทุก Layer ของ Image มาสร้างเป็นไฟล์ใหม่ทั้งหมดเพื่อให้แก้ไขได้ทุกชั้น",
+          "ชั้นของ Image เดิมทั้งหมดยังคงเป็น Read-Only (อ่านได้อย่างเดียว) แต่ Docker จะวางชั้นบางๆ ที่เขียนได้ (Thin Read-Write Layer) ไว้ด้านบนสุดสำหรับเก็บการเปลี่ยนแปลงของ Container ตัวนั้น",
+          "Container ไม่มีระบบไฟล์ของตัวเอง ต้องเขียนลงใน RAM เท่านั้น",
+          "ทุกครั้งที่แก้ไขไฟล์ใน Container ตัว Image ต้นฉบับจะถูกแก้ไขตามไปด้วยทันที"
+        ],
+        ans: 1,
+        exp: "Image คือชั้น Read-Only Layers ที่ซ้อนทับกัน เมื่อรันเป็น Container จะมี Read-Write Layer บางๆ แปะอยู่ด้านบนสุด พอลบ Container ทิ้ง ชั้น Read-Write นี้ก็จะหายไป"
+      },
+      {
+        id: 14, cat: "Class 6",
+        q: "ในระบบ Union File System (overlay2) ของ Docker หากโปรเซสใน Container สั่งลบไฟล์ที่มีอยู่แล้วในชั้น Read-Only Image Layer ด้านล่าง จะเกิดอะไรขึ้น?",
+        opts: [
+          "เกิด Error ทันทีเพราะไม่อนุญาตให้ลบไฟล์ใน Read-Only Layer",
+          "ไฟล์ใน Read-Only Layer ถูกลบทิ้งออกจากฮาร์ดดิสก์จริงๆ",
+          "ไฟล์ในชั้นล่างยังอยู่เหมือนเดิม แต่ Docker จะสร้างไฟล์ Whiteout (.wh.<ชื่อไฟล์>) ไว้ในชั้นบนเพื่อบังไม่ให้มองเห็นไฟล์นั้น",
+          "Container จะรีสตาร์ทตัวเองใหม่ทันที"
+        ],
+        ans: 2,
+        exp: "เนื่องจากชั้นล่างเป็น Read-Only แก้ไขไม่ได้ การลบไฟล์จึงใช้วิธีสร้างไฟล์เครื่องหมายที่ชื่อว่า Whiteout file (.wh.<filename>) ในชั้นบนเพื่อซ่อนไฟล์ข้างล่างเอาไว้"
+      },
+      {
+        id: 15, cat: "Class 6",
+        q: "ทำไมใน Lab 06 เราจึงต้องตั้งค่า 'registry-mirrors': ['https://lvmolarn.sit.kmutt.ac.th'] ในไฟล์ /etc/docker/daemon.json?",
+        opts: [
+          "เพื่อให้คอนเทนเนอร์สามารถออกอินเทอร์เน็ตได้",
+          "เพื่อหลีกเลี่ยงปัญหา Rate Limit ของ Docker Hub (toomanyrequests: ที่จำกัดการดึงอิมเมจแบบไม่ล็อกอินไว้ที่ 100 ครั้งต่อ 6 ชั่วโมงต่อ IP) และช่วยให้ดึงอิมเมจผ่านเซิร์ฟเวอร์แคชในมหาวิทยาลัยได้เร็วขึ้น",
+          "เพื่อเปิดใช้งานฟีเจอร์ Docker Swarm",
+          "เพื่อบังคับให้คอนเทนเนอร์ทุกตัวใช้ HTTPS"
+        ],
+        ans: 1,
+        exp: "เมื่อนักศึกษาทั้งห้องดึงอิมเมจจาก Docker Hub พร้อมกันผ่าน IP ของมหาวิทยาลัย จะติดลิมิต 100 pulls / 6 hours (toomanyrequests) การตั้งค่า registry-mirrors จึงช่วยให้ดึงผ่านเซิร์ฟเวอร์แคชภายในได้"
+      },
+      {
+        id: 16, cat: "Class 6",
+        q: "หลังจากรันคำสั่ง 'sudo usermod -aG docker sysadmin' เพื่อให้ผู้ใช้ sysadmin รันคำสั่ง docker ได้โดยไม่ต้องพิมพ์ sudo ทำไมเมื่อพิมพ์ 'docker ps' ทันทีจึงยังฟ้อง Permission denied?",
+        opts: [
+          "เพราะต้องรีสตาร์ทบริการ nginx ก่อน",
+          "เพราะสิทธิ์ของกลุ่มผู้ใช้ (Group membership) จะถูกโหลดเมื่อเริ่มเซสชันล็อกอินใหม่ ดังนั้นต้องออกจากระบบ (exit) แล้ว SSH เข้ามาใหม่ (หรือรัน newgrp docker) ก่อน",
+          "เพราะต้องลบไฟล์ /var/run/docker.sock ทิ้งก่อน",
+          "เพราะผู้ใช้ sysadmin ไม่ได้รับอนุญาตให้เข้ากลุ่ม docker บน Ubuntu"
+        ],
+        ans: 1,
+        exp: "ใน Linux การเพิ่มผู้ใช้เข้ากลุ่มด้วย usermod -aG จะมีผลในเซสชันถัดไป ต้อง log out แล้ว log in ใหม่ (ตรวจสอบด้วยคำสั่ง id หรือ groups)"
+      },
+      {
+        id: 17, cat: "Class 6",
+        q: "ทำไมเมื่อรันคำสั่ง 'docker run -d ubuntu' หรือ 'docker run busybox' โดยไม่ใส่ '-it' คอนเทนเนอร์จึงหยุดทำงานและขึ้นสถานะ Exited (0) ทันที?",
+        opts: [
+          "เพราะอิมเมจ ubuntu และ busybox เสียหาย",
+          "เพราะกฎของ PID 1: คำสั่งเริ่มต้นของอิมเมจเหล่านี้คือ Shell (/bin/bash หรือ /bin/sh) เมื่อไม่ได้เปิดท่อรับอินพุตแบบโต้ตอบ (-it) ตัว Shell จึงจบการทำงานทันที และเมื่อ PID 1 จบ คอนเทนเนอร์ก็จะหยุดทันที",
+          "เพราะไม่ได้ระบุพอร์ตด้วย -p",
+          "เพราะหน่วยความจำ RAM ของเครื่องไม่พอ"
+        ],
+        ans: 1,
+        exp: "คอนเทนเนอร์จะมีชีวิตอยู่ตราบเท่าที่โปรเซสหมายเลข 1 (PID 1) ยังทำงานอยู่ เมื่อ Shell ไม่ได้รับ stdin (-i) และ tty (-t) มันจะถึงจุดสิ้นสุดไฟล์ (EOF) และออกจากโปรแกรมทันที"
+      },
+      {
+        id: 18, cat: "Class 6",
+        q: "เหตุใดการรันคอนเทนเนอร์ด้วย '-p 9174:80' (โดยไม่ระบุ IP ข้างหน้า) จึงเป็นอันตรายอย่างยิ่งบนเซิร์ฟเวอร์ที่เปิดใช้งาน UFW Firewall?",
+        opts: [
+          "เพราะจะทำให้พอร์ต 80 ของเครื่อง Host พัง",
+          "เพราะ Docker จะผูกพอร์ตเข้ากับ 0.0.0.0:9174 และเขียนกฎลงใน iptables ตัดหน้า UFW ทำให้คนภายนอกเข้าถึงพอร์ต 9174 ได้โดยตรงแม้ว่าเราจะไม่ได้เปิดพอร์ตนี้ใน UFW ก็ตาม!",
+          "เพราะจะทำให้คอนเทนเนอร์ไม่สามารถคุยกับฐานข้อมูลได้",
+          "เพราะ Docker จะปิดการทำงานของ SSH ทันที"
+        ],
+        ans: 1,
+        exp: "นี่คือกฎความปลอดภัยที่สำคัญมากในวิชานี้: การไม่ระบุ IP หน้าพอร์ต (-p 9174:80) จะเท่ากับ 0.0.0.0:9174:80 และ Docker แก้ไข iptables โดยตรงซึ่งทำงานก่อน UFW! ต้องระบุ IP เสมอ เช่น -p 127.0.0.2:9174:80"
+      },
+      {
+        id: 19, cat: "Class 6",
+        q: "หากต้องการคัดลอกเฉพาะ 'ไฟล์ข้างใน' โฟลเดอร์ /var/www/school/ เข้าไปวางใน /usr/share/nginx/html/ ของคอนเทนเนอร์ school-web ด้วยคำสั่ง docker cp ต้องเขียนอย่างไรจึงจะถูกต้อง?",
+        opts: [
+          "docker cp /var/www/school/ school-web:/usr/share/nginx/html/",
+          "docker cp /var/www/school/. school-web:/usr/share/nginx/html/",
+          "docker cp /var/www/school/* school-web:/usr/share/nginx/html/",
+          "docker cp -r /var/www/school school-web:/usr/share/nginx/html/"
+        ],
+        ans: 1,
+        exp: "กับดักสำคัญของ Lab 06: ต่างจาก rsync คำสั่ง docker cp ต้องลงท้ายต้นทางด้วย '/.' (จุดหลังสแลช) เพื่อหมายถึงไส้ในของโฟลเดอร์ ถ้าเขียนแค่ /var/www/school/ มันจะสร้างโฟลเดอร์ซ้อนเป็น /usr/share/nginx/html/school/!"
+      },
+      {
+        id: 20, cat: "Class 6",
+        q: "ในตอนท้ายของ Lab 06 หลังจากที่เราใช้ 'docker cp' คัดลอกไฟล์หน้าเว็บเข้าไปในคอนเทนเนอร์ school-web แล้ว เมื่อเราสั่ง 'docker rm -f school-web' แล้วสร้างคอนเทนเนอร์ใหม่จาก 'nginx:1.30-alpine' หน้าเว็บจะแสดงผลอย่างไร?",
+        opts: [
+          "ยังแสดงหน้าเว็บระบบโรงเรียนเหมือนเดิมเพราะไฟล์ถูกบันทึกในอิมเมจแล้ว",
+          "กลับไปแสดงหน้า 'Welcome to nginx!' เพราะไฟล์ที่คัดลอกด้วย docker cp เก็บอยู่ใน Read-Write Layer ของคอนเทนเนอร์ตัวเก่า ซึ่งถูกลบทิ้งไปพร้อมกับคำสั่ง docker rm",
+          "แสดงข้อผิดพลาด 500 Internal Server Error",
+          "ไม่สามารถสร้างคอนเทนเนอร์ใหม่ได้"
+        ],
+        ans: 1,
+        exp: "คำตอบของ T22 ใน Lab 06: docker cp เขียนลงในชั้น Read-Write Layer ของคอนเทนเนอร์ตัวนั้นเท่านั้น ไม่ได้แก้ไขอิมเมจ เมื่อลบคอนเทนเนอร์ทิ้ง ทุกอย่างที่ก๊อปปี้เข้าไปก็หายไปทั้งหมด"
+      },
+      {
+        id: 21, cat: "Class 6",
+        q: "ในไฟล์ /etc/nginx/conf.d/school.location เมื่อเราเปลี่ยนจากการอ่านไฟล์ในเครื่อง (alias /var/www/school/;) ไปเป็นการส่งต่อไปยังคอนเทนเนอร์ที่พอร์ต 9174 เราต้องเขียนอย่างไรเพื่อให้พาร์ท '/school/' ถูกตัดออกเหลือแค่ '/' ตอนไปถึงคอนเทนเนอร์?",
+        opts: [
+          "proxy_pass http://127.0.0.2:9174;",
+          "proxy_pass http://127.0.0.2:9174/;",
+          "proxy_pass http://127.0.0.2:9174/school/;",
+          "alias http://127.0.0.2:9174/;"
+        ],
+        ans: 1,
+        exp: "การใส่ '/' ปิดท้ายหลังเลขพอร์ต (proxy_pass http://127.0.0.2:9174/;) ในบล็อก location /school/ จะบอกให้ Nginx ตัดคำว่า /school/ ออกและแทนที่ด้วย /"
+      },
+
+      // --- CLASS 7 (11 Questions) ---
+      {
+        id: 22, cat: "Class 7",
+        q: "คำสั่งใดใช้ตรวจสอบว่าในชั้น Read-Write Layer ของคอนเทนเนอร์มีการเพิ่ม (A), แก้ไข (C), หรือลบ (D) ไฟล์ใดไปบ้างเมื่อเทียบกับ Image ต้นฉบับ?",
+        opts: [
+          "docker history <container>",
+          "docker diff <container>",
+          "docker stats <container>",
+          "docker top <container>"
+        ],
+        ans: 1,
+        exp: "docker diff <container> แสดงรายการไฟล์ที่เปลี่ยนแปลงใน Read-Write Layer ของคอนเทนเนอร์ (A = Added, C = Changed, D = Deleted)"
+      },
+      {
+        id: 23, cat: "Class 7",
+        q: "ในการอ่านผลลัพธ์ของคำสั่ง 'docker history <image>' ลำดับของ Layer จะถูกแสดงอย่างไร?",
+        opts: [
+          "บรรทัดบนสุดคือ Layer แรกสุดของ Base Image และบรรทัดล่างสุดคือคำสั่งล่าสุด",
+          "อ่านจากล่างขึ้นบน: บรรทัดล่างสุดคือ Layer แรกสุดของ Base Image และบรรทัดบนสุดคือ Layer ที่เพิ่งถูกสร้างขึ้นล่าสุด",
+          "เรียงตามขนาดของ Layer จากมากไปน้อยเสมอ",
+          "เรียงตามตัวอักษรของคำสั่งใน Dockerfile"
+        ],
+        ans: 1,
+        exp: "docker history แสดงลำดับจากล่างขึ้นบน (เหมือนการวางซ้อนทับกัน): ชั้นล่างสุดคือจุดเริ่มต้นของ Base Image ส่วนชั้นบนสุดคือคำสั่งสุดท้ายใน Dockerfile ของเรา"
+      },
+      {
+        id: 24, cat: "Class 7",
+        q: "หากต้องการดูเนื้อหาไฟล์ /usr/share/nginx/html/config.js ที่อยู่ในอิมเมจ 'school/frontend:1.0' โดยไม่ต้องสตาร์ท Nginx และไม่ทิ้งคอนเทนเนอร์ที่หยุดทำงานแล้วไว้รกเครื่อง ควรใช้คำสั่งใด?",
+        opts: [
+          "docker exec school/frontend:1.0 cat /usr/share/nginx/html/config.js",
+          "docker run --rm school/frontend:1.0 cat /usr/share/nginx/html/config.js",
+          "docker inspect school/frontend:1.0 /usr/share/nginx/html/config.js",
+          "docker cp school/frontend:1.0:/usr/share/nginx/html/config.js -"
+        ],
+        ans: 1,
+        exp: "docker exec ใช้ได้กับคอนเทนเนอร์ที่กำลังรันอยู่เท่านั้น หากต้องการรันคำสั่งชั่วคราวจากอิมเมจแล้วลบทิ้งทันทีเมื่อเสร็จ ให้ใช้ 'docker run --rm <image> <command>'"
+      },
+      {
+        id: 25, cat: "Class 7",
+        q: "ทำไมในการรันคอนเทนเนอร์ที่ใช้งานจริง เราจึงต้องใส่ออปชัน '--restart unless-stopped' เสมอ?",
+        opts: [
+          "เพื่อให้คอนเทนเนอร์อัปเดตตัวเองเป็นเวอร์ชันใหม่ทุกวัน",
+          "เพื่อให้ Docker สตาร์ทคอนเทนเนอร์ตัวนี้กลับขึ้นมาใหม่อัตโนมัติเมื่อเครื่อง VM ถูกรีบูต หรือเมื่อบริการ Docker Daemon รีสตาร์ท (เว้นแต่เราจะสั่ง docker stop ด้วยตัวเอง)",
+          "เพื่อป้องกันไม่ให้ผู้ใช้สั่งลบคอนเทนเนอร์ด้วย docker rm",
+          "เพื่อบังคับให้คอนเทนเนอร์ใช้หน่วยความจำน้อยลง"
+        ],
+        ans: 1,
+        exp: "หากไม่ใส่ --restart unless-stopped เมื่อเครื่องเซิร์ฟเวอร์รีบูต คอนเทนเนอร์จะค้างอยู่ที่สถานะ Exited (0) ทำให้ Nginx ตอบ 502 Bad Gateway"
+      },
+      {
+        id: 26, cat: "Class 7",
+        q: "ใน Lab 07 เมื่ออิมเมจ 'school/frontend:1.0' มีไฟล์ config.js ที่ใส่รหัสนักศึกษาฝังอยู่ข้างใน แต่ตอนสั่งรันคอนเทนเนอร์ เราใช้ '-v /srv/school/frontend/config.name.js:/usr/share/nginx/html/config.js:ro' ข้อใดกล่าวถูกต้อง?",
+        opts: [
+          "ไฟล์ config.js ในอิมเมจ school/frontend:1.0 จะถูกเขียนทับเป็นชื่อ-นามสกุลอย่างถาวร",
+          "ไฟล์ในอิมเมจยังคงเป็นรหัสนักศึกษาเหมือนเดิม แต่ภายในคอนเทนเนอร์ตัวที่รันอยู่นี้ ไฟล์ config.name.js จากเครื่อง Host จะถูกวางบังทับ (Overlay) แบบอ่านอย่างเดียว (:ro) ทำให้หน้าเว็บแสดงชื่อ-นามสกุล",
+          "Docker จะปฏิเสธการรันเพราะไม่สามารถ Mount ทับไฟล์ที่มีอยู่แล้วในอิมเมจได้",
+          "หน้าเว็บจะแสดงทั้งรหัสนักศึกษาและชื่อ-นามสกุลต่อกัน"
+        ],
+        ans: 1,
+        exp: "การทำ Single-file Bind Mount จะวางไฟล์จาก Host บังทับไฟล์ในคอนเทนเนอร์เฉพาะตอนรันเท่านั้น โดยที่ตัวอิมเมจต้นฉบับไม่ได้เปลี่ยนแปลงเลย"
+      },
+      {
+        id: 27, cat: "Class 7",
+        q: "เมื่อลองรัน 'docker run -d --name school-db mysql:8.4' โดยไม่ส่งตัวแปรสภาพแวดล้อมใดๆ เลย คอนเทนเนอร์จะหยุดทำงานทันที (Exited (1)) เพราะขาดตัวแปรใด (คำตอบข้อ T19)?",
+        opts: [
+          "MYSQL_PORT",
+          "MYSQL_ROOT_PASSWORD (หรือ MYSQL_RANDOM_ROOT_PASSWORD / MYSQL_ALLOW_EMPTY_PASSWORD)",
+          "MYSQL_DATA_DIR",
+          "MYSQL_CHARSET"
+        ],
+        ans: 1,
+        exp: "อิมเมจ mysql:8.4 บังคับว่าตอนสร้างฐานข้อมูลครั้งแรกต้องระบุรหัสผ่าน root ผ่านตัวแปรสภาพแวดล้อม เช่น MYSQL_ROOT_PASSWORD หรือ MYSQL_RANDOM_ROOT_PASSWORD"
+      },
+      {
+        id: 28, cat: "Class 7",
+        q: "ทำไมจึงไม่ควรส่งรหัสผ่านฐานข้อมูลผ่านแฟล็ก '-e MYSQL_ROOT_PASSWORD=secret' บนบรรทัดคำสั่ง docker run?",
+        opts: [
+          "เพราะแฟล็ก -e รองรับเฉพาะตัวเลขเท่านั้น",
+          "เพราะใครก็ตามที่มีสิทธิ์รันคำสั่ง 'docker inspect <container>' จะสามารถอ่านค่ารหัสผ่านนั้นได้ทันทีในรูปแบบข้อความธรรมดา (Plain text) ภายใต้หัวข้อ Config.Env",
+          "เพราะ MySQL 8.4 ไม่รองรับแฟล็ก -e อีกต่อไปแล้ว",
+          "เพราะจะทำให้รหัสผ่านหมดอายุภายใน 5 นาที"
+        ],
+        ans: 1,
+        exp: "คำตอบข้อ T21 ใน Lab 07: คำสั่ง 'docker inspect' จะแสดงตัวแปรสภาพแวดล้อมที่ส่งเข้าไปทั้งหมดใน Config.Env"
+      },
+      {
+        id: 29, cat: "Class 7",
+        q: "ทำไมทุกครั้งที่เราสั่ง 'docker run' อิมเมจ mysql:8.4 โดยไม่ได้ระบุ '-v <ชื่อโวลุ่ม>:/var/lib/mysql' (แม้คอนเทนเนอร์จะพังและถูกลบด้วย docker rm ไปแล้ว) จึงมีโวลุ่มชื่อยาว 64 ตัวอักษรตกค้างอยู่ใน 'docker volume ls' และต้องลบด้วยคำสั่งใด?",
+        opts: [
+          "เพราะ MySQL สร้างไฟล์สำรองไว้ใน /tmp ต้องลบด้วย rm -rf /tmp/*",
+          "เพราะใน Dockerfile ของอิมเมจ mysql:8.4 มีคำสั่ง VOLUME /var/lib/mysql อยู่ ทำให้ Docker สร้าง Anonymous Volume ให้อัตโนมัติทุกครั้งที่รัน และต้องเคลียร์ทิ้งด้วยคำสั่ง 'docker volume prune'",
+          "เพราะเป็นบั๊กของ Ubuntu ต้องรีบูตเครื่องจึงจะหาย",
+          "ต้องลบด้วยคำสั่ง docker network prune"
+        ],
+        ans: 1,
+        exp: "อิมเมจ mysql ประกาศ VOLUME /var/lib/mysql ไว้ ดังนั้นถ้าไม่ผูก Named Volume ตอนรัน Docker จะสร้าง Anonymous Volume ให้เสมอ และ docker rm เฉยๆ จะไม่ลบโวลุ่ม ต้องใช้ 'docker volume prune' เพื่อล้างโวลุ่มที่ไม่มีคอนเทนเนอร์ใช้งานแล้ว"
+      },
+      {
+        id: 30, cat: "Class 7",
+        q: "ในการส่งไฟล์สคริปต์เข้าไปในโฟลเดอร์ '/docker-entrypoint-initdb.d/' ของคอนเทนเนอร์ MySQL ข้อใดกล่าวถูกต้องที่สุด?",
+        opts: [
+          "สคริปต์ในโฟลเดอร์นี้จะถูกรันใหม่ทุกครั้งที่สั่ง docker restart",
+          "สคริปต์จะถูกรันเรียงตามลำดับตัวอักษร (Alphabetical order) และรันเฉพาะครั้งแรกสุดเมื่อโฟลเดอร์ /var/lib/mysql ในโวลุ่มยังว่างเปล่าอยู่เท่านั้น จึงต้องตั้งชื่อเป็น 01-setup.sql และ 02-schema.sql",
+          "สคริปต์ที่ขนาดไฟล์เล็กกว่าจะถูกรันก่อนเสมอ",
+          "อนุญาตให้ใส่ไฟล์ได้เพียงไฟล์เดียวเท่านั้น"
+        ],
+        ans: 1,
+        exp: "สำคัญมาก! เนื่องจาก 'schema.sql' เรียงตามตัวอักษรมาก่อน 'setup.container.sql' (sc... มาก่อน se...) ถ้าไม่เปลี่ยนชื่อปลายทางเป็น 01-setup.sql และ 02-schema.sql มันจะรัน schema.sql ก่อนและพังเพราะยังไม่มีฐานข้อมูล! และสคริปต์เหล่านี้จะรันเฉพาะเมื่อโวลุ่มยังว่างเปล่าเท่านั้น"
+      },
+      {
+        id: 31, cat: "Class 7",
+        q: "ใน Lab 07 เมื่อเราเชื่อมต่อไปยังคอนเทนเนอร์ MySQL (ที่ผูกพอร์ตไว้ที่ -p 127.0.0.2:3306:3306) จากบนเครื่อง Host ด้วยคำสั่ง 'mysql -h 127.0.0.2 -u school -p' ตัว MySQL ข้างในคอนเทนเนอร์จะมองเห็นว่าเราติดต่อมาจาก IP ใด?",
+        opts: [
+          "localhost",
+          "127.0.0.2",
+          "172.17.0.1 (IP Gateway ของเครื่อง Host บนวงแลน Default Docker Bridge)",
+          "0.0.0.0"
+        ],
+        ans: 2,
+        exp: "เมื่อแพ็กเก็ตวิ่งจากเครื่อง Host เข้าไปในคอนเทนเนอร์ที่อยู่บนวงแลน default bridge (172.17.0.0/16) คอนเทนเนอร์จะเห็นผู้ส่งคือ Gateway ของสะพาน Docker ซึ่งก็คือ 172.17.0.1"
+      },
+      {
+        id: 32, cat: "Class 7",
+        q: "หากบนเครื่อง Host ของเรามีโปรแกรม MySQL Server ตัวเก่าติดตั้งอยู่ การรันคำสั่ง 'mysql -u school -p' โดยไม่ใส่ '-h 127.0.0.2' จะทำให้เกิดปัญหาใด?",
+        opts: [
+          "โปรแกรม mysql client จะเชื่อมต่อผ่าน Unix Socket ไปยัง MySQL Server ตัวเก่าบนเครื่อง Host แทนที่จะติดต่อไปยังคอนเทนเนอร์ที่พอร์ต 127.0.0.2:3306",
+          "โปรแกรมจะลบฐานข้อมูลทิ้งอัตโนมัติ",
+          "จะเชื่อมต่อเข้าไปยังคอนเทนเนอร์ได้เร็วขึ้น",
+          "จะเกิดข้อผิดพลาด Syntax Error"
+        ],
+        ans: 0,
+        exp: "ตามค่าเริ่มต้นของ mysql client บน Linux หากไม่ระบุ -h (หรือระบุ -h localhost) มันจะเชื่อมต่อผ่านไฟล์ Unix Socket (/var/run/mysqld/mysqld.sock) ของเครื่อง Host เอง จึงต้องระบุ -h 127.0.0.2 เสมอเพื่อบังคับให้ต่อผ่าน TCP เข้าคอนเทนเนอร์"
+      },
+
+      // --- CLASS 8 (13 Questions) ---
+      {
+        id: 33, cat: "Class 8",
+        q: "ในคำสั่ง 'docker build -f Dockerfile.2 -t school/api:0.2 .' จุด (.) ที่อยู่ท้ายสุดของคำสั่งหมายถึงอะไร?",
+        opts: [
+          "โฟลเดอร์ที่เก็บไฟล์ Dockerfile.2",
+          "Build Context (โฟลเดอร์ที่ Docker จะรวบรวมไฟล์ทั้งหมดส่งไปให้ Docker Engine เพื่อให้คำสั่ง COPY สามารถหยิบไฟล์จากในนั้นมาใช้ได้)",
+          "สั่งให้ซ่อนอิมเมจไว้ไม่ให้แสดงใน docker images",
+          "หมายถึงให้บันทึกอิมเมจลงในโฟลเดอร์ปัจจุบัน"
+        ],
+        ans: 1,
+        exp: "จุด (.) หรือพาร์ทท้ายสุดของคำสั่ง docker build คือ Build Context เสมอ! คำสั่ง COPY ใน Dockerfile จะมองหาไฟล์เทียบจากโฟลเดอร์ Build Context นี้ ไม่ใช่โฟลเดอร์ที่ระบุใน -f"
+      },
+      {
+        id: 34, cat: "Class 8",
+        q: "ทำไมการคัดลอกโฟลเดอร์ 'node_modules' จากเครื่อง VM (Ubuntu) เข้าไปในอิมเมจ 'node:24.19-alpine' โดยตรง จึงทำให้แอปพลิเคชันที่ใช้ Prisma รันแล้วพังทันที?",
+        opts: [
+          "เพราะ Alpine Linux ไม่รองรับภาษา JavaScript",
+          "เพราะไบนารีของ Prisma Engine ใน node_modules ถูกคอมไพล์มาสำหรับระบบ Ubuntu (ที่ใช้ glibc) แต่ Alpine Linux ใช้ไลบรารีมาตรฐาน C คนละตัว (musl) จึงต้องรัน 'npm ci' เพื่อติดตั้งข้างในอิมเมจแทน",
+          "เพราะโฟลเดอร์ node_modules มีไฟล์เกิน 100 ไฟล์",
+          "เพราะ Docker ไม่อนุญาตให้คัดลอกไฟล์นามสกุล .js"
+        ],
+        ans: 1,
+        exp: "กฎสำคัญจาก Class 8: Dependencies ที่ใช้ Native Binary (เช่น Prisma) ต้องถูกติดตั้งข้างในอิมเมจปลายทางเสมอ เพราะ Ubuntu ใช้ glibc ส่วน Alpine ใช้ musl"
+      },
+      {
+        id: 35, cat: "Class 8",
+        q: "หากในไฟล์ Dockerfile เราเผลอใช้ 'COPY . .' จนไฟล์ '.env' (ที่มีรหัสผ่าน) ถูกคัดลอกเข้าไปใน Layer ที่ 3 แล้วเราเขียนคำสั่ง 'RUN rm .env' ใน Layer ที่ 4 รหัสผ่านนั้นจะปลอดภัยหรือไม่?",
+        opts: [
+          "ปลอดภัย 100% เพราะไฟล์ถูกลบออกจากอิมเมจไปแล้ว",
+          "ไม่ปลอดภัย! เพราะ Layer ที่ 3 เป็น Read-Only Layer ที่ยังคงเก็บไฟล์ .env ไว้ในอิมเมจ (คำสั่ง RUN rm ใน Layer ที่ 4 แปะแค่ไฟล์ Whiteout บังไว้เฉยๆ) ต้องป้องกันตั้งแต่ต้นด้วยไฟล์ .dockerignore เท่านั้น",
+          "ปลอดภัยหากเราใช้คำสั่ง docker stop",
+          "Docker จะรวมทั้งสอง Layer เข้าด้วยกันอัตโนมัติโดยไม่ต้องตั้งค่าใดๆ"
+        ],
+        ans: 1,
+        exp: "อาจารย์ย้ำว่า '.dockerignore is the only thing that keeps a secret out of a COPY . .' เพราะถ้าไฟล์หลุดเข้าไปใน Layer ใด Layer หนึ่งแล้ว การสั่ง rm ใน Layer ถัดไปแค่ซ่อนไฟล์ไว้ แต่ข้อมูลยังฝังอยู่ในประวัติ Layer ของอิมเมจ!"
+      },
+      {
+        id: 36, cat: "Class 8",
+        q: "ในไฟล์ .dockerignore มีบรรทัดที่เขียนว่า '.env*' เหตุใดใน Class 9 อาจารย์จึงให้เปลี่ยนชื่อไฟล์ตั้งค่าจาก 'container.env' เป็น '.env.container'?",
+        opts: [
+          "เพื่อให้ไฟล์เรียงอยู่บรรทัดแรกเวลาสั่ง ls",
+          "เพราะแพทเทิร์น '.env*' จับเฉพาะไฟล์ที่ 'ขึ้นต้น' ด้วยคำว่า .env เท่านั้น! ชื่อ 'container.env' จึงไม่ตรงกับ '.env*' และถูก COPY . . ดูดเข้าไปฝังอยู่ในอิมเมจ!",
+          "เพราะ Docker Compose อ่านได้เฉพาะไฟล์ที่นามสกุล .container เท่านั้น",
+          "เพราะ Linux ไม่อนุญาตให้ชื่อไฟล์ลงท้ายด้วย .env"
+        ],
+        ans: 1,
+        exp: "นี่คือจุดที่ตรวจใน int134 check ของ Lab 09 และ Lab 10: ชื่อ container.env ไม่ตรงกับแพทเทิร์น .env* ใน .dockerignore ทำให้รหัสผ่านหลุดเข้าไปอยู่ใน /app/container.env ในอิมเมจ! พอเปลี่ยนชื่อเป็น .env.container จึงถูกคัดกรองออกอย่างปลอดภัย"
+      },
+      {
+        id: 37, cat: "Class 8",
+        q: "ข้อใดคือการเรียงลำดับคำสั่งใน Dockerfile ของ Backend ที่ใช้ประโยชน์จาก Layer Cache ได้ดีที่สุด (เมื่อแก้ไขโค้ดใน server.js แล้วไม่ต้องรัน npm ci ใหม่)?",
+        opts: [
+          "COPY . . ──► RUN npm ci ──► WORKDIR /app",
+          "WORKDIR /app ──► COPY package*.json ./ ──► COPY prisma ./prisma ──► RUN touch .env && npm ci ──► COPY . .",
+          "RUN npm ci ──► COPY package*.json ./ ──► COPY . .",
+          "COPY server.js ./ ──► RUN npm ci ──► COPY package*.json ./"
+        ],
+        ans: 1,
+        exp: "ต้องวางสิ่งที่เปลี่ยนน้อยที่สุดไว้ก่อน (package*.json และโฟลเดอร์ prisma สำหรับสร้าง Prisma Client) ตามด้วย RUN touch .env && npm ci แล้วจึงวาง COPY . . (ซึ่งรวมถึง server.js ที่แก้บ่อยที่สุด) ไว้ท้ายสุด"
+      },
+      {
+        id: 38, cat: "Class 8",
+        q: "ทำไมแอปพลิเคชัน Backend ที่รันอยู่ 'ข้างในคอนเทนเนอร์' จึงต้องตั้งค่าให้รับฟังที่ 'ENV HOST=0.0.0.0' แทนที่จะเป็น '127.0.0.1'?",
+        opts: [
+          "เพื่อให้คนจากอินเทอร์เน็ตเข้ามาได้โดยไม่ต้องผ่าน Docker",
+          "เพราะภายในคอนเทนเนอร์ '127.0.0.1' คือ Loopback ส่วนตัวของคอนเทนเนอร์ตัวนั้นเอง! หากแอปฟังที่ 127.0.0.1 แม้แต่ระบบส่งต่อพอร์ต (-p) ของ Docker หรือคอนเทนเนอร์ตัวอื่นก็จะเชื่อมต่อเข้ามาไม่ได้เลย",
+          "เพราะ Alpine Linux ไม่มี IP 127.0.0.1",
+          "เพราะ Node.js บังคับให้ใช้ 0.0.0.0 เท่านั้น"
+        ],
+        ans: 1,
+        exp: "คำคมประจำ Class 8: 'Inside a container, 127.0.0.1 is the container. Listen everywhere (0.0.0.0); let the publish (-p 127.0.0.2:...) decide who can reach you.'"
+      },
+      {
+        id: 39, cat: "Class 8",
+        q: "ใน Lab 08 ทำไมเราจึงส่งไฟล์ตั้งค่าให้คอนเทนเนอร์ API ด้วยการทำ Bind Mount ('-v /srv/school/backend/.env.container:/app/.env:ro') แทนการใช้ '--env-file'?",
+        opts: [
+          "เพราะ --env-file ใช้ได้กับอิมเมจ MySQL เท่านั้น",
+          "เพราะ 1) --env-file จะนำค่าไปแสดงใน docker inspect (Config.Env) และ 2) --env-file ของ Docker ไม่ตัดเครื่องหมายคำพูด (\"...\") รอบค่าตัวแปรออก ทำให้ DATABASE_URL พัง!",
+          "เพราะ Bind Mount ไม่ต้องใช้พื้นที่ฮาร์ดดิสก์",
+          "เพราะ Node.js ไม่สามารถอ่าน Environment Variables ของระบบได้"
+        ],
+        ans: 1,
+        exp: "การใช้ -v ...:/app/.env:ro ทั้งช่วยซ่อนความลับไม่ให้โผล่ใน docker inspect และให้ Node/Prisma เป็นคนอ่านไฟล์ .env เอง (ซึ่งจัดการเครื่องหมายคำพูดได้อย่างถูกต้อง)"
+      },
+      {
+        id: 40, cat: "Class 8",
+        q: "ในการใช้คำสั่ง 'mysqldump' ด้วยผู้ใช้ 'school' (ซึ่งมีสิทธิ์แค่ SELECT, INSERT, UPDATE, DELETE ในฐานข้อมูล school) ต้องใส่แฟล็กใดเพื่อไม่ให้เกิด Error เรื่องสิทธิ์ PROCESS บน Tablespaces?",
+        opts: [
+          "--skip-lock-tables",
+          "--no-tablespaces",
+          "--ignore-errors",
+          "--single-transaction"
+        ],
+        ans: 1,
+        exp: "ใน Lab 08 Step 19: ต้องใส่แฟล็ก --no-tablespaces เสมอเมื่อดัมพ์ข้อมูลด้วยผู้ใช้ที่ไม่มีสิทธิ์ระดับ Global PROCESS"
+      },
+      {
+        id: 41, cat: "Class 8",
+        q: "ข้อใดอธิบายความแตกต่างระหว่างเครือข่าย 'bridge' เริ่มต้นของ Docker กับเครือข่ายที่เราสร้างเองด้วย 'docker network create school-net' ได้ถูกต้อง?",
+        opts: [
+          "เครือข่าย bridge เริ่มต้นไม่อนุญาตให้คอนเทนเนอร์คุยกันด้วย IP Address",
+          "บนเครือข่าย bridge เริ่มต้น คอนเทนเนอร์จะไม่สามารถค้นหาชื่อของกันและกันผ่าน DNS ได้ (ต้องใช้ IP เท่านั้น) แต่บน User-defined network (school-net) จะมี Embedded DNS ทำให้เรียกกันด้วยชื่อคอนเทนเนอร์ เช่น '@school-db:3306' ได้ทันที",
+          "เครือข่ายที่สร้างเองจะเปิดพอร์ตทุกพอร์ตออกสู่อินเทอร์เน็ตอัตโนมัติ",
+          "ไม่แตกต่างกันเลย เป็นเพียงการตั้งชื่อเพื่อความสวยงามเท่านั้น"
+        ],
+        ans: 1,
+        exp: "User-defined bridge network เปิดใช้งานระบบ DNS ภายในของ Docker ทำให้คอนเทนเนอร์ในวงเดียวกันเรียกหากันด้วยชื่อได้โดยไม่ต้องง้อ IP Address"
+      },
+      {
+        id: 42, cat: "Class 8",
+        q: "เมื่อเขียนบรรทัดสุดท้ายของไฟล์ entrypoint.sh เป็น '\"$@\"' (โดยไม่มีคำว่า exec) การสั่ง 'docker stop school-api' จะใช้เวลานานถึง 10 วินาทีเต็ม เพราะเหตุใด?",
+        opts: [
+          "เพราะ Node.js ต้องใช้เวลาบันทึกข้อมูลลงฐานข้อมูล 10 วินาที",
+          "เพราะ '/bin/sh ./entrypoint.sh' ยังคงเป็น PID 1 และเมื่อ Docker ส่งสัญญาณ SIGTERM ไปที่ PID 1 ตัว /bin/sh ไม่ยอมส่งต่อสัญญาณไปให้โปรเซสลูก (node) จนกระทั่งครบกำหนดเวลา 10 วินาที Docker จึงบังคับฆ่าด้วย SIGKILL",
+          "เพราะเครือข่าย school-net มีความหน่วง 10 วินาที",
+          "เพราะเราตั้งค่าUSER node ไว้"
+        ],
+        ans: 1,
+        exp: "คำตอบข้อ T32 ใน Lab 08: เมื่อไม่มี exec ตัวเชลล์ /bin/sh จะเป็น PID 1 และเพิกเฉยต่อ SIGTERM ทำให้ต้องรอจนครบ Timeout 10 วินาที แต่เมื่อเติม 'exec \"$@\"' ตัว node server.js จะเข้ามาแทนที่เป็น PID 1 และหยุดได้ทันทีในเวลาไม่ถึง 1 วินาที!"
+      },
+      {
+        id: 43, cat: "Class 8",
+        q: "ในไฟล์ Dockerfile.4 มีการประกาศ 'ARG NODE_TAG=24.19-alpine' ไว้ก่อนบรรทัด 'FROM node:${NODE_TAG}' เมื่อสร้างอิมเมจเสร็จแล้ว เราจะเห็นคำว่า NODE_TAG ในผลลัพธ์ของ 'docker history' หรือไม่?",
+        opts: [
+          "เห็นอยู่ในบรรทัดแรกสุดของ docker history",
+          "ไม่เห็น ('no' — คำตอบข้อ T35) เพราะ ARG ที่ประกาศก่อน FROM มีขอบเขตการใช้งานเฉพาะที่บรรทัด FROM เท่านั้น และไม่ถูกสร้างเป็น Layer ในอิมเมจ",
+          "เห็นเฉพาะเมื่อรันด้วยผู้ใช้ root เท่านั้น",
+          "เห็นอยู่ในไฟล์ /app/.env"
+        ],
+        ans: 1,
+        exp: "คำตอบข้อ T35 ใน Lab 08: ARG ที่อยู่ก่อน FROM มีไว้เพื่อส่งค่าให้บรรทัด FROM เท่านั้น จะไม่ปรากฏใน docker history และไม่อยู่ในสภาพแวดล้อมของคอนเทนเนอร์"
+      },
+      {
+        id: 44, cat: "Class 8",
+        q: "ทำไมใน Dockerfile.4 เราจึงวาง 'ARG APP_VERSION=unversioned' และ 'ENV APP_VERSION=${APP_VERSION}' ไว้ 'หลัง' บรรทัด 'RUN touch .env && npm ci'?",
+        opts: [
+          "เพราะคำสั่ง ARG ห้ามวางไว้ก่อนคำสั่ง RUN",
+          "เพื่อไม่ให้การเปลี่ยนเลขเวอร์ชัน (--build-arg APP_VERSION=1.2) ไปทำลายแคช (Cache Invalidation) ของบรรทัด 'RUN npm ci' ทำให้การ Build เวอร์ชันใหม่เสร็จภายในเสี้ยววินาที!",
+          "เพื่อให้ npm ci สามารถลบตัวแปร APP_VERSION ทิ้งได้",
+          "เพราะต้องประกาศหลังคำสั่ง USER node เท่านั้น"
+        ],
+        ans: 1,
+        exp: "หากวาง ARG APP_VERSION ไว้ก่อน RUN npm ci ทุกครั้งที่เราเปลี่ยนเลขเวอร์ชันตอน Build บรรทัดถัดลงมาทั้งหมดรวมถึง npm ci จะต้องรันใหม่ทั้งหมด! การวางไว้หลัง npm ci จึงช่วยรักษาแคชของ Dependencies เอาไว้ได้"
+      },
+      {
+        id: 45, cat: "Class 8",
+        q: "ในการตั้งค่า 'school-db' ใน Lab 08 Part 4 เหตุใดหลังจากที่รันคอนเทนเนอร์ครั้งแรกด้วย '--env-file /srv/school/db/init.env' จนฐานข้อมูลสร้างเสร็จแล้ว เราจึงต้องลบคอนเทนเนอร์และสร้างใหม่โดย 'ตัด --env-file ออก'?",
+        opts: [
+          "เพื่อให้คอนเทนเนอร์ใช้พื้นที่ RAM น้อยลง",
+          "เพราะตัวแปรใน init.env (เช่น MYSQL_PASSWORD) ใช้เฉพาะตอนสร้างฐานข้อมูลครั้งแรกเมื่อโวลุ่มยังว่างเปล่าเท่านั้น เมื่อข้อมูลถูกบันทึกลงในโวลุ่มแล้ว การรันใหม่โดยตัด --env-file ออกจะช่วยป้องกันไม่ให้รหัสผ่านค้างอยู่ใน docker inspect!",
+          "เพราะ MySQL จะไม่ยอมสตาร์ทในครั้งที่สองหากยังมี --env-file อยู่",
+          "เพื่อเปลี่ยนพอร์ตจาก 3306 เป็น 3307"
+        ],
+        ans: 1,
+        exp: "เกณฑ์ตรวจของ int134 check lab08class ระบุชัดเจน: 'The database container runs without the settings it only needed the first time' เพื่อไม่ให้รหัสผ่านค้างอยู่ใน Config.Env ของคอนเทนเนอร์"
+      },
+
+      // --- CLASS 9 (10 Questions) ---
+      {
+        id: 46, cat: "Class 9",
+        q: "ในโปรเจกต์ Docker Compose ของ Class 9 ไฟล์ '/srv/school/.env' ถูกอ่านโดยใคร และมีไว้ทำอะไร?",
+        opts: [
+          "ถูกอ่านโดยโปรแกรม Node.js ข้างในคอนเทนเนอร์ api เพื่อต่อฐานข้อมูล",
+          "ถูกอ่านโดยโปรแกรม 'docker compose' ตอนแปลค่าตัวแปร ${...} ในไฟล์ compose.yaml เท่านั้น (ตัวคอนเทนเนอร์ข้างในไม่ได้เห็นไฟล์นี้ด้วย)",
+          "ถูกอ่านโดย Nginx บนเครื่อง Host",
+          "ถูกอ่านโดย MySQL เพื่อตั้งรหัสผ่าน root"
+        ],
+        ans: 1,
+        exp: "กฎ 'Three files, three readers': /srv/school/.env ถูกอ่านโดย Docker Compose เองเพื่อแทนค่า ${BIND}, ${API_PORT}, ${WEB_PORT} ลงใน compose.yaml ส่วนคอนเทนเนอร์ api จะอ่านจากไฟล์ .env.container ที่ถูก mount เข้าไป"
+      },
+      {
+        id: 47, cat: "Class 9",
+        q: "ทำไมในไฟล์ compose.yaml เราจึงควรเขียน '\"${BIND:?set BIND in .env}:3306:3306\"' แทนที่จะเขียนแค่ '\"${BIND}:3306:3306\"'?",
+        opts: [
+          "เพื่อให้ Docker Compose สร้างไฟล์ .env ให้อัตโนมัติหากไฟล์หายไป",
+          "เพราะถ้าใช้แค่ ${BIND} แล้วไฟล์ .env หายหรือลืมกำหนดค่า ตัวแปรจะกลายเป็นค่าว่าง ทำให้พอร์ตกลายเป็น ':3306:3306' ซึ่งจะเปิดพอร์ตฐานข้อมูลออกสู่ 0.0.0.0 (ทุกการ์ดแลน!) แต่การใช้ ':?' จะบังคับให้ Compose หยุดทำงานและแจ้ง Error ทันที",
+          "เพื่อบังคับให้พอร์ต 3306 ใช้โปรโตคอล UDP แทน TCP",
+          "เป็นไวยากรณ์บังคับที่ถ้าไม่ใส่จะไม่สามารถรันบน Linux ได้"
+        ],
+        ans: 1,
+        exp: "ไวยากรณ์ ${VAR:?ข้อความแจ้งเตือน} คือหลักการ Fail-Closed: หากตัวแปรไม่มีค่าหรือว่างเปล่า Docker Compose จะปฏิเสธการรันทันที ป้องกันการเผลอเปิดพอร์ต 0.0.0.0:3306 ออกสู่โลกภายนอกโดยไม่ตั้งใจ"
+      },
+      {
+        id: 48, cat: "Class 9",
+        q: "ในไฟล์ compose.yaml (ที่มี name: school) หากเราประกาศบล็อกระดับบนสุดแค่ว่า 'volumes: db-data:' โดยไม่ได้ใส่ 'external: true' จะเกิดอะไรขึ้นเมื่อสั่ง 'docker compose up -d'?",
+        opts: [
+          "Docker Compose จะไปดึงโวลุ่ม school-db-data2 ที่มีอยู่แล้วมาใช้อัตโนมัติ",
+          "Docker Compose จะสร้างโวลุ่มใหม่ที่ว่างเปล่าชื่อ 'school_db-data' ทำให้คอนเทนเนอร์ MySQL พยายามสร้างฐานข้อมูลใหม่จากศูนย์แล้วพัง (Exited 1) เพราะไม่ได้ระบุรหัสผ่าน root!",
+          "Docker Compose จะเก็บข้อมูลฐานข้อมูลไว้ใน RAM ชั่วคราว",
+          "จะเกิด Syntax Error ในไฟล์ compose.yaml"
+        ],
+        ans: 1,
+        exp: "นี่คือสิ่งที่เกิดขึ้นใน Lab 09 Step 11–13: โวลุ่มที่ Compose จัดการเองจะถูกเติมชื่อโปรเจกต์ข้างหน้าเป็น school_db-data (ซึ่งว่างเปล่า) หากต้องการใช้โวลุ่มเดิมที่มีข้อมูลอยู่แล้ว ต้องใส่ external: true และ name: school-db-data2"
+      },
+      {
+        id: 49, cat: "Class 9",
+        q: "เมื่อเราย้ายบริการทั้งหมดมาอยู่ในไฟล์ compose.yaml แล้ว ในไฟล์ '/srv/school/backend/.env.container' เราต้องระบุชื่อโฮสต์ของฐานข้อมูลใน DATABASE_URL เป็นชื่อใด?",
+        opts: [
+          "@127.0.0.2:3306",
+          "@school-db:3306",
+          "@db:3306 (ใช้ชื่อ Service ที่ประกาศไว้ใต้หัวข้อ services: ใน compose.yaml)",
+          "@localhost:3306"
+        ],
+        ans: 2,
+        exp: "บนเครือข่ายของ Docker Compose บริการแต่ละตัวจะถูกลงทะเบียนในระบบ DNS ด้วย 'ชื่อ Service' (เช่น db, api, web) ดังนั้นจึงต้องแก้จาก @school-db:3306 มาเป็น @db:3306"
+      },
+      {
+        id: 50, cat: "Class 9",
+        q: "ในไฟล์ compose.yaml การใส่เฉพาะ 'depends_on: - db' (โดยไม่มี condition: service_healthy) ในบริการ api มีข้อจำกัดอย่างไร?",
+        opts: [
+          "ทำให้บริการ api ไม่สามารถเชื่อมต่อเครือข่ายได้",
+          "Compose จะรอแค่ให้คอนเทนเนอร์ db ถูกสร้างและเริ่มรันโปรเซส (สถานะ Up) เท่านั้น แต่ไม่ได้รอให้โปรแกรม MySQL ข้างในบูตจนพร้อมรับการเชื่อมต่อ ทำให้ api ที่สตาร์ทตามมาทันทีอาจต่อฐานข้อมูลไม่ติดในช่วงแรก",
+          "ทำให้คอนเทนเนอร์ db ถูกลบทิ้งเมื่อ api หยุดทำงาน",
+          "ไม่สามารถใช้ร่วมกับ restart: unless-stopped ได้"
+        ],
+        ans: 1,
+        exp: "สถานะ Up แปลแค่ว่าโปรเซสเริ่มรันแล้ว แต่ MySQL ยังต้องใช้เวลาเตรียมตัวอีกหลายวินาที ดังนั้นต้องใส่ healthcheck ที่ db และตั้งค่า depends_on: db: condition: service_healthy ที่ api เสมอ"
+      },
+      {
+        id: 51, cat: "Class 9",
+        q: "หลังจากที่ทั้งระบบรันจนขึ้นสถานะ (healthy) ครบแล้ว หากเราสั่ง 'docker compose stop db' เพื่อหยุดเฉพาะฐานข้อมูล จะเกิดอะไรขึ้นกับคอนเทนเนอร์ api ที่ตั้งค่า depends_on: db ไว้?",
+        opts: [
+          "คอนเทนเนอร์ api จะถูกสั่งหยุด (Stopped) ตามไปด้วยทันที",
+          "คอนเทนเนอร์ api จะยังคงรันต่อไป (Up) เพราะ depends_on ควบคุมเฉพาะลำดับตอนสตาร์ทเท่านั้น ไม่ได้สั่งหยุดบริการอื่นเมื่อตัวที่พึ่งพาถูกหยุด!",
+          "Docker Compose จะลบคอนเทนเนอร์ทั้งหมดทิ้งทันที",
+          "คอนเทนเนอร์ web จะหยุดทำงานแทน"
+        ],
+        ans: 1,
+        exp: "จากการทดลองใน Lab 09 Step 23: depends_on มีผลเฉพาะตอนเริ่มต้นสตาร์ทเท่านั้น เมื่อบริการรันขึ้นมาแล้ว หาก db หยุดทำงาน ตัว api จะยังคงรันอยู่ต่อไป"
+      },
+      {
+        id: 52, cat: "Class 9",
+        q: "ทำไมใน Lab 09 อาจารย์จึงให้เปลี่ยนคำสั่ง healthcheck ของบริการ api จากเดิมที่เช็ก 'http://127.0.0.1:3000/api/health' ไปเป็น 'http://127.0.0.1:3000/api/students'?",
+        opts: [
+          "เพราะพาร์ท /api/health ใช้ทรัพยากร CPU มากเกินไป",
+          "เพราะพาร์ท /api/health ตอบกลับแค่ว่าโปรเซส Node.js ยังรันอยู่โดยไม่ได้แตะฐานข้อมูลเลย ทำให้แม้ฐานข้อมูล db จะล่มไปแล้ว สถานะของ api ก็ยังขึ้นว่า (healthy) หลอกเราอยู่ดี! การเช็กที่ /api/students จึงเป็นการตรวจว่าต่อฐานข้อมูลได้จริง",
+          "เพราะ wget ไม่สามารถเรียกพาร์ทที่ไม่มีตัวอักษร s ลงท้ายได้",
+          "เพื่อให้ฐานข้อมูลถูกรีเซ็ตข้อมูลใหม่ทุกๆ 5 วินาที"
+        ],
+        ans: 1,
+        exp: "เกณฑ์ตรวจของ int134 check lab09class ระบุว่า: 'The API's healthcheck asks for the register, and it passes' เพราะการเช็กพาร์ทที่ดึงข้อมูลจริงจะสะท้อนสุขภาพที่แท้จริงของระบบ (เมื่อ db หยุด ตัว api จะเปลี่ยนเป็น unhealthy อย่างถูกต้อง)"
+      },
+      {
+        id: 53, cat: "Class 9",
+        q: "เมื่อเรารันคำสั่ง 'docker compose down -v && docker compose up -d --wait && curl http://127.0.0.2:3174/api/students' แฟล็ก '--wait' ทำหน้าที่อะไร?",
+        opts: [
+          "สั่งให้รอ 60 วินาทีตายตัวก่อนรันคำสั่งถัดไป",
+          "สั่งให้คำสั่ง docker compose up บล็อกรออยู่บนหน้าจอจนกว่าคอนเทนเนอร์ทุกตัวในโปรเจกต์จะสตาร์ทและผ่านการตรวจ healthcheck จนมีสถานะ (healthy) ครบทั้งหมดก่อน จึงจะปล่อยให้คำสั่ง curl หลัง && ทำงาน",
+          "สั่งให้รอจนกว่าจะมีผู้ใช้เปิดเว็บในเบราว์เซอร์",
+          "สั่งให้หยุดรอการยืนยัน (Yes/No) จากผู้ใช้"
+        ],
+        ans: 1,
+        exp: "หากไม่ใส่ --wait คำสั่ง docker compose up -d จะคืนบรรทัดคำสั่งกลับมาทันทีที่คอนเทนเนอร์ของ api เพิ่งเริ่มสตาร์ท (ก่อนที่ Node.js จะพร้อมรับคำขอ) ทำให้คำสั่ง curl ที่รันต่อท้ายทันทีล้มเหลว"
+      },
+      {
+        id: 54, cat: "Class 9",
+        q: "ทำไมเมื่อเราสั่ง 'docker compose down -v' ใน Lab 09 Step 30 ข้อมูลนักเรียนในโวลุ่ม 'school-db-data2' จึงไม่ถูกลบทิ้ง?",
+        opts: [
+          "เพราะแฟล็ก -v ย่อมาจาก --verbose (แสดงข้อความละเอียด) ไม่ใช่การลบโวลุ่ม",
+          "เพราะโวลุ่มนั้นถูกตั้งค่าเป็น 'external: true' ในไฟล์ compose.yaml ซึ่งบอกให้ Compose ทราบว่าเป็นโวลุ่มภายนอกที่มีอยู่ก่อนแล้ว จึงได้รับการคุ้มครองไม่ให้ถูกลบโดยคำสั่ง down -v!",
+          "เพราะ MySQL ล็อกไฟล์ไว้ไม่ให้ Docker ลบ",
+          "เพราะข้อมูลถูกเก็บไว้ในอิมเมจ school/api:1.3"
+        ],
+        ans: 1,
+        exp: "ปกติแล้ว 'docker compose down -v' จะลบโวลุ่มทั้งหมดที่ Compose เป็นคนสร้างขึ้นเอง แต่โวลุ่มที่ระบุ 'external: true' จะไม่ถูกลบด้วยคำสั่ง down -v นี่คือเหตุผลที่ต้องใช้ external: true กับโวลุ่มฐานข้อมูลจริง"
+      },
+      {
+        id: 55, cat: "Class 9",
+        q: "เมื่อรันคำสั่ง 'docker compose top' บนเครื่อง VM เหตุใดโปรเซส 'node server.js' ที่รันอยู่ในคอนเทนเนอร์ api (ซึ่งตั้งค่า USER node ไว้ใน Dockerfile) จึงแสดงชื่อผู้ใช้ในคอลัมน์ UID ว่า 'sysadmin'?",
+        opts: [
+          "เพราะคอนเทนเนอร์แอบใช้บัญชีของเครื่อง Host โดยตรง",
+          "เพราะผู้ใช้ 'node' ข้างในอิมเมจ node:alpine มีหมายเลข UID เท่ากับ 1000 ซึ่งตรงกับหมายเลข UID 1000 ของผู้ใช้ 'sysadmin' บนเครื่อง Host พอดี (เนื่องจากแชร์ Linux Kernel เดียวกัน)!",
+          "เพราะ Docker Compose เปลี่ยนชื่อผู้ใช้ในคอนเทนเนอร์ทุกตัวให้ตรงกับคนที่รันคำสั่งเสมอ",
+          "เพราะเกิดความผิดพลาดในการตั้งค่า USER ใน Dockerfile"
+        ],
+        ans: 1,
+        exp: "ใน Linux Kernel เดียวกัน ระบบจะอ้างอิงผู้ใช้จากตัวเลข UID เป็นหลัก ในอิมเมจ node:alpine ผู้ใช้ชื่อ node มี UID = 1000 และบนเครื่อง Host ผู้ใช้ชื่อ sysadmin ก็มี UID = 1000 เมื่อดูจากฝั่ง Host จึงแสดงชื่อเป็น sysadmin"
+      },
+
+      // --- CLASS 10 (10 Questions) ---
+      {
+        id: 56, cat: "Class 10",
+        q: "ข้อใดคือกฎทอง (Golden Rule) ของสถาปัตยกรรม Reverse Proxy 2 ชั้น (Outer Proxy บน Host + Inner Stack Proxy ใน Compose) ใน Class 10?",
+        opts: [
+          "Proxy ตัวแรกสุดต้องตัดคำนำหน้าพาร์ท (/school/) ออกเสมอเพื่อให้แพ็กเก็ตมีขนาดเล็กลง",
+          "พาร์ทที่ผู้ใช้พิมพ์เข้ามา (/school/...) จะถูกส่งต่อไปโดยไม่เปลี่ยนแปลงจนถึงข้างใน และ 'Proxy ตัวสุดท้ายที่อยู่หน้าตัวแอปพลิเคชัน (Inner Stack Proxy)' คือคนที่มีหน้าที่ตัดคำนำหน้า /school/ ออก!",
+          "ห้ามใช้ HTTPS ระหว่าง Outer Proxy กับ Inner Stack Proxy",
+          "ต้องเปิดพอร์ตของทุกคอนเทนเนอร์ (db, api, web, proxy) ออกมาที่เครื่อง Host ทั้งหมด"
+        ],
+        ans: 1,
+        exp: "ประโยคทองจาก Lab 10: 'The path the visitor typed travels all the way in. The last proxy before the application is the one that takes the prefix off.'"
+      },
+      {
+        id: 57, cat: "Class 10",
+        q: "ใน Lab 10 Step 15–17 เมื่อเราตั้งค่า Outer Nginx บนเครื่อง Host ในไฟล์ /etc/nginx/conf.d/school.location โดยเผลอใส่ '/' ปิดท้ายเป็น 'proxy_pass https://127.0.0.2:8443/;' เมื่อผู้ใช้เปิด 'https://<your-vm>/school/' จะเกิดอะไรขึ้น?",
+        opts: [
+          "หน้าเว็บโหลดได้ตามปกติ",
+          "ได้รหัส 404 Not Found! เพราะ Outer Nginx ตัดคำว่า '/school/' ทิ้งแล้วส่งแค่ 'GET /' เข้าไปให้ Inner Stack Proxy ซึ่งไม่มีบล็อก location สำหรับ '/'",
+          "ได้รหัส 502 Bad Gateway",
+          "เกิดการ Redirect วนลูปไม่รู้จบ"
+        ],
+        ans: 1,
+        exp: "คำตอบข้อ T17a (404) และ T17b (/): เพราะ Outer Nginx ไม่ใช่ Proxy ตัวสุดท้าย จึงห้ามใส่ '/' ท้าย proxy_pass เด็ดขาด! ต้องเขียนว่า 'proxy_pass https://127.0.0.2:8443;' เพื่อให้ส่งพาร์ท /school/... เข้าไปข้างในเหมือนเดิม"
+      },
+      {
+        id: 58, cat: "Class 10",
+        q: "ภายในไฟล์ '/srv/school/proxy/default.conf' (ซึ่งเป็น Inner Stack Proxy ด่านสุดท้ายก่อนถึงบริการ web และ api) เราต้องเขียน proxy_pass สำหรับ '/school/' และ '/school/api/' อย่างไรจึงจะถูกต้อง?",
+        opts: [
+          "proxy_pass http://web; และ proxy_pass http://api:3000;",
+          "proxy_pass http://web/; และ proxy_pass http://api:3000/api/; (มี '/' และ '/api/' ปิดท้ายเพื่อตัดคำว่า /school/ ออกก่อนส่งให้คอนเทนเนอร์ web และ api)",
+          "proxy_pass http://127.0.0.2:9174/; และ proxy_pass http://127.0.0.2:3174/api/;",
+          "proxy_pass https://web:443/; และ proxy_pass https://api:3000/api/;"
+        ],
+        ans: 1,
+        exp: "Inner Stack Proxy อยู่ในวงแลนเดียวกับ web และ api จึงเรียกผ่านชื่อบริการ http://web/ และ http://api:3000/api/ ได้โดยตรง และต้องมี '/' ปิดท้ายเพื่อตัดคำนำหน้า /school/ ออก"
+      },
+      {
+        id: 59, cat: "Class 10",
+        q: "ทำไมในบริการ 'proxy' ของไฟล์ compose.yaml เราจึงต้องใส่ 'depends_on: [web, api]'?",
+        opts: [
+          "เพื่อให้คอนเทนเนอร์ proxy ถูกลบเมื่อ web หยุดทำงาน",
+          "เพราะตอนที่ Nginx ในคอนเทนเนอร์ proxy เริ่มสตาร์ท มันจะพยายามแปลงชื่อโฮสต์ที่อยู่ในคำสั่ง proxy_pass (คือ 'web' และ 'api') เป็น IP ทันที หากคอนเทนเนอร์ web หรือ api ยังไม่ถูกสร้างขึ้นในเครือข่าย Nginx จะสตาร์ทไม่ขึ้นและฟ้อง 'host not found in upstream'!",
+          "เพื่อให้ proxy สามารถอ่านไฟล์ในโฟลเดอร์ของ api ได้",
+          "เพื่อบังคับให้ web และ api ใช้ใบรับรอง SSL เดียวกัน"
+        ],
+        ans: 1,
+        exp: "Nginx จะตรวจสอบชื่อโฮสต์ใน proxy_pass ตอนเริ่มสตาร์ทเสมอ หากสตาร์ท proxy ก่อนที่ web และ api จะมีตัวตนใน DNS ของเครือข่าย Compose ตัว Nginx จะล้มเหลวทันที"
+      },
+      {
+        id: 60, cat: "Class 10",
+        q: "ทำไมในการส่งไฟล์ตั้งค่า Nginx เข้าไปในคอนเทนเนอร์ proxy เราจึงเลือก Mount ทั้งโฟลเดอร์ ('./proxy:/etc/nginx/conf.d:ro') แทนที่จะ Mount เฉพาะไฟล์เดียว?",
+        opts: [
+          "เพราะ Docker Compose ไม่รองรับการ Mount ไฟล์เดี่ยว",
+          "เพราะ 1) ช่วยบังทับไฟล์ default.conf ดั้งเดิมของอิมเมจ nginx ทิ้งไป และ 2) เมื่อแก้ไขไฟล์บน Host ด้วยโปรแกรมอย่าง vi (ซึ่งสร้างไฟล์/inode ใหม่แล้วเปลี่ยนชื่อทับ) การ Mount ทั้งโฟลเดอร์จะทำให้คอนเทนเนอร์เห็นไฟล์ใหม่ทันทีโดยไม่ติดปัญหาจำ inode เก่า!",
+          "เพื่อให้คอนเทนเนอร์สามารถเขียนไฟล์ Log ลงในโฟลเดอร์ ./proxy ได้",
+          "เพื่อลดขนาดของอิมเมจ nginx:1.30-alpine"
+        ],
+        ans: 1,
+        exp: "นี่คือเทคนิคสำคัญที่อาจารย์อธิบายใน Class 10: การใช้ vi แก้ไขไฟล์ที่ถูก Single-file bind mount จะทำให้เลข inode เปลี่ยนและคอนเทนเนอร์ยังชี้ไปที่ไฟล์เก่า แต่การ Mount ทั้งโฟลเดอร์แก้ปัญหานี้ได้สมบูรณ์และช่วยให้สั่ง nginx -s reload ได้ทันที"
+      },
+      {
+        id: 61, cat: "Class 10",
+        q: "ใน Lab 10 Step 19–21 เมื่อเราต้องการให้พอร์ต 80 ของ Outer Nginx ส่งต่อคำขอ '/school/' ไปยัง 'http://127.0.0.2:8080' (เพื่อให้ Inner Proxy เป็นคนสั่ง Redirect 308) ทำไมจึงต้องย้ายคำสั่ง 'return 308 ...' ในไฟล์ /etc/nginx/conf.d/http-default.conf เข้าไปไว้ข้างในบล็อก 'location / { ... }'?",
+        opts: [
+          "เพราะคำสั่ง return ไม่สามารถเขียนนอกบล็อก location ได้",
+          "เพราะหากวาง 'return 308' ไว้ที่ระดับ server { ... } โดยตรง Nginx จะสั่งเด้งทุกคำขอตั้งแต่ก่อนตรวจบล็อก location ใดๆ ทำให้คำขอ '/school/' ไม่เคยไปถึงบล็อก 'location /school/' เลย!",
+          "เพื่อให้รองรับเฉพาะเบราว์เซอร์ Chrome",
+          "เพื่อปิดการใช้งานพอร์ต 80 อย่างถาวร"
+        ],
+        ans: 1,
+        exp: "คำสั่ง return ที่วางอยู่ระดับ server block จะทำงานทันทีสำหรับทุก Request ก่อนที่จะพิจารณาเลือกบล็อก location ดังนั้นจึงต้องใส่ไว้ใน location / { return 308 ...; } เพื่อให้พาร์ทที่เจาะจงกว่าอย่าง location /school/ ทำงานได้"
+      },
+      {
+        id: 62, cat: "Class 10",
+        q: "ใน Lab 10 Step 20 หากในบล็อก 'location /school/' ของไฟล์ /etc/nginx/conf.d/http-default.conf เราเขียนแค่ 'proxy_pass http://127.0.0.2:8080;' โดยลืมใส่ 'proxy_set_header Host $host;' เมื่อผู้ใช้เรียก 'http://<your-vm>/school/' ตัว Inner Proxy จะสั่ง Redirect (Location header) ไปที่ใด?",
+        opts: [
+          "https://<your-vm>/school/",
+          "https://127.0.0.2/school/ (เพราะเมื่อไม่ส่ง Host header ไปให้ ตัว Inner Proxy จะเห็นค่า $host เป็นชื่อ Upstream คือ 127.0.0.2!)",
+          "http://localhost:8080/school/",
+          "https://0.0.0.0/school/"
+        ],
+        ans: 1,
+        exp: "คำตอบข้อ T20 ใน Lab 10: ตามค่าเริ่มต้น proxy_pass จะตั้งค่า Host header เป็นชื่อของ Upstream (127.0.0.2) ดังนั้นเมื่อ Inner Proxy รันคำสั่ง 'return 308 https://$host$request_uri;' มันจึงเด้งไปที่ https://127.0.0.2/school/ ซึ่งผู้ใช้ภายนอกเข้าไม่ได้!"
+      },
+      {
+        id: 63, cat: "Class 10",
+        q: "ในไฟล์ตั้งค่าของ Inner Stack Proxy (/srv/school/proxy/default.conf) เราใส่ 2 บรรทัดคือ 'set_real_ip_from 172.16.0.0/12;' และ 'real_ip_header X-Real-IP;' เพื่อแก้ปัญหาใด?",
+        opts: [
+          "เพื่อให้คอนเทนเนอร์สามารถเชื่อมต่ออินเทอร์เน็ตได้เร็วขึ้น",
+          "เพื่อบอกให้ Nginx ในคอนเทนเนอร์เชื่อถือคำขอที่ส่งมาจากวงแลน Docker Bridge (172.16.0.0/12) และนำค่า IP จริงของผู้ใช้จาก Header 'X-Real-IP' มาบันทึกใน Access Log แทนที่จะบันทึกเป็น IP ของสะพาน Docker (เช่น 172.18.0.1)",
+          "เพื่อป้องกันการโจมตีแบบ SQL Injection",
+          "เพื่อเปลี่ยน IP ของคอนเทนเนอร์ให้เป็น 172.16.0.1"
+        ],
+        ans: 1,
+        exp: "คำตอบข้อ T22 และ Step 23 ใน Lab 10: ก่อนใส่ 2 บรรทัดนี้ ใน docker compose logs proxy จะเห็นทุกคำขอมาจาก 172.18.0.1 (IP ของ Host บนวงแลน Compose) การตั้งค่านี้ทำให้ Nginx แทนที่ $remote_addr ด้วย IP จริงของผู้ใช้ที่ส่งมาใน X-Real-IP"
+      },
+      {
+        id: 64, cat: "Class 10",
+        q: "ในขั้นตอนสุดท้ายของ Lab 10 (Step 24–25) เมื่อเราลบบล็อก 'ports:' ออกจากบริการ db, api, และ web ในไฟล์ compose.yaml แล้วสั่ง 'docker compose up -d' เหตุใดเราจึงต้องสั่ง 'docker compose restart proxy' ตามด้วยเสมอ?",
+        opts: [
+          "เพื่อล้างไฟล์แคชรูปภาพในคอนเทนเนอร์ proxy",
+          "เพราะการลบ ports: ทำให้ Compose สร้างคอนเทนเนอร์ web และ api ใหม่ ซึ่งอาจได้รับ IP Address ใหม่ในวงแลน (หรือสลับ IP กัน!) แต่คอนเทนเนอร์ proxy ไม่ได้ถูกรีสตาร์ทและยังจำ IP เก่าไว้ตั้งแต่ตอนเริ่มรัน จึงต้องสั่ง restart proxy เพื่อให้แปลงชื่อ DNS ใหม่!",
+          "เพราะคำสั่ง docker compose up -d ไม่สามารถทำงานกับบริการที่ใช้ nginx ได้",
+          "เพื่อสร้างใบรับรอง SSL ใบใหม่ทุกครั้ง"
+        ],
+        ans: 1,
+        exp: "นี่คือจุดที่อาจารย์ทำให้ดูสดๆ ในคาบเรียนที่ 10: เมื่อ web และ api ถูก Recreate มันสลับ IP กันในวง school_default แต่ตัว proxy ยังจำ IP เก่าไว้ ทำให้ส่งคำขอผิดตัวจนพัง! การสั่ง 'docker compose restart proxy' จึงบังคับให้ Nginx ขอ IP ใหม่จาก DNS"
+      },
+      {
+        id: 65, cat: "Class 10",
+        q: "เมื่อผู้ใช้ภายนอกเปิดเบราว์เซอร์เข้าเว็บ 'https://<your-vm>/school/' แล้วคลิกดูข้อมูลใบรับรองความปลอดภัย (Padlock / Certificate) บนเบราว์เซอร์ ผู้ใช้จะเห็นใบรับรองใบใด?",
+        opts: [
+          "เห็นใบรับรองจากไฟล์ /srv/school/certs/tls.crt ที่อยู่ในคอนเทนเนอร์ proxy",
+          "เห็นใบรับรองจากไฟล์ /etc/ssl/int134/vm.crt ของ Outer Nginx บนเครื่อง Host (ที่สร้างไว้ตั้งแต่ Class 5) เพราะเบราว์เซอร์ของผู้ใช้คุย TLS โดยตรงกับด่านหน้าสุด (Outer Nginx) เท่านั้น!",
+          "เห็นใบรับรองทั้ง 2 ใบพร้อมกัน",
+          "ไม่เห็นใบรับรองใดๆ เลย"
+        ],
+        ans: 1,
+        exp: "จากเช็กลิสต์ท้าย Lab 10 (Step 29): เบราว์เซอร์ของผู้ใช้เชื่อมต่อ TLS กับ Outer Nginx บนพอร์ต 443 ของเครื่อง VM จึงเห็นใบรับรองของเครื่อง VM (จาก Class 5) ส่วนใบรับรองใน /srv/school/certs/ ใช้สำหรับการเชื่อมต่อระหว่าง Outer Nginx กับ Inner Stack Proxy บนพอร์ต 8443"
+      }
+    ];
+
+    // =========================================================================
+    // UI & INTERACTIVE JAVASCRIPT ENGINE
+    // =========================================================================
+    let currentQuizCategory = 'all';
+    let retryWrongOnly = false;
+    const userAnswers = {}; // { id: selectedIndex }
+
+    function switchMainTab(tabId, btnEl) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+      const target = document.getElementById(tabId);
+      if (target) target.classList.add('active');
+      if (btnEl) btnEl.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function filterTheory(blockId, btnEl) {
+      document.querySelectorAll('#tab-theory .sub-btn').forEach(b => b.classList.remove('active'));
+      if (btnEl) btnEl.classList.add('active');
+      document.querySelectorAll('.theory-block').forEach(card => {
+        card.style.display = (blockId === 'all' || card.id === blockId) ? 'block' : 'none';
+      });
+    }
+
+    function filterLabs(blockId, btnEl) {
+      document.querySelectorAll('#tab-labs .sub-btn').forEach(b => b.classList.remove('active'));
+      if (btnEl) btnEl.classList.add('active');
+      document.querySelectorAll('.lab-block').forEach(card => {
+        card.style.display = (blockId === 'all' || card.id === blockId) ? 'block' : 'none';
+      });
+    }
+
+    function toggleCheckItem(labelEl) {
+      setTimeout(() => {
+        const cb = labelEl.querySelector('input[type="checkbox"]');
+        if (cb && cb.checked) {
+          labelEl.classList.add('checked');
+        } else {
+          labelEl.classList.remove('checked');
+        }
+      }, 10);
+    }
+
+    function copyCode(btn) {
+      const wrap = btn.closest('.code-wrap');
+      const code = wrap ? wrap.querySelector('pre code') : null;
+      if (!code) return;
+      navigator.clipboard.writeText(code.innerText).then(() => {
+        const old = btn.innerText;
+        btn.innerText = '✅ คัดลอกแล้ว!';
+        setTimeout(() => { btn.innerText = old; }, 1600);
+      });
+    }
+
+    function toggleTheme() {
+      const root = document.documentElement;
+      const current = root.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      const btn = document.getElementById('themeBtn');
+      btn.innerText = next === 'dark' ? '☀️ โหมดสว่าง' : '🌙 โหมดมืด';
+    }
+
+    function handleGlobalSearch(query) {
+      const q = query.trim().toLowerCase();
+      if (!q) {
+        document.querySelectorAll('.card').forEach(c => c.style.display = '');
+        return;
+      }
+      document.querySelectorAll('.tab-panel.active .card').forEach(card => {
+        const text = card.innerText.toLowerCase();
+        card.style.display = text.includes(q) ? '' : 'none';
+      });
+    }
+
+    // Quiz Rendering & Logic
+    function renderQuiz() {
+      const container = document.getElementById('quizContainer');
+      if (!container) return;
+
+      const filtered = QUIZ_DATA.filter(item => {
+        const catMatch = (currentQuizCategory === 'all' || item.cat === currentQuizCategory);
+        if (!catMatch) return false;
+        if (retryWrongOnly) {
+          return userAnswers[item.id] !== undefined && userAnswers[item.id] !== item.ans;
+        }
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="card"><p>🎉 ไม่พบข้อสอบในเงื่อนไขนี้ (หรือคุณตอบถูกครบทุกข้อแล้ว! กดปุ่มรีเซ็ตหรือเลือกหมวดหมู่อื่นได้เลย)</p></div>`;
+        updateScoreDisplay();
+        return;
+      }
+
+      container.innerHTML = filtered.map(item => {
+        const answered = userAnswers[item.id];
+        const isAnswered = answered !== undefined;
+        const letters = ['ก', 'ข', 'ค', 'ง'];
+
+        const optsHtml = item.opts.map((optText, idx) => {
+          let cls = 'q-opt';
+          if (isAnswered) {
+            cls += ' disabled';
+            if (idx === item.ans) cls += ' correct';
+            else if (idx === answered && answered !== item.ans) cls += ' wrong';
+          }
+          return `<button class="${cls}" onclick="selectQuizAnswer(${item.id}, ${idx})">
+            <span class="badge badge-blue">${letters[idx]}</span>
+            <span>${escapeHtml(optText)}</span>
+          </button>`;
+        }).join('');
+
+        return `<div class="q-card" id="qcard-${item.id}">
+          <div class="q-header">
+            <span class="badge badge-purple">ข้อที่ ${item.id} • ${item.cat}</span>
+            ${isAnswered ? (answered === item.ans ? '<span class="badge badge-green">✅ ตอบถูก</span>' : '<span class="badge badge-red">❌ ตอบผิด</span>') : '<span class="badge badge-amber">ยังไม่ได้ตอบ</span>'}
+          </div>
+          <div class="q-title">${escapeHtml(item.q)}</div>
+          <div class="q-options">${optsHtml}</div>
+          <div class="q-explain ${isAnswered ? 'show' : ''}">
+            <strong>💡 เฉลยละเอียด:</strong> ${escapeHtml(item.exp)}
+          </div>
+        </div>`;
+      }).join('');
+
+      updateScoreDisplay();
+    }
+
+    function selectQuizAnswer(qId, optIdx) {
+      if (userAnswers[qId] !== undefined) return;
+      userAnswers[qId] = optIdx;
+      renderQuiz();
+    }
+
+    function updateScoreDisplay() {
+      const answeredIds = Object.keys(userAnswers);
+      let correctCount = 0;
+      answeredIds.forEach(id => {
+        const qObj = QUIZ_DATA.find(x => x.id === Number(id));
+        if (qObj && userAnswers[id] === qObj.ans) correctCount++;
+      });
+      const el = document.getElementById('quizScoreDisplay');
+      if (el) {
+        el.innerText = `คะแนน: ${correctCount} / ${answeredIds.length} (ตอบแล้ว ${answeredIds.length}/${QUIZ_DATA.length} ข้อ)`;
+      }
+    }
+
+    function filterQuiz(cat, btnEl) {
+      currentQuizCategory = cat;
+      retryWrongOnly = false;
+      document.querySelectorAll('#tab-quiz .sub-btn').forEach(b => b.classList.remove('active'));
+      if (btnEl) btnEl.classList.add('active');
+      renderQuiz();
+    }
+
+    function retryWrongQuestions() {
+      const wrongIds = Object.keys(userAnswers).filter(id => {
+        const qObj = QUIZ_DATA.find(x => x.id === Number(id));
+        return qObj && userAnswers[id] !== qObj.ans;
+      });
+      if (wrongIds.length === 0) {
+        alert('ยังไม่มีข้อที่ตอบผิดเลย! ลองทำข้อสอบก่อน หรือกดรีเซ็ตเพื่อเริ่มใหม่นะครับ');
+        return;
+      }
+      wrongIds.forEach(id => { delete userAnswers[id]; });
+      renderQuiz();
+    }
+
+    function resetQuiz() {
+      Object.keys(userAnswers).forEach(k => delete userAnswers[k]);
+      retryWrongOnly = false;
+      renderQuiz();
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+
+    // Initialize Quiz on load
+    document.addEventListener('DOMContentLoaded', () => {
+      renderQuiz();
+    });
+  </script>
+</body>
+</html>
